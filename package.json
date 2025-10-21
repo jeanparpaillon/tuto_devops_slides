@@ -4,14 +4,17 @@
   "private": true,
   "scripts": {
     "dev:dev": "slidev formation-dev.md",
+    "dev:prod": "slidev formation-prod.md",
 
     "build:dev": "slidev build formation-dev.md --out dist/formation-dev",
+    "build:prod": "slidev build formation-prod.md --out dist/formation-prod",
 
     "export:dev": "slidev export formation-dev.md --output pdf/formation-dev.pdf",
+    "export:prod": "slidev export formation-prod.md --output pdf/formation-prod.pdf",
 
-    "dev": "echo 'Usage: pnpm dev:dev'",
-    "build": "echo 'Usage: pnpm build:dev'",
-    "export": "echo 'Usage: pnpm export:dev'"
+    "dev": "echo 'Usage: pnpm dev:{ dev | prod }'",
+    "build": "echo 'Usage: pnpm build:{ dev | prod }'",
+    "export": "echo 'Usage: pnpm export:{ dev | prod }'"
   },
   "dependencies": {
     "@slidev/cli": "^52.4.0",
