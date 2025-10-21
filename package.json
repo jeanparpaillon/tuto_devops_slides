@@ -3,9 +3,15 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "slidev build --base /tuto_devops_sga/",
-    "dev": "slidev --open",
-    "export": "slidev export"
+    "dev:dev": "slidev formation-dev.md",
+
+    "build:dev": "slidev build formation-dev.md --out dist/formation-dev",
+
+    "export:dev": "slidev export formation-dev.md --output pdf/formation-dev.pdf",
+
+    "dev": "echo 'Usage: pnpm dev:dev'",
+    "build": "echo 'Usage: pnpm build:dev'",
+    "export": "echo 'Usage: pnpm export:dev'"
   },
   "dependencies": {
     "@slidev/cli": "^52.4.0",
