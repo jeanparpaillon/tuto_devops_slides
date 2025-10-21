@@ -31,21 +31,21 @@ src: ./pages/about-me.md
 ---
 
 ---
-src: ./pages/versioning.md
+src: ./pages/dev-versioning.md
 ---
 
 ---
-src: ./pages/ci.md
+src: ./pages/dev-ci.md
 ---
 
 ---
-src: ./pages/intro-artifactory.md
+src: ./pages/dev-intro-artifactory.md
 ---
 
 ---
-src: ./pages/configuration.md
+src: ./pages/dev-configuration.md
 ---
 
 ---
-src: ./pages/advanced-artifactory.md
+src: ./pages/dev-advanced-artifactory.md
 ---

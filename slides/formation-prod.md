@@ -13,135 +13,29 @@ src: ./pages/about-me.md
 ---
 
 ---
-layout: center
+src: ./pages/prod-objectifs.md
 ---
 
-# Objectifs de la formation
-
-- Comprendre les fondations du DevOps en production
-- Déployer et orchestrer une infrastructure complète VMware → Kubernetes
-- Automatiser le déploiement d’applications internes et externes avec Ansible
-- Explorer les bonnes pratiques de sécurité, supervision et haute disponibilité
-
 ---
-layout: section
+src: ./pages/prod-concepts-md
 ---
 
-# Programme général
-
-## 5 jours intensifs
-
-1. Concepts de base & automatisation complète
-2. Cluster Kubernetes sur VMware (Terraform)
-3. Déploiement Intranet avec Ansible
-4. Déploiement API externe avec Ansible
-5. Monitoring, haute dispo, sécurité & scaling
-
 ---
-layout: section
+src: ./pages/prod-kubernetes.md
 ---
 
-# Jour 1 — Concepts de base
-
-## Automatiser du hardware à l’application
-
-### Objectifs :
-
-- Comprendre la culture DevOps et ses piliers
-- Découvrir la stack technique : VMware, Terraform, Kubernetes, Ansible
-
-### Contenu :
-
-- Introduction à DevOps : culture, CI/CD, IaC
-- Architecture de production : virtualisation, conteneurs, orchestration
-- Présentation des outils :
-  - VMware vSphere : gestion d’infrastructure virtuelle
-  - Terraform : infrastructure as code
-  - Kubernetes : orchestration de conteneurs
-  - Ansible : déploiement et configuration
-- Mise en place de l’environnement de travail : outils, dépôt Git, SSH
-
 ---
-layout: section
+src: ./pages/prod-ansible-intra.md
 ---
 
-# Jour 2 — Cluster Kubernetes sur VMware
-
-## Objectif : Automatiser le déploiement d’un cluster K8s complet avec Terraform
-
-### Contenu :
-
-- Rappels sur Terraform : provider vSphere, variables, état distant
-- Conception de l’architecture : masters, workers, réseau, stockage
-- Atelier pratique :
-  - Fichiers `.tf` pour VMs Kubernetes
-  - Provisionnement des nœuds via Terraform
-  - Initialisation du cluster (kubeadm)
-- Validation et tests : `kubectl get nodes`, CNI (Calico/Flannel)
-
 ---
-layout: section
+src: ./pages/prod-ansible-public.md
 ---
 
-# Jour 3 — Application intranet avec Ansible
-
-## Objectif : Déployer une application interne (type wiki ou portail RH)
-
-### Contenu :
-
-- Introduction à Ansible : inventaire, playbooks, rôles, variables
-- Architecture de l’application intranet
-- Création des rôles :
-  - Base système (utilisateurs, SSH, sécurité)
-  - Application (services, config, templates)
-- Exécution et déploiement automatisé
-- Tests fonctionnels et validation dans Kubernetes ou sur VMs
-
 ---
-layout: section
+src: ./pages/prod-avances.md
 ---
 
-# Jour 4 — Application externe / API
-
-## Objectif : Déployer une application exposée publiquement
-
-### Contenu :
-
-- Enjeux : sécurité, DNS, certificats, observabilité
-- Préparation : ingress controller, TLS, firewall
-- Atelier pratique :
-  - Déploiement d’une API REST (Flask, FastAPI…)
-  - Configuration du load balancer / ingress
-  - Gestion des secrets (Ansible Vault)
-- Intégration dans pipeline CI/CD
-
 ---
-layout: section
+src: ./prod/avances.md
 ---
-
-# Jour 5 — Usages avancés
-
-## Monitoring • Haute disponibilité • Sécurité • Scaling
-
-### Contenu :
-
-- **Monitoring & observabilité**
-  - Prometheus, Grafana, Loki, Alertmanager
-- **Haute disponibilité**
-  - Réplication, StatefulSets, anti-affinités, PDB
-- **Sécurité**
-  - RBAC, scans (Trivy, kube-bench), Vault
-- **Scaling**
-  - Horizontal Pod Autoscaler, Cluster Autoscaler
-  - Tests de charge (k6, Artillery)
-
----
-layout: section
----
-
-# Conclusion & perspectives
-
-- Revue des acquis : IaC, orchestration, automatisation applicative
-- Bonnes pratiques de production
-- Ouverture : GitOps, ArgoCD, CI/CD avancée
-- Questions, retours d’expérience, échanges
