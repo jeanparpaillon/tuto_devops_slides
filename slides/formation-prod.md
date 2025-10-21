@@ -4,15 +4,16 @@ title: DevOps en Production
 mdc: true
 ---
 
-# Formation **DevOps en Production**
+# DevOps en Production
 
-## Jean Parpaillon — Consultant Informatique
+## Société Générale Algérie - Novembre 2025 - Alger
 
-> Automatiser du hardware à l'application, maîtriser l'ensemble de la chaîne de production.
+---
+src: ./pages/about-me.md
+---
 
 ---
 layout: center
-background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1526378722484-cccb8e8e3b70') center/cover
 ---
 
 # Objectifs de la formation
@@ -24,7 +25,6 @@ background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://imag
 
 ---
 layout: section
-background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1526378722484-cccb8e8e3b70') center/cover
 ---
 
 # Programme général
@@ -39,7 +39,6 @@ background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://imag
 
 ---
 layout: section
-background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1526378722484-cccb8e8e3b70') center/cover
 ---
 
 # Jour 1 — Concepts de base
@@ -64,7 +63,6 @@ background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://imag
 
 ---
 layout: section
-background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1581092795361-83a380e3c11b') center/cover
 ---
 
 # Jour 2 — Cluster Kubernetes sur VMware
@@ -83,7 +81,6 @@ background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://imag
 
 ---
 layout: section
-background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1593642532400-2682810df593') center/cover
 ---
 
 # Jour 3 — Application intranet avec Ansible
@@ -102,7 +99,6 @@ background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://imag
 
 ---
 layout: section
-background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c') center/cover
 ---
 
 # Jour 4 — Application externe / API
@@ -121,7 +117,6 @@ background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://imag
 
 ---
 layout: section
-background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d') center/cover
 ---
 
 # Jour 5 — Usages avancés
@@ -142,7 +137,6 @@ background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://imag
 
 ---
 layout: section
-background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d') center/cover
 ---
 
 # Conclusion & perspectives

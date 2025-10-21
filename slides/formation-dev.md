@@ -5,7 +5,7 @@ theme: the-unnamed
 # like them? see https://unsplash.com/collections/94734566/slidev
 # background: https://cover.sli.dev
 # some information about your slides (markdown enabled)
-title: Formation DevOps
+title: DevOps pour Développeurs
 # info: |
 #   ## Formation de
 #   Presentation slides for developers.
@@ -27,34 +27,25 @@ mdc: true
 ## SGA - Décembre 2024 - Paris
 
 ---
-layout: about-me
-
-helloMsg: Bonjour !
-name: Jean Parpaillon
-imageSrc: /portrait7.png
-position: left
-job: Consultant Informatique
-line1: Solutions Logicielles
-line2: Innovation
-social1: https://linkedin.com/in/jeanparpaillon
+src: ./pages/about-me.md
 ---
 
-<!-- --- -->
-<!-- src: ./pages/versioning.md -->
-<!-- --- -->
+---
+src: ./pages/versioning.md
+---
 
 ---
 src: ./pages/ci.md
 ---
 
-<!-- --- -->
-# src: ./pages/intro-artifactory.md
-<!-- --- -->
+---
+src: ./pages/intro-artifactory.md
+---
 
-<!-- --- -->
-# src: ./pages/configuration.md
-<!-- --- -->
+---
+src: ./pages/configuration.md
+---
 
-<!-- --- -->
-# src: ./pages/advanced-artifactory.md
-<!-- ---  -->
+---
+src: ./pages/advanced-artifactory.md
+---
