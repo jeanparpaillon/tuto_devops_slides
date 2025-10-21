@@ -189,5 +189,3 @@ epoch: d2pm
 # self-hosted runners
 
 * Exécuter le workflow sur un runner local
-
----

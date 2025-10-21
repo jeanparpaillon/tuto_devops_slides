@@ -39,5 +39,3 @@ epoch: d4pm
 ---
 
 # Gestion des groupes
-
----

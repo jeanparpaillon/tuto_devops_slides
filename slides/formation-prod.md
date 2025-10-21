@@ -17,7 +17,7 @@ src: ./pages/prod-objectifs.md
 ---
 
 ---
-src: ./pages/prod-concepts-md
+src: ./pages/prod-concepts.md
 ---
 
 ---
@@ -37,5 +37,5 @@ src: ./pages/prod-avances.md
 ---
 
 ---
-src: ./prod/avances.md
+src: ./prod/prod-conclusion.md
 ---

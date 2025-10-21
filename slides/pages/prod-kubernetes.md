@@ -15,5 +15,3 @@ layout: section
   - Provisionnement des nœuds via Terraform
   - Initialisation du cluster (kubeadm)
 - Validation et tests : `kubectl get nodes`, CNI (Calico/Flannel)
-
----

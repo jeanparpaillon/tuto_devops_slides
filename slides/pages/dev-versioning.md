@@ -505,5 +505,3 @@ layout: section
 ---
 
 # Gestion de conflits de fusion
-
----

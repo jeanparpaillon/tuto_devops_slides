@@ -15,5 +15,3 @@ layout: section
   - Application (services, config, templates)
 - Exécution et déploiement automatisé
 - Tests fonctionnels et validation dans Kubernetes ou sur VMs
-
----

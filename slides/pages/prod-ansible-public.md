@@ -15,5 +15,3 @@ layout: section
   - Configuration du load balancer / ingress
   - Gestion des secrets (Ansible Vault)
 - Intégration dans pipeline CI/CD
-
----

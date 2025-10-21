@@ -93,5 +93,3 @@ layout: section
 ---
 
 # Gestion des artefacts
-
----

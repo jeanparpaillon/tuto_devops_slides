@@ -21,5 +21,3 @@ layout: section
   - Kubernetes : orchestration de conteneurs
   - Ansible : déploiement et configuration
 - Mise en place de l’environnement de travail : outils, dépôt Git, SSH
-
----

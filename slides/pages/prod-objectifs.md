@@ -22,5 +22,3 @@ layout: section
 3. Déploiement Intranet avec Ansible
 4. Déploiement API externe avec Ansible
 5. Monitoring, haute dispo, sécurité & scaling
-
----
