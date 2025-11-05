@@ -2,23 +2,23 @@
 layout: center
 ---
 
-# Objectifs de la formation
+# Training objectives
 
-- Comprendre les fondations du DevOps en production
-- Déployer et orchestrer une infrastructure complète VMware → Kubernetes
-- Automatiser le déploiement d’applications internes et externes avec Ansible
-- Explorer les bonnes pratiques de sécurité, supervision et haute disponibilité
+- Understand the foundations of DevOps in production
+- Deploy and orchestrate a complete infrastructure VMware → Kubernetes
+- Automate the deployment of internal and external applications with Ansible
+- Explore best practices for security, monitoring, and high availability
 
 ---
 layout: section
 ---
 
-# Programme général
+# General schedule
 
-## 5 jours intensifs
+## 5 intensive days
 
-1. Concepts de base & automatisation complète
-2. Cluster Kubernetes sur VMware (Terraform)
-3. Déploiement Intranet avec Ansible
-4. Déploiement API externe avec Ansible
-5. Monitoring, haute dispo, sécurité & scaling
+1. Fundamentals & end-to-end automation
+2. Kubernetes cluster on VMware (Terraform)
+3. Intranet deployment with Ansible
+4. Public API deployment with Ansible
+5. Monitoring, high availability, security & scaling

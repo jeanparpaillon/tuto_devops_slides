@@ -2,16 +2,16 @@
 layout: section
 ---
 
-# Jour 4 — Application externe / API
+# Day 4 — External application / API
 
-## Objectif : Déployer une application exposée publiquement
+## Goal: Deploy a publicly exposed application
 
-### Contenu :
+### Content
 
-- Enjeux : sécurité, DNS, certificats, observabilité
-- Préparation : ingress controller, TLS, firewall
-- Atelier pratique :
-  - Déploiement d’une API REST (Flask, FastAPI…)
-  - Configuration du load balancer / ingress
-  - Gestion des secrets (Ansible Vault)
-- Intégration dans pipeline CI/CD
+- Key concerns: security, DNS, certificates, observability
+- Preparation: ingress controller, TLS, firewall
+- Hands-on:
+  - Deploy a REST API (Flask, FastAPI…)
+  - Configure load balancer / ingress
+  - Manage secrets (Ansible Vault)
+- Integration into a CI/CD pipeline

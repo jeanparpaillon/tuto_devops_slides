@@ -1,12 +1,12 @@
 ---
 layout: about-me
 
-helloMsg: Bonjour !
+helloMsg: Hello!
 name: Jean Parpaillon
 imageSrc: /portrait7.png
 position: left
-job: Consultant Informatique
-line1: Solutions Logicielles
+job: IT Consultant
+line1: Software Solutions
 line2: Innovation
 social1: https://linkedin.com/in/jeanparpaillon
 ---

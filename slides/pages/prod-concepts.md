@@ -2,22 +2,22 @@
 layout: section
 ---
 
-# Jour 1 — Concepts de base
+# Day 1 — Core concepts
 
-## Automatiser du hardware à l’application
+## Automate from hardware to application
 
-### Objectifs :
+### Objectives
 
-- Comprendre la culture DevOps et ses piliers
-- Découvrir la stack technique : VMware, Terraform, Kubernetes, Ansible
+- Understand the DevOps culture and its pillars
+- Discover the technical stack: VMware, Terraform, Kubernetes, Ansible
 
-### Contenu :
+### Content
 
-- Introduction à DevOps : culture, CI/CD, IaC
-- Architecture de production : virtualisation, conteneurs, orchestration
-- Présentation des outils :
-  - VMware vSphere : gestion d’infrastructure virtuelle
-  - Terraform : infrastructure as code
-  - Kubernetes : orchestration de conteneurs
-  - Ansible : déploiement et configuration
-- Mise en place de l’environnement de travail : outils, dépôt Git, SSH
+- Introduction to DevOps: culture, CI/CD, IaC
+- Production architecture: virtualization, containers, orchestration
+- Tools overview:
+  - VMware vSphere: virtual infrastructure management
+  - Terraform: infrastructure as code
+  - Kubernetes: container orchestration
+  - Ansible: deployment and configuration
+- Environment setup: tools, Git repo, SSH

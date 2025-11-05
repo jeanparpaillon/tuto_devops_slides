@@ -2,11 +2,11 @@
 layout: section
 ---
 
-# Conclusion & perspectives
+# Conclusion & next steps
 
-- Revue des acquis : IaC, orchestration, automatisation applicative
-- Bonnes pratiques de production
-- Ouverture : GitOps, ArgoCD, CI/CD avancée
-- Questions, retours d’expérience, échanges
+- Recap: IaC, orchestration, application automation
+- Production best practices
+- Outlook: GitOps, ArgoCD, advanced CI/CD
+- Q&A, feedback, discussion
 
 ---

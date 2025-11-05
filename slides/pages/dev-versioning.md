@@ -5,7 +5,7 @@ epoch: d1am
 
 # Versioning
 
-## La gestion de versions logicielles
+## Software version management
 
 ---
 layout: image-right
@@ -13,12 +13,12 @@ image: /source_tree.png
 backgroundSize: contain
 ---
 
-# Concepts de base
+# Basic concepts
 
-## Logiciel
+## Software
 
-* arborescence de fichiers source
-* on ne stocke pas les fichiers générés
+* source tree
+* do not store generated files
 
 ---
 layout: image-right
@@ -26,11 +26,11 @@ image: /versions.png
 backgroundSize: contain
 ---
 
-# Concepts de base
+# Basic concepts
 
 ## Version
 
-* Un état de l'arborescence
+* A snapshot of the tree
 
 ---
 layout: image-right
@@ -38,13 +38,13 @@ image: /commit.png
 backgroundSize: contain
 ---
 
-# Concepts de base
+# Basic concepts
 
 ## Commit
 
-* Changement (diff)
+* Change (diff)
 * Metadata
-  * auteur
+  * Author
   * Date
   * Message
 
@@ -54,14 +54,14 @@ image: /git_repo.png
 backgroundSize: contain
 ---
 
-# Concepts de base
+# Basic concepts
 
-## Branche
+## Branch
 
-* Point de départ
-* Ensemble de commits
+* Starting point
+* Set of commits
 
-* Branche spéciale : main / master
+* Special branch: main / master
 
 ---
 layout: image-right
@@ -69,14 +69,14 @@ image: /tags.png
 backgroundSize: contain
 ---
 
-# Concepts de base
+# Basic concepts
 
 ## Tag
 
-* Label pour un commit
-* Tags spéciaux 
+* Label for a commit
+* Special tags
   * HEAD
-  * \<branch\>
+  * <branch>
 
 ---
 layout: image-right
@@ -84,11 +84,11 @@ image: /git-merge-example.webp
 backgroundSize: contain
 ---
 
-# Concepts de base
+# Basic concepts
 
-## Fusion (merge)
+## Merge
 
-* Intègre les changements d'une branche externe
+* Integrates changes from another branch
 
 ---
 layout: image-right
@@ -96,91 +96,91 @@ image: /git-rebase-example.webp
 backgroundSize: contain
 ---
 
-# Concepts de base
+# Basic concepts
 
 ## Rebase
 
-* Intègre les changements de la branche d'origine
+* Integrates changes from the upstream branch
 
 ---
 
-# Importance du versioning
+# Why versioning matters
 
-## Suivi des modifications
+## Track changes
 
-* Historique des modifications
-* Auteurs des modifications
-* Origine des bugs
-
----
-
-# Importance du versioning
-
-## Collaboration efficace
-
-* Fusion des changements
-* Identification des conflits
+* Change history
+* Author attribution
+* Bug origin
 
 ---
 
-# Importance du versioning
+# Why versioning matters
 
-## Branches et expérimentations
+## Effective collaboration
 
-* Séparer le code de production du code expérimental
-
----
-
-# Importance du versioning
-
-## Historique et documentation
-
-* Les commits intègrent une description des changements
+* Merge changes
+* Identify conflicts
 
 ---
 
-# Importance du versioning
+# Why versioning matters
 
-## Revenir en arrière rapidement
+## Branches and experiments
 
-* Reproduire un bug à partir d'une version précise
-* Corriger un code erroné (revert / reset)
-
----
-
-# Importance du versioning
-
-## Travail décentralisé
-
-* Chaque développeur possède une copie complète du code
-* Attention aux conflits !
+* Separate production code from experimental code
 
 ---
 
-# Importance du versioning
+# Why versioning matters
 
-## Gestion des versions et des releases
+## History and documentation
 
-* Utilisation des branches
-* Utilisation des tags
+* Commits include a change description
 
 ---
 
-# Importance du versioning
+# Why versioning matters
 
-## Intégration avec d'autre outils
+## Roll back quickly
 
-* Gestion des tickets (issues)
+* Reproduce a bug from a specific version
+* Fix broken code (revert / reset)
+
+---
+
+# Why versioning matters
+
+## Decentralized work
+
+* Every developer has a full copy of the code
+* Beware of conflicts!
+
+---
+
+# Why versioning matters
+
+## Releases and versioning
+
+* Use branches
+* Use tags
+
+---
+
+# Why versioning matters
+
+## Integration with other tools
+
+* Issue tracking
 * CI/CD
-* Hook pre/post commits
+* Pre/post commit hooks
 
 ---
 
-# Importance du versioning
+# Why versioning matters
 
-## Gestion de la qualité du code
+## Code quality management
 
-  * Validation des commits
+  * Commit validation
   * Pull Requests
   * Code review
 
@@ -188,7 +188,7 @@ backgroundSize: contain
 layout: section
 ---
 
-# Outils populaires
+# Popular tools
 
 ---
 layout: two-cols-header
@@ -198,25 +198,25 @@ layout: two-cols-header
 
 ::left::
 
-* Créé par Linus Torvalds en 2005 pour le noyau Linux
-* Très rapide et efficace
-* Basé sur les checksum SHA-1
+* Created by Linus Torvalds in 2005 for the Linux kernel
+* Very fast and efficient
+* Based on SHA-1 checksums
 
 ::right::
 
-## Concepts clés
+## Key concepts
 
-* Blob : contenu d'un fichier
-* Tree : list de blobs et metadata (nom de fichier, permission)
-* Commit : tree + metadata (auteur, message, etc)
-* Tag : nom arbitraire pour un commit
+* Blob: file contents
+* Tree: list of blobs and metadata (filename, permissions)
+* Commit: tree + metadata (author, message, etc.)
+* Tag: arbitrary name for a commit
 
 ---
 
 # GitHub
 
-* Plateforme d'hébergement de dépôts git
-* Outils de gestion de projet
+* Git repository hosting platform
+* Project management tools
 * CI/CD
 * Copilot (AI)
 
@@ -226,11 +226,11 @@ image: /3rd_party_tools.png
 backgroundSize: contain
 ---
 
-# Autres
+# Others
 
-* Intégration environnements de développement
+* IDE integrations
 * gitk
-* Gitlab
+* GitLab
 
 ---
 layout: section
@@ -242,13 +242,13 @@ layout: section
 layout: two-cols-header
 ---
 
-# Commandes locales
+# Local commands
 
 ::left::
 
 ## git init
 
-Initialise le dépôt git localement:
+Initialize a local repo:
 
 ```sh
 mkdir my_project
@@ -256,7 +256,7 @@ cd my_project
 git init
 ```
 
-Vérifier la création d'un répertoire `.git`
+Verify `.git` directory:
 
 ```sh
 find .
@@ -266,14 +266,14 @@ find .
 
 ## git add
 
-Ajout un changement pour le prochain commit:
+Stage a change for next commit:
 
 ```sh
 touch README.md
 git add README.md
 ```
 
-Vérifier l'état du dépôt:
+Check repo status:
 
 ```sh
 git status
@@ -281,17 +281,17 @@ git status
 
 ---
 
-# Commandes locales
+# Local commands
 
 ## git commit
 
-Enregistre les changements dans un nouveau commit.
+Record changes into a new commit.
 
 ```sh
 git commit
 ```
 
-Vérifie la création du commit dans le journal:
+Check commit in the log:
 
 ```sh
 git log
@@ -301,19 +301,19 @@ git log
 layout: two-cols-header
 ---
 
-# Commandes locales
+# Local commands
 
 ## git branch
 
 ::left::
 
-Créer une nouvelle branche
+Create a new branch
 
 ```sh
 git branch new-feature
 ```
 
-Se placer sur la branche
+Switch to the branch
 
 ```sh
 git checkout new-feature
@@ -321,7 +321,7 @@ git checkout new-feature
 
 ::right::
 
-Ajouter un commit
+Add a commit
 
 ```sh
 touch new-feature.sh
@@ -329,7 +329,7 @@ git add new-feature.sh
 git commit -m "Add new feature"
 ```
 
-Vérifier le journal
+Check the log
 
 ```sh
 git log
@@ -339,13 +339,13 @@ git log
 layout: two-cols-header
 ---
 
-# Commandes locales
+# Local commands
 
 ## git rebase
 
 ::left::
 
-Ajouter un commit sur la branche master
+Add a commit on master
 
 ```sh
 git checkout master
@@ -354,7 +354,7 @@ git add new-file.md
 git commit -m "Add new-file.md"
 ```
 
-Retourner sur la branche `new-feature`
+Go back to `new-feature`
 
 ```sh
 git checkout new-feature
@@ -362,13 +362,13 @@ git checkout new-feature
 
 ::right::
 
-Rebaser
+Rebase
 
 ```sh
 git rebase master
 ```
 
-Observer le journal
+Check the log
 
 ```sh
 git log
@@ -376,23 +376,23 @@ git log
 
 ---
 
-# Commandes locales
+# Local commands
 
 ## git merge
 
-Retourner sur la branche master
+Go back to master
 
 ```sh
 git checkout master
 ```
 
-Intégrer la branche `new-feature`
+Merge `new-feature`
 
 ```sh
 git merge new-feature
 ```
 
-Vérifier le journal
+Check the log
 
 ```sh
 git log
@@ -400,19 +400,19 @@ git log
 
 ---
 
-# Commandes distantes
+# Remote commands
 
 ## git clone
 
-* Télécharger un dépôt distant
+* Download a remote repo
 
 ## git push
 
-* Synchroniser le dépôt local avec un dépôt distant
+* Sync the local repo with a remote
 
 ## git pull
 
-* Télécharger les changements depuis un dépôt distant
+* Download changes from a remote
 
 
 ---
@@ -424,84 +424,84 @@ epoch: d1pm
 
 ---
 
-# Github
+# GitHub
 
-## Création de dépôt
+## Create a repository
 
-* Créer un nouveau dépôt sur github
-* Cloner le dépôt localement
-
----
-
-# Github
-
-## Gestion des branches
-
-* Créer une branche locale
-* Push sur github
+* Create a new repository on GitHub
+* Clone it locally
 
 ---
 
-# Github
+# GitHub
+
+## Branch management
+
+* Create a local branch
+* Push to GitHub
+
+---
+
+# GitHub
 
 ## Pull Requests
 
-* Créer une pull request à partir de la branche
-* Merge de la pull request
+* Create a pull request from the branch
+* Merge the pull request
 
 ---
 
-# Github
+# GitHub
 
 ## Code Review
 
-* Commenter une pull request
-* Répondre aux commentaires
+* Comment a pull request
+* Address comments
 
 ---
 layout: section
 ---
 
-# Collaboration avec GitHub
+# Collaborating with GitHub
 
 ---
 
-# Github collaboration
+# GitHub collaboration
 
 ## Issues
 
-* Créer un ticket
-* Assigner le ticket
-* Créer une branche pour résoudre le ticket
+* Create an issue
+* Assign the issue
+* Create a branch to fix the issue
 
 ---
 
-# Github collaboration
+# GitHub collaboration
 
 ## Projects
 
-* Regrouper plusieurs dépôts
-* Tableaux de bords
-* Adaptés à différentes méthodologies
+* Group multiple repositories
+* Dashboards
+* Adapted to different methodologies
 
 ---
 
-# Github collaboration
+# GitHub collaboration
 
 ## Wikis
 
-* Un wiki...
+* A wiki…
 
 ---
 layout: section
 ---
 
-# Exercices
+# Exercises
 
 ---
 
-# Création d'un projet collaboratif
+# Create a collaborative project
 
 ---
 
-# Gestion de conflits de fusion
+# Solve merge conflicts

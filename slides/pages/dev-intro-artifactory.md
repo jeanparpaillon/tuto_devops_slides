@@ -8,14 +8,14 @@ epoch: d3am
 ---
 
 ## Introduction
-### Présentation du production
-### Gestion des artefacts et dépendances
+### Role in production
+### Managing artifacts and dependencies
 
 ---
 layout: section
 ---
 
-# Installation et configuration
+# Installation and configuration
 
 ---
 
@@ -23,44 +23,44 @@ layout: section
 
 ---
 
-# Configuration initiale
+# Initial configuration
 
 ---
 
-# Accès à l'interface utilisateur
+# Accessing the UI
 
 ---
 layout: section
 ---
 
-# Interface utilisateur
+# User interface
 
 ---
 
-# Exploration de l'UI
+# Exploring the UI
 
 ---
 
-# Recherche des artefacts
+# Searching for artifacts
 
 ---
 
-# Gestion des artefacts
+# Managing artifacts
 
 ---
 layout: section
 epoch: d3pm
 ---
 
-# Gestion des dépôts
+# Repository management
 
 ---
  
-# Dépôt NuGet
+# NuGet repository
 
 ---
 
-# Dépôt NPM
+# NPM repository
 
 ---
 layout: section
@@ -70,26 +70,26 @@ layout: section
 
 ---
 
-# Accès aux artefacts via XRAY
+# Accessing artifacts via XRAY
 
 ---
 
-# Téléchargement des artefacts
+# Downloading artifacts
 
 ---
 layout: section
 ---
 
-# Exercices
+# Exercises
 
 ---
 
-# Création d'un dépôt NuGet
+# Create a NuGet repository
 
 ---
 
-# Ajout des artefacts
+# Add artifacts
 
 ---
 
-# Gestion des artefacts
+# Manage artifacts

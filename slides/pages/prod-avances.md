@@ -2,20 +2,20 @@
 layout: section
 ---
 
-# Jour 5 — Usages avancés
+# Day 5 — Advanced topics
 
-## Monitoring • Haute disponibilité • Sécurité • Scaling
+## Monitoring • High availability • Security • Scaling
 
-### Contenu :
+### Content
 
-- **Monitoring & observabilité**
+- **Monitoring & observability**
   - Prometheus, Grafana, Loki, Alertmanager
-- **Haute disponibilité**
-  - Réplication, StatefulSets, anti-affinités, PDB
-- **Sécurité**
+- **High availability**
+  - Replication, StatefulSets, anti-affinity, PDB
+- **Security**
   - RBAC, scans (Trivy, kube-bench), Vault
 - **Scaling**
   - Horizontal Pod Autoscaler, Cluster Autoscaler
-  - Tests de charge (k6, Artillery)
+  - Load testing (k6, Artillery)
 
 ---

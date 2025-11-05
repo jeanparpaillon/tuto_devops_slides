@@ -3,75 +3,75 @@ layout: center
 epoch: d2am
 ---
 
-# Intégration continue (CI) avec GitHub Actions
+# Continuous Integration (CI) with GitHub Actions
 
 ---
 
-# Bases de la CI
+# CI basics
 
-* Automatiser la "post-production" de code
-* Tests unitaires
-* Tests fonctionnels
-* Tests d'Intégration
-* Qualité de code
-* Génération d'artefacts : exécutables, documentation, conteneurs
-* Déploiement
+* Automate the "post-production" of code
+* Unit tests
+* Functional tests
+* Integration tests
+* Code quality
+* Artifact generation: binaries, docs, containers
+* Deployment
 
 ---
 
-# Avantages
+# Benefits
 
-* Détection rapide des erreurs
-* Gain de temps
-* Amélioration de la qualité
+* Faster error detection
+* Time savings
+* Better quality
 
 ---
 
 # GitHub Actions
 
-* Intégré à GitHub
-* Déclencheur principal : `git push`
-* Déclencheurs : tickets, releases, milestones, autre workflow, ...
+* Built into GitHub
+* Main trigger: `git push`
+* Other triggers: issues, releases, milestones, other workflows, ...
 
 ---
 layout: two-cols-header
 ---
 
-# Concepts GitHub Actions
+# GitHub Actions concepts
 
 ::left::
 
 ## Workflow
 
-* Processus automatisé qui s'exécute lorsqu'un déclencheur est activé
+* Automated process that runs when a trigger fires
 
 ## Job
 
-* Exécutés sur un *runner*, en parallèle par défaut
-* Contient une ou plusieurs étapes (*steps*)
-* Les jobs ne partagent pas leurs données
+* Runs on a runner, parallel by default
+* Contains one or more steps
+* Jobs do not share state by default
 
 ## Steps
 
-* Suite d'instructions (scripts) ou actions
-* Les instructions partagent leurs données
+* Sequence of scripts or actions
+* Steps within a job share state
 
 ::right::
 
-## Déclencheurs
+## Triggers
 
-* `git push` ... mais pas seulement
-* La plupart des déclencheurs ont des filtres
-* [GitHub Actions Events](https://docs.github.com/fr/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows)
+* `git push` ... and more
+* Most triggers support filters
+* [GitHub Actions Events](https://docs.github.com/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows)
 
 ## Conditions
 
-* Filtre des jobs à l'intérieur d'un workflow
-* [GitHub Actions conditions](https://docs.github.com/fr/actions/writing-workflows/choosing-when-your-workflow-runs/using-conditions-to-control-job-execution)
+* Filter jobs within a workflow
+* [GitHub Actions conditions](https://docs.github.com/actions/writing-workflows/choosing-when-your-workflow-runs/using-conditions-to-control-job-execution)
 
 ---
 
-# Exemple
+# Example
 
 ```sh
 git clone https://github.com/jeanparpaillon/tuto_devops_github
@@ -79,7 +79,7 @@ git clone https://github.com/jeanparpaillon/tuto_devops_github
 
 ---
 
-# Création d'un workflow
+# Create a workflow
 
 ```sh
 mkdir -p .github/workflows
@@ -93,99 +93,93 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Check script
         run: test -e run.sh
 ```
 
 * [Templates](https://github.com/jeanparpaillon/tuto_devops_github/actions/new)
-* [Syntax workflows](https://docs.github.com/fr/actions/writing-workflows/workflow-syntax-for-github-actions)
+* [Workflow syntax](https://docs.github.com/actions/writing-workflows/workflow-syntax-for-github-actions)
 
 ---
 
-# Activation du workflow
+# Enable the workflow
 
 * Push
-* Vérifier l'exécution du workflow
+* Check the workflow run
 
 ---
 
-# Ajout d'un syntax checker
+# Add a syntax checker
 
 * `shellcheck`
 
-<!--
-* [Shellcheck](https://github.com/marketplace/actions/shellcheck)
--->
-
 ---
 
-# Ajout des tests
+# Add tests
 
 * `make tests`
 
 ---
 
-# Construction de la documentation
+# Build documentation
 
 * `make doc`
 
 ---
 
-# Construction des conteneurs
+# Build and push containers
 
-* [Docker build push action](https://github.com/docker/build-push-action)
-
----
-
-# Parallélisme
-
-* Exécuter en parallèle, en séquence
-* Voir le résultat
+* [Docker build-push action](https://github.com/docker/build-push-action)
 
 ---
 
-# Interaction avec les pull requests
+# Parallelism
 
-* Conditionner la fusion d'une pull request à l'exécution d'un workflow
+* Run in parallel, then sequence when needed
+* Inspect results
+
+---
+
+# Pull request integration
+
+* Require successful workflows before merging PRs
 
 ---
 layout: section
 epoch: d2pm
 ---
 
-# Utilisation avancée
+# Advanced usage
 
 ---
 
-# Utilisation des conditions
+# Using conditions
 
-
-
-* [Syntax des expressions](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/evaluate-expressions-in-workflows-and-actions)
+* [Expression syntax](https://docs.github.com/actions/writing-workflows/choosing-what-your-workflow-does/evaluate-expressions-in-workflows-and-actions)
 
 ---
 
-# Création d'actions personnalisées
+# Creating custom actions
 
-* [Actions javascript](https://docs.github.com/fr/actions/sharing-automations/creating-actions/creating-a-javascript-action)
-* [Action conteneur](https://docs.github.com/fr/actions/sharing-automations/creating-actions/creating-a-docker-container-action)
-* [Action composites](https://docs.github.com/fr/actions/sharing-automations/creating-actions/creating-a-docker-container-action)
+* [JavaScript actions](https://docs.github.com/actions/sharing-automations/creating-actions/creating-a-javascript-action)
+* [Container action](https://docs.github.com/actions/sharing-automations/creating-actions/creating-a-docker-container-action)
+* [Composite action](https://docs.github.com/actions/sharing-automations/creating-actions/creating-a-docker-container-action)
 
 ---
 
 # Caching
 
-
-
----
-
-# Déclencheurs personnalisés
-
-* Ajouter un commentaire automatique dans les tickets
+* Speed up builds with dependency caches
 
 ---
 
-# self-hosted runners
+# Custom triggers
 
-* Exécuter le workflow sur un runner local
+* Automatically add comments to issues
+
+---
+
+# Self-hosted runners
+
+* Run workflows on local or on-prem runners

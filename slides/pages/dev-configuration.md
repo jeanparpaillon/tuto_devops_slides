@@ -3,39 +3,39 @@ layout: center
 epoch: d4am
 ---
 
-# Configuration et Automatisation
+# Configuration and Automation
 
 ---
 
-# Configuration avancée
+# Advanced configuration
 
 ---
 
-# Paramètres base de données
+# Database parameters
 
 ---
 
-# Stockage basé sur des checksums
+# Checksum-based storage
 
 ---
 
-# Configuration des serveurs de fichiers
+# File server configuration
 
 ---
 layout: section
 epoch: d4pm
 ---
 
-# Gestion des utilisateurs et permissions
+# Users and permissions management
 
 ---
 
-# Création d'utilisateurs
+# Creating users
 
 ---
 
-# Attribution des permissions
+# Assigning permissions
 
 ---
 
-# Gestion des groupes
+# Managing groups

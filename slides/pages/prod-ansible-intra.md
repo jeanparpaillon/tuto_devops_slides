@@ -2,16 +2,16 @@
 layout: section
 ---
 
-# Jour 3 — Application intranet avec Ansible
+# Day 3 — Intranet application with Ansible
 
-## Objectif : Déployer une application interne (type wiki ou portail RH)
+## Goal: Deploy an internal application (wiki or HR portal)
 
-### Contenu :
+### Content
 
-- Introduction à Ansible : inventaire, playbooks, rôles, variables
-- Architecture de l’application intranet
-- Création des rôles :
-  - Base système (utilisateurs, SSH, sécurité)
+- Introduction to Ansible: inventory, playbooks, roles, variables
+- Intranet application architecture
+- Role creation:
+  - System base (users, SSH, security)
   - Application (services, config, templates)
-- Exécution et déploiement automatisé
-- Tests fonctionnels et validation dans Kubernetes ou sur VMs
+- Automated execution and deployment
+- Functional tests and validation on Kubernetes or VMs
