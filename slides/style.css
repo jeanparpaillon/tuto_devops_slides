@@ -1,0 +1,8 @@
+.devops-bg {
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('/devops-infinite-loop.png');
+    background-color: rgba(22, 28, 44, 0.8);
+    background-blend-mode: overlay;
+}
