@@ -1,6 +1,7 @@
+---
 name: Auto-assign Copilot to Issues
 
-on:
+"on":
   issues:
     types: [opened]
 
@@ -20,15 +21,17 @@ jobs:
             const issue_number = context.issue.number;
             const owner = context.repo.owner;
             const repo = context.repo.repo;
-            
+
             // Add a comment mentioning copilot
             await github.rest.issues.createComment({
               owner: owner,
               repo: repo,
               issue_number: issue_number,
-              body: '@copilot Please analyze this issue and route it to the appropriate specialized agent (designer, coder, project manager, or trainer).'
+              body: '@copilot Please analyze this issue and route it to the \
+            appropriate specialized agent (designer, coder, project manager, \
+            or trainer).'
             });
-            
+
             // Add label to track copilot-managed issues
             await github.rest.issues.addLabels({
               owner: owner,
