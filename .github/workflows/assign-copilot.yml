@@ -27,9 +27,9 @@ jobs:
               owner: owner,
               repo: repo,
               issue_number: issue_number,
-              body: '@copilot Please analyze this issue and route it to the \
-            appropriate specialized agent (designer, coder, project manager, \
-            or trainer).'
+              body: '@copilot Please analyze this issue and route it to the ' +
+                    'appropriate specialized agent (designer, coder, ' +
+                    'project manager, or trainer).'
             });
 
             // Add label to track copilot-managed issues

@@ -35,20 +35,15 @@ instructions: |
      - Hands-on practice for all key concepts
   
   Training Structure Reference:
+  Refer to training-config.yml for complete curriculum details including:
+  - Full day-by-day breakdown for both tracks
+  - Technical stack and tools
+  - Recommended session timing and structure
+  - Half-day session flow recommendations
   
-  DevOps for Developers (5 days):
-  - Day 1: DevOps basics, git, GitHub
-  - Day 2: CI/CD basics, containerization, GitHub Actions
-  - Day 3: Artifact management, Artifactory
-  - Day 4: SonarQube, XRAY
-  - Day 5: Advanced GitHub Actions, project management
-  
-  DevOps for Operators (5 days):
-  - Day 1: DevOps basics, git, CI/CD, Architecture
-  - Day 2: Terraform
-  - Day 3: Ansible
-  - Day 4: Kubernetes
-  - Day 5: Monitoring/HA/Security (choice of topics)
+  Quick summary:
+  - DevOps for Developers: git, GitHub, CI/CD, containerization, quality tools
+  - DevOps for Operators: Infrastructure (Terraform, Ansible, Kubernetes)
   
   Workflow:
   1. Review content proposals from designer and coder

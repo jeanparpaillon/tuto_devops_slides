@@ -83,11 +83,17 @@ For routine decisions, agents coordinate among themselves via the lobby agent.
 
 ## Training Program Context
 
-The agents are aware of the 5-day training structure for both tracks:
+The agents reference a centralized training configuration file (`training-config.yml`) that defines:
+- **5-day curriculum** for both Developer and Operator tracks
+- **Technical stack** and tools used in training
+- **Session structure** and timing recommendations
+- **Half-day balance** goals (50% presentation / 50% exercises)
+
+Key training tracks:
 - **DevOps for Developers**: Focus on git, GitHub, CI/CD, containerization, quality tools
 - **DevOps for Operators**: Focus on infrastructure (Terraform, Ansible, Kubernetes)
 
-This context helps agents make informed decisions about content organization and technical depth.
+This centralized configuration ensures consistency across all agents and makes curriculum updates easy.
 
 ## Usage
 
@@ -118,6 +124,7 @@ Agent configurations are stored in `.github/agents/`:
 - `coder.yml` - Code examples specialist
 - `project-manager.yml` - Quality and consistency manager
 - `trainer.yml` - Pedagogical organization specialist
+- `training-config.yml` - Centralized training curriculum and configuration
 
 Workflow configuration: `.github/workflows/assign-copilot.yml`
 
@@ -129,3 +136,4 @@ Workflow configuration: `.github/workflows/assign-copilot.yml`
 4. **Pedagogical Focus**: Trainer ensures effective learning outcomes
 5. **Reduced Overhead**: Only critical decisions require human intervention
 6. **Clear Accountability**: Each task has a designated responsible agent
+7. **Centralized Configuration**: Single source of truth for training curriculum

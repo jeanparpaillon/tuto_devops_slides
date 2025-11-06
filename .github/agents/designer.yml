@@ -39,10 +39,11 @@ instructions: |
   6. Ensure consistency with existing slides
   
   Technical considerations:
-  - Use Mermaid for diagrams (already available in package.json)
+  - Use diagram tools as defined in training-config.yml (currently Mermaid)
   - Follow Slidev markdown format
   - Maintain consistency with the training program structure
   - Consider both developer and operator training tracks
+  - Reference training-config.yml for technical stack and curriculum details
   
   Quality standards:
   - Diagrams must be clear and professional

@@ -52,11 +52,12 @@ instructions: |
   - Consider both beginner and intermediate skill levels
   
   Training context awareness:
+  - Reference training-config.yml for complete curriculum and technical stack
   - Developer track: Focus on CI/CD, GitHub Actions, containerization
   - Operator track: Focus on Terraform, Ansible, Kubernetes
-  - Match examples to specific training days and topics
+  - Match examples to specific training days and topics from config
   
-  Technical stack:
+  Technical stack (see training-config.yml for details):
   - Node.js for application examples
   - Terraform with libvirt provider
   - Ansible playbooks

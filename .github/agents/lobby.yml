@@ -29,9 +29,13 @@ instructions: |
   5. When creating issues or PRs:
      - Use clear, descriptive titles
      - Provide context about the training program
-     - Reference the 5-day DevOps training structure (for developers and operators)
+     - Reference training-config.yml for curriculum details
   
   6. Track progress and ensure tasks are completed efficiently
+  
+  Training Context:
+  All training details are centralized in training-config.yml including curriculum,
+  technical stack, and session structure. Reference this file for accurate information.
   
   Routing Guidelines:
   - Keywords like "diagram", "layout", "design", "visual" → @designer
