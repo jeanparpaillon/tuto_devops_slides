@@ -8,6 +8,16 @@ pnpm dev:dev
 pnpm dev:prod
 ```
 
+## GitHub Copilot Agent Architecture
+
+This project uses an AI-powered multi-agent system to manage slide development. See [.github/agents/README.md](.github/agents/README.md) for details.
+
+**Quick Start**: Simply create an issue describing what you need, and our specialized agents will handle it:
+- **Designer**: Diagrams, layouts, visual design
+- **Coder**: Code examples and implementations
+- **Project Manager**: Quality assurance and consistency
+- **Trainer**: Slide organization and pedagogical balance
+
 # DevOps for Developers
 
 Duration : 5 Days
