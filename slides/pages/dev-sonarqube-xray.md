@@ -1311,27 +1311,103 @@ Organizational Adoption and Continuous Improvement
 
 ### Problem: Scanner can't connect to server
 **Symptoms:** Connection timeout, 403/401 errors  
-**Solutions:**
-- Verify `SONAR_HOST_URL` is correct
-- Check firewall rules allow port 9000
-- Verify SonarQube server is running: `docker ps`
-- Test authentication token is valid
+**Common Error Messages:**
+```
+ERROR: Error during SonarScanner execution
+java.net.ConnectException: Connection refused (Connection refused)
+```
+
+**Step-by-Step Solutions:**
+1. Verify `SONAR_HOST_URL` is correct (e.g., `http://localhost:9000`)
+2. Check SonarQube server is running: `docker ps | grep sonarqube`
+3. Test server accessibility: `curl http://localhost:9000/api/system/status`
+4. Check firewall rules allow port 9000
+5. Verify network connectivity if using remote server
+6. Check server logs: `docker logs sonarqube`
+
+### Problem: Authentication/token issues
+**Symptoms:** 401 Unauthorized errors  
+**Common Error Messages:**
+```
+ERROR: Not authorized. Please check the user token in the property 'sonar.token'
+ERROR: Error 401 on https://sonarqube.example.com/api/ce/submit
+```
+
+**Step-by-Step Solutions:**
+1. Verify token is not expired (check SonarQube UI)
+2. Check token has correct permissions (must have "Execute Analysis")
+3. Ensure token is properly set:
+   ```bash
+   # As environment variable
+   export SONAR_TOKEN=your_token_here
+   
+   # Or as command line parameter
+   sonar-scanner -Dsonar.token=$SONAR_TOKEN
+   ```
+4. Regenerate token if necessary (Administration → Security → Users)
+5. For CI/CD, verify secrets are correctly configured
+6. Check for special characters in token that might need escaping
 
 ### Problem: Quality gate fails unexpectedly
 **Symptoms:** Gate fails but issues look minor  
-**Solutions:**
-- Review gate conditions carefully
-- Check "New Code" period setting (default: previous version)
-- Verify branch analysis is configured correctly
-- Review actual vs expected metrics
+**Step-by-Step Solutions:**
+1. Review gate conditions in detail (Quality Gates → Your Gate)
+2. Check "New Code" period setting (Administration → General Settings → New Code)
+3. Verify branch analysis is configured correctly
+4. Compare actual vs expected metrics in project overview
+5. Check if conditions apply to "New Code" or "Overall Code"
+6. Review analysis log for warnings about skipped files
 
 ### Problem: Coverage showing 0%
 **Symptoms:** Tests run but coverage is 0%  
-**Solutions:**
-- Ensure test execution generates coverage reports
-- Verify coverage report path: `sonar.javascript.lcov.reportPaths`
-- Check coverage file exists and is in correct format
-- For Java: ensure JaCoCo plugin is configured
+**Common Error Messages:**
+```
+WARN: No coverage information will be saved because all LCOV files cannot be found
+WARN: Coverage report doesn't exist: coverage/lcov.info
+```
+
+**Step-by-Step Solutions:**
+1. Verify tests generate coverage reports:
+   ```bash
+   npm test -- --coverage
+   ls -la coverage/lcov.info
+   ```
+2. Check coverage report path in configuration:
+   ```properties
+   sonar.javascript.lcov.reportPaths=coverage/lcov.info
+   ```
+3. Ensure coverage file exists before running scanner
+4. For JavaScript/TypeScript: Install and configure coverage tool (nyc, jest)
+5. For Java: Configure JaCoCo plugin in pom.xml or build.gradle
+6. Verify coverage file format is correct (LCOV, XML, etc.)
+7. Check scanner logs for coverage processing messages
+
+### Problem: Analysis timeout issues
+**Symptoms:** Scanner hangs or times out during analysis  
+**Common Error Messages:**
+```
+ERROR: Error during SonarScanner execution
+ERROR: Timeout waiting for response
+WARN: SCM provider autodetection failed
+```
+
+**Step-by-Step Solutions:**
+1. Increase scanner timeout in configuration:
+   ```properties
+   sonar.ws.timeout=300
+   ```
+2. For large projects, increase memory allocation:
+   ```bash
+   export SONAR_SCANNER_OPTS="-Xmx2048m"
+   ```
+3. Exclude unnecessary files (node_modules, build artifacts):
+   ```properties
+   sonar.exclusions=**/node_modules/**,**/dist/**,**/coverage/**
+   ```
+4. Disable SCM if not needed: `sonar.scm.disabled=true`
+5. Check server resources (CPU, memory) - may need to scale up
+6. Run analysis in verbose mode to identify bottleneck: `-X`
+7. Consider splitting large monorepos into multiple projects
 
 ---
 
@@ -1339,29 +1415,235 @@ Organizational Adoption and Continuous Improvement
 
 ## Xray Issues
 
-### Problem: No vulnerabilities found
-**Symptoms:** Scan completes but shows no results  
-**Solutions:**
-- Verify Xray indexing is complete (can take minutes)
-- Check repository is configured for Xray scanning
-- Ensure artifacts contain dependency manifests
-- Review watch configuration includes the repository
+### Problem: Missing vulnerabilities in reports
+**Symptoms:** Scan completes but shows no results or fewer than expected  
+**Common Error Messages:**
+```
+Xray indexing is in progress
+No violations found for this artifact
+Component not indexed
+```
 
-### Problem: Policy not enforced
+**Step-by-Step Solutions:**
+1. Verify Xray indexing is complete (can take 5-15 minutes):
+   - Check Artifactory UI → Xray → Indexed Resources
+   - Look for "Indexing in progress" status
+2. Check repository is configured for Xray scanning:
+   - Go to Artifactory → Administration → Repositories
+   - Verify "Enable Xray Indexing" is checked
+3. Ensure artifacts contain dependency manifests:
+   ```bash
+   # For npm packages
+   tar -tzf package.tgz | grep package.json
+   
+   # For Docker images
+   docker inspect myimage:tag | grep -A 10 "Layers"
+   ```
+4. Review watch configuration:
+   - Xray → Watches & Policies
+   - Verify watch includes the repository
+   - Check filters aren't too restrictive
+5. Force re-indexing if needed (Administration → Xray → Indexed Resources)
+6. Wait for vulnerability database sync (check last update time)
+
+### Problem: Policy not enforcing
 **Symptoms:** Violations shown but downloads not blocked  
-**Solutions:**
-- Verify watch is **active** (not paused)
-- Check policy is assigned to the watch
-- Ensure repository is in watch scope
-- Verify action is "Block" not just "Warn"
+**Common Error Messages:**
+```
+Policy violation detected but action not applied
+Download allowed despite policy violation
+```
 
-### Problem: False positive vulnerabilities
-**Symptoms:** CVEs reported for unused code  
-**Solutions:**
-- Ignore specific CVEs with written justification
-- Update watch filters to exclude test dependencies
-- Consider using runtime vs build-time scanning
-- Contact Xray support for database corrections
+**Step-by-Step Solutions:**
+1. Verify watch is **active** (not paused):
+   - Xray → Watches & Policies → Check status column
+2. Check policy is assigned to the watch:
+   - Open watch configuration
+   - Verify policy appears in "Assigned Policies" list
+3. Ensure repository is in watch scope:
+   - Review watch resources configuration
+   - Verify repository name matches exactly (case-sensitive)
+4. Verify action is "Block" not just "Warn":
+   - Open policy → Rules
+   - Check "Actions" column shows "Block Download"
+5. Clear Artifactory cache if recently changed:
+   ```bash
+   curl -X POST -u admin:password \
+     "http://artifactory/api/system/storage/gc"
+   ```
+6. Check user permissions - admins may bypass policies
+7. Test with non-admin user account
+8. Review policy grace period - may not be in effect yet
+
+### Problem: False positive handling
+**Symptoms:** CVEs reported for unused code or incorrect components  
+**Common Error Messages:**
+```
+CVE-2023-12345 found in component xyz
+Vulnerability detected in test dependencies
+```
+
+**Step-by-Step Solutions:**
+1. Verify the vulnerability actually affects your code:
+   - Check if vulnerable component is actually used
+   - Review dependency tree to confirm presence
+2. Ignore specific CVEs with justification:
+   - Xray → Ignore Rules
+   - Create ignore rule with:
+     - CVE ID
+     - Component name and version
+     - Expiration date
+     - Business justification
+3. Exclude test dependencies from scans:
+   ```yaml
+   # Update watch filters
+   Watch: "Production Only"
+   Filters:
+     - exclude: "**/test/**"
+     - exclude: "**/*-test-*"
+   ```
+4. Consider using runtime vs build-time scanning
+5. Review CVSS score context - may not apply to your use case
+6. Check for false positive reports in vendor database
+7. Document decision in ignore rule comments
+
+### Problem: Scanning failures
+**Symptoms:** Xray scan fails to complete or crashes  
+**Common Error Messages:**
+```
+Failed to scan artifact
+Xray scan timed out
+Unable to extract components from artifact
+Error indexing artifact: invalid format
+```
+
+**Step-by-Step Solutions:**
+1. Check artifact format is supported:
+   - Xray supports: Docker, npm, Maven, PyPI, Go, etc.
+   - Verify artifact isn't corrupted: `tar -tzf artifact.tgz`
+2. Review Xray server logs:
+   ```bash
+   # In Artifactory container
+   tail -f /var/opt/jfrog/xray/log/xray-server-service.log
+   ```
+3. Verify sufficient disk space and memory:
+   - Check Artifactory storage: Administration → System Info
+   - Xray requires adequate resources for large scans
+4. For large artifacts, increase timeout:
+   ```yaml
+   # In Xray system settings
+   scan.timeout.seconds: 3600
+   ```
+5. Retry scan manually:
+   ```bash
+   curl -X POST -u admin:password \
+     "http://artifactory/xray/api/v1/scanArtifact" \
+     -H "Content-Type: application/json" \
+     -d '{"componentId":"docker://myimage:tag"}'
+   ```
+6. Check for malformed dependency files (package.json, pom.xml)
+7. Update Xray to latest version if using older release
+8. Contact JFrog support with scan logs if issue persists
+
+---
+
+# Debugging Tips
+
+## General Debugging Strategies
+
+### Enable Verbose Logging
+
+**SonarQube:**
+```bash
+# Run scanner with debug output
+sonar-scanner -X
+
+# Or set in properties
+sonar.verbose=true
+sonar.log.level=DEBUG
+```
+
+**Xray:**
+- Enable debug logs: Administration → Xray → Settings → Logging
+- Set log level to DEBUG for troubleshooting
+
+### Check Service Health
+
+**SonarQube:**
+```bash
+# Check server status
+curl http://localhost:9000/api/system/status
+
+# Expected response
+{"id":"...","version":"9.9","status":"UP"}
+```
+
+**Artifactory/Xray:**
+```bash
+# Check system ping
+curl -u admin:password http://artifactory/api/system/ping
+
+# Check Xray status
+curl -u admin:password http://artifactory/xray/api/v1/system/version
+```
+
+### Review Configuration
+
+**SonarQube - Common Config Issues:**
+```properties
+# Verify these settings
+sonar.projectKey=unique-key        # Must be unique
+sonar.sources=src                  # Source directory exists
+sonar.exclusions=**/node_modules/** # Proper exclusions
+sonar.host.url=http://localhost:9000 # Correct URL
+```
+
+**Xray - Common Config Issues:**
+- Watch must be active
+- Policy must have at least one rule
+- Repository must have Xray indexing enabled
+- Watch resources must match repository names exactly
+
+### Network and Connectivity
+
+```bash
+# Test connectivity
+curl -v http://localhost:9000
+
+# Check ports are listening
+netstat -tuln | grep 9000
+
+# Test DNS resolution (for remote servers)
+nslookup sonarqube.example.com
+
+# Check firewall rules
+sudo iptables -L | grep 9000
+```
+
+### Common File Locations
+
+**SonarQube:**
+- Logs: `$SONARQUBE_HOME/logs/`
+- Config: `$SONARQUBE_HOME/conf/sonar.properties`
+- Scanner config: `sonar-project.properties` or `~/.sonarqube/`
+
+**Artifactory/Xray:**
+- Logs: `/var/opt/jfrog/artifactory/log/`
+- Xray logs: `/var/opt/jfrog/xray/log/`
+- Config: `/var/opt/jfrog/artifactory/etc/system.yaml`
+
+### Quick Diagnostics Checklist
+
+- [ ] Service is running (`docker ps`, `systemctl status`)
+- [ ] Port is accessible (`curl`, `telnet`)
+- [ ] Authentication credentials are valid
+- [ ] Configuration files have correct syntax
+- [ ] Required files/directories exist
+- [ ] Sufficient disk space and memory
+- [ ] Network connectivity to external services
+- [ ] Firewall allows required ports
+- [ ] Logs show recent activity (not frozen)
+- [ ] Database is accessible (for SonarQube/Xray)
 
 ---
 
