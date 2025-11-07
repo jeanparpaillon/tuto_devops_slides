@@ -799,6 +799,17 @@ flowchart TB
 
 # Software Composition Analysis (SCA)
 
+## What is SCA?
+
+**Software Composition Analysis** identifies and analyzes third-party and open-source components in your applications.
+
+### Why SCA Matters
+
+- **80-90%** of modern applications are composed of open-source libraries
+- **84%** of codebases contain at least one vulnerability
+- Average of **158 days** from vulnerability disclosure to fix deployment
+- Supply chain attacks targeting dependencies increased **742%** in 2021
+
 ## What Does SCA Analyze?
 
 ### Package Manifests
@@ -806,19 +817,41 @@ flowchart TB
 - **Maven:** pom.xml
 - **Python:** requirements.txt, Pipfile
 - **Go:** go.mod, go.sum
+- **NuGet:** packages.config, *.csproj
+- **RubyGems:** Gemfile, Gemfile.lock
 
 ### Container Images
 - **Layers:** Each layer scanned separately
-- **OS Packages:** System libraries (apt, yum)
+- **OS Packages:** System libraries (apt, yum, apk)
 - **Application Dependencies:** Bundled libraries
+- **Binary executables:** Static analysis of compiled code
 
 ## How It Works
 
-1. **Parse Manifest:** Extract dependencies
-2. **Build Dependency Graph:** Including transitive deps
-3. **Match CVE Database:** Check against known vulnerabilities
-4. **Calculate Risk:** CVSS scores, exploitability
-5. **Report Findings:** Vulnerabilities, licenses, remediation
+```mermaid
+flowchart TB
+    A[Artifact Upload] --> B[Parse Manifests]
+    B --> C[Extract Dependencies]
+    C --> D[Build Dependency Graph]
+    D --> E[Match CVE Database]
+    E --> F[Calculate Risk Score]
+    F --> G[Check License Compliance]
+    G --> H[Generate Report]
+    
+    style A fill:#e1f5ff
+    style E fill:#fff3e0
+    style G fill:#f3e5f5
+    style H fill:#e8f5e9
+```
+
+### Process Steps
+
+1. **Parse Manifest:** Extract direct and transitive dependencies
+2. **Build Dependency Graph:** Map complete dependency tree
+3. **Match CVE Database:** Check against NVD, GitHub Advisory, vendor databases
+4. **Calculate Risk:** CVSS scores, exploitability metrics, exposure
+5. **Check Licenses:** Identify license types and compatibility
+6. **Report Findings:** Vulnerabilities, licenses, remediation paths
 
 ---
 
@@ -851,80 +884,271 @@ Complete inventory of components in the image:
 
 ---
 
+# SBOM — Software Bill of Materials
+
+## What is an SBOM?
+
+A comprehensive inventory of all software components, dependencies, and metadata in an application or container image.
+
+### Why SBOM Matters
+
+- **Transparency:** Know exactly what's in your software
+- **Security:** Track vulnerabilities across your supply chain
+- **Compliance:** Required by US Executive Order 14028, EU Cyber Resilience Act
+- **Risk Management:** Identify and respond to zero-day vulnerabilities
+
+## SBOM Components
+
+```yaml
+# Example SBOM snippet (SPDX format)
+SPDXVersion: SPDX-2.3
+DocumentName: myapp-sbom
+Creator: Tool: Xray
+
+Packages:
+  - Name: express
+    Version: 4.18.2
+    License: MIT
+    Supplier: Organization: OpenJS Foundation
+    ExternalRefs:
+      - Category: PACKAGE-MANAGER
+        Type: purl
+        Locator: pkg:npm/express@4.18.2
+    Vulnerabilities:
+      - CVE-2022-24999 (Medium - 6.5)
+  
+  - Name: lodash
+    Version: 4.17.21
+    License: MIT
+    Supplier: Organization: JS Foundation
+    ExternalRefs:
+      - Category: PACKAGE-MANAGER
+        Type: purl
+        Locator: pkg:npm/lodash@4.17.21
+```
+
+## SBOM Formats
+
+- **SPDX (Software Package Data Exchange):** ISO standard, widely adopted
+- **CycloneDX:** OWASP standard, security-focused
+- **SWID (Software Identification Tags):** ISO/IEC 19770-2
+
+## Using SBOM in Xray
+
+1. **Automatic Generation:** Created during artifact scanning
+2. **Export:** Download as SPDX or CycloneDX
+3. **Analysis:** View component relationships and vulnerabilities
+4. **Monitoring:** Track when new CVEs affect your components
+5. **Compliance:** Share with customers or regulators
+
+---
+
 # Understanding CVE Severity
 
 ## CVSS Score (0-10)
 
-| Score | Severity | Recommended Action | SLA |
-|-------|----------|-------------------|-----|
-| 9.0-10.0 | **Critical** | Fix immediately | 24-48 hours |
-| 7.0-8.9 | **High** | Fix within days | 1 week |
-| 4.0-6.9 | **Medium** | Fix within weeks | 1 month |
-| 0.1-3.9 | **Low** | Evaluate and consider fixing | Backlog |
+| Score | Severity | Recommended Action | SLA | Example Impact |
+|-------|----------|-------------------|-----|----------------|
+| 9.0-10.0 | **Critical** | Fix immediately | 24-48 hours | Remote Code Execution |
+| 7.0-8.9 | **High** | Fix within days | 1 week | Privilege Escalation |
+| 4.0-6.9 | **Medium** | Fix within weeks | 1 month | Information Disclosure |
+| 0.1-3.9 | **Low** | Evaluate and consider fixing | Backlog | Minor Information Leak |
 
-## CVSS Factors
+## CVSS v3.1 Metrics
 
-- **Attack Vector:** Network, Adjacent, Local, Physical
-- **Attack Complexity:** Low, High
-- **Privileges Required:** None, Low, High
-- **User Interaction:** None, Required
-- **Impact:** Confidentiality, Integrity, Availability
+### Base Metrics
+- **Attack Vector (AV):** Network, Adjacent, Local, Physical
+- **Attack Complexity (AC):** Low, High
+- **Privileges Required (PR):** None, Low, High
+- **User Interaction (UI):** None, Required
 
-## Example: Critical CVE
+### Impact Metrics
+- **Confidentiality (C):** None, Low, High
+- **Integrity (I):** None, Low, High
+- **Availability (A):** None, Low, High
 
-**CVE-2021-44228 (Log4Shell)**
-- CVSS: **10.0** (Critical)
-- Remote Code Execution
-- No authentication required
-- Widely exploited in the wild
+## Real-World CVE Examples
+
+### Critical: CVE-2021-44228 (Log4Shell)
+- **CVSS:** 10.0 (Critical)
+- **Type:** Remote Code Execution (RCE)
+- **Attack Vector:** Network
+- **Privileges:** None required
+- **Impact:** Complete system compromise
+- **Affected:** Apache Log4j 2.x < 2.17.0
+- **Exploitation:** Actively exploited within hours of disclosure
+- **Response:** Emergency patching required immediately
+
+### High: CVE-2021-3156 (Sudo Baron Samedit)
+- **CVSS:** 7.8 (High)
+- **Type:** Heap-based buffer overflow → privilege escalation
+- **Attack Vector:** Local
+- **Privileges:** Any user account
+- **Impact:** Root access on vulnerable systems
+- **Affected:** Sudo < 1.9.5p2
+- **Exploitation:** Proof-of-concept published
+
+### Medium: CVE-2022-24999 (Express.js qs)
+- **CVSS:** 6.5 (Medium)
+- **Type:** Prototype pollution
+- **Attack Vector:** Network
+- **Privileges:** None
+- **Impact:** Application DoS, potential RCE in specific scenarios
+- **Affected:** qs < 6.2.3
+- **Exploitation:** Requires specific application configuration
+
+## Risk Assessment Beyond CVSS
+
+Consider additional factors:
+
+1. **Exploitability:** Is exploit code publicly available?
+2. **Reachability:** Is vulnerable code actually executed in your app?
+3. **Environment:** Production vs development vs test
+4. **Data Sensitivity:** What data could be exposed?
+5. **Compensating Controls:** Are mitigations in place (WAF, network isolation)?
 
 ---
 
 # Vulnerability Remediation Strategies
+
+## Decision Tree
+
+```mermaid
+flowchart TD
+    A[Vulnerability Detected] --> B{Fix Available?}
+    B -->|Yes| C{Breaking Changes?}
+    B -->|No| D{Alternative Exists?}
+    C -->|No| E[Upgrade to Fixed Version]
+    C -->|Yes| F{Critical Severity?}
+    F -->|Yes| G[Upgrade Despite Breaking Changes]
+    F -->|No| H[Apply Patch or Wait]
+    D -->|Yes| I[Replace with Alternative]
+    D -->|No| J{Can Mitigate?}
+    J -->|Yes| K[Apply Mitigation]
+    J -->|No| L[Accept Risk with Justification]
+    
+    style A fill:#fff3e0
+    style E fill:#e8f5e9
+    style G fill:#ffebee
+    style L fill:#f3e5f5
+```
 
 ## 1. Upgrade to Fixed Version
 
 ```bash
 # Example: Upgrade vulnerable package
 npm update lodash@4.17.21
+
+# For specific vulnerability
+npm audit fix --force
+
+# Verify fix
+npm audit
 ```
 
-**Best when:** Fix is available and compatible
+**Best when:** 
+- Fix is available and compatible
+- No breaking changes
+- Low risk upgrade path
+
+**Considerations:**
+- Test thoroughly in staging
+- Review changelog for breaking changes
+- Update dependent code if needed
 
 ## 2. Apply Security Patch
 
 ```bash
-# Example: Apply backported patch
+# Example: Use patched version from security team
 npm install lodash@4.17.20-security-patch
+
+# Or use npm overrides (package.json)
+{
+  "overrides": {
+    "lodash": "4.17.21"
+  }
+}
 ```
 
-**Best when:** Major upgrade is risky, patch available
+**Best when:** 
+- Major upgrade is risky or blocked
+- Backported security patch available
+- Need time for full upgrade planning
 
 ## 3. Replace with Alternative
 
 ```bash
-# Example: Switch to alternative package
+# Example: Switch to actively maintained alternative
 npm uninstall moment
 npm install dayjs
+
+# Update code
+- import moment from 'moment'
++ import dayjs from 'dayjs'
 ```
 
-**Best when:** No fix available, alternative exists
+**Best when:** 
+- No fix available (abandoned package)
+- Better maintained alternative exists
+- Similar API available
+
+**Popular Replacements:**
+- `moment` → `dayjs` or `date-fns`
+- `request` → `axios` or `node-fetch`
+- `node-uuid` → `uuid`
 
 ## 4. Mitigate with Configuration
 
 ```yaml
 # Example: Disable vulnerable feature
+# Docker environment variable
+environment:
+  - ENABLE_XML_PARSING=false
+  - LOG4J_FORMAT_MSG_NO_LOOKUPS=true  # Log4Shell mitigation
+
+# Application config
 config:
-  enableXmlParsing: false
+  features:
+    xmlParsing: false
+    unsafeEval: false
 ```
 
-**Best when:** Vulnerability in unused feature
+**Best when:** 
+- Vulnerability in unused feature
+- Temporary mitigation while preparing upgrade
+- Feature can be disabled without impact
 
-## 5. Accept Risk (with justification)
+**Examples:**
+- Disable XML parsing if not needed
+- Remove unsafe eval/exec permissions
+- Restrict network access to vulnerable service
 
-- Document why vulnerability is not exploitable in your context
-- Set review date
-- Monitor for changes
+## 5. Accept Risk (with Documentation)
+
+```markdown
+# Risk Acceptance Record
+
+**CVE:** CVE-2023-12345
+**Component:** example-lib@1.2.3
+**CVSS:** 7.5 (High)
+**Decision:** Accept risk
+**Justification:**
+  - Vulnerability requires physical access to the server
+  - Production servers are in secure data center
+  - Vulnerable function is not used in our codebase
+**Mitigations:**
+  - Network isolation in place
+  - Regular access audits
+  - Monitoring for unusual activity
+**Review Date:** 2024-03-01
+**Approved By:** Security Team Lead
+```
+
+**Only when:**
+- Vulnerability not exploitable in your environment
+- Risk lower than upgrade risk
+- Compensating controls in place
+- Documented and approved by security team
 
 ---
 
@@ -932,33 +1156,121 @@ config:
 
 ## What is a Watch?
 
-Defines **what** to scan and monitor
+Defines **what** to scan and monitor — the scope of your security policy enforcement
 
-## Watch Configuration
+## Watch Configuration Examples
+
+### Example 1: Production Docker Images
 
 ```yaml
 Watch: "Production Docker Images"
+Description: "Monitor all production container images"
 Resources:
   - Repository: docker-prod
+    Type: Docker
     Filters:
       - path-pattern: "myorg/**"
       - tag-pattern: "v*.*.*"
+      - exclude-pattern: "*-dev"
+Policies:
+  - Production Security Policy
+  - License Compliance Policy
+Notifications:
+  - Email: devops-team@company.com
+  - Slack: #security-alerts
+```
+
+### Example 2: NPM Packages for Multiple Repos
+
+```yaml
+Watch: "NPM Libraries"
+Description: "All npm packages across repositories"
+Resources:
+  - Repository: npm-local
+  - Repository: npm-remote-cache
+  - Repository: npm-virtual
+Filters:
+  - Include: "@mycompany/**"
+  - Exclude: "**/test/**"
+  - Minimum Severity: High
 Policies:
   - Security Policy
-  - License Policy
+Actions:
+  - Scan on Upload: true
+  - Rescan Period: Daily
+```
+
+### Example 3: Build-Specific Watch
+
+```yaml
+Watch: "Critical Microservices Builds"
+Description: "Monitor builds from CI/CD"
+Resources:
+  - Build Name: "payment-service"
+  - Build Name: "auth-service"
+  - Build Name: "user-service"
+Policies:
+  - Zero Trust Security Policy
+Notifications:
+  - Webhook: https://company.com/api/security/alert
+  - PagerDuty: security-team
 ```
 
 ## Types of Resources
 
-- **Repositories:** Scan all artifacts in repo
-- **Builds:** Scan specific build outputs
-- **Release Bundles:** Scan promoted bundles
+- **Repositories:** Scan all artifacts in repository
+  - Filter by path patterns
+  - Filter by artifact properties
+  - Include/exclude patterns
+- **Builds:** Scan specific CI/CD build outputs
+  - By build name
+  - By build number range
+  - By build properties
+- **Release Bundles:** Scan promoted release bundles
+  - Production releases
+  - Staged promotions
+  - Version-specific bundles
+
+## Watch Filters
+
+### Path Patterns
+```yaml
+Filters:
+  - path-pattern: "com/mycompany/**"
+  - path-pattern: "docker-prod/*/production/*"
+  - exclude-pattern: "**/snapshots/**"
+```
+
+### Property Filters
+```yaml
+Filters:
+  - property: "build.name" equals "main-build"
+  - property: "environment" equals "production"
+  - property: "team" in ["platform", "security"]
+```
+
+### Severity Filters
+```yaml
+Filters:
+  - minimum-severity: High
+  - include-licenses: ["GPL", "AGPL"]
+  - exclude-cves: ["CVE-2020-1234"]  # Known false positive
+```
 
 ## Watch Triggers
 
-- **On Artifact Upload:** Immediate scan
-- **On Policy Change:** Re-scan existing artifacts
-- **Scheduled:** Daily/weekly scans
+- **On Artifact Upload:** Immediate scan when artifact is uploaded
+- **On Policy Change:** Re-scan existing artifacts when policy updated
+- **Scheduled Scans:** Daily/weekly/monthly re-scans
+- **Manual Trigger:** On-demand scans via UI or API
+
+## Best Practices
+
+1. **Start Broad, Refine Later:** Begin with repository-wide watches, add filters as needed
+2. **Separate Environments:** Different watches for dev/staging/production
+3. **Name Clearly:** Use descriptive names that indicate scope and purpose
+4. **Test First:** Create watches in test repos before applying to production
+5. **Monitor Performance:** Too many watches can impact Xray performance
 
 ---
 
@@ -968,39 +1280,278 @@ Policies:
 
 ```mermaid
 flowchart LR
-    P[Policy:<br/>Security Policy]
+    W[Watch:<br/>What to Scan]
+    P[Policy:<br/>Rules Collection]
     R1[Rule 1:<br/>Critical CVE]
     R2[Rule 2:<br/>High CVE]
+    R3[Rule 3:<br/>GPL License]
     A1[Action:<br/>Block Download]
     A2[Action:<br/>Warn]
+    A3[Action:<br/>Notify Legal]
     
+    W -->|applies| P
     P -->|contains| R1
     P -->|contains| R2
+    P -->|contains| R3
     R1 -->|triggers| A1
     R2 -->|triggers| A2
+    R3 -->|triggers| A3
     
+    style W fill:#e1f5ff
     style P fill:#fff3e0
     style R1 fill:#ffebee
     style R2 fill:#fff9c4
+    style R3 fill:#f3e5f5
 ```
 
-## Rule Components
+## Complete Policy Examples
 
-1. **Condition:** What to check (CVE score, license type)
-2. **Action:** What to do (block, warn, notify)
-3. **Grace Period:** Time before enforcement (optional)
-
-## Example Rule
+### Example 1: Production Security Policy
 
 ```yaml
-Rule: "Block Critical Vulnerabilities"
-Conditions:
-  - CVSS Score ≥ 9.0
-  - Security Issue
+Policy Name: "Production Security Policy"
+Description: "Strict security for production artifacts"
+Type: Security
+
+Rules:
+  - Name: "Block Critical Vulnerabilities"
+    Priority: 1
+    Criteria:
+      - Minimum Severity: Critical (9.0-10.0)
+      - Issue Type: Security
+    Actions:
+      - Block Download: true
+      - Block Build Promotion: true
+      - Fail Build: true
+      - Notifications:
+          - Email: security-team@company.com
+          - Slack: #security-critical
+          - PagerDuty: security-oncall
+      - Create Jira: 
+          Project: SEC
+          Issue Type: Bug
+          Priority: Critical
+    Grace Period: 0 days
+  
+  - Name: "Warn on High Vulnerabilities"
+    Priority: 2
+    Criteria:
+      - Minimum Severity: High (7.0-8.9)
+      - Issue Type: Security
+    Actions:
+      - Block Download: false
+      - Generate Warning: true
+      - Notifications:
+          - Email: dev-team@company.com
+          - Slack: #security-alerts
+    Grace Period: 7 days
+  
+  - Name: "Track Medium Vulnerabilities"
+    Priority: 3
+    Criteria:
+      - Minimum Severity: Medium (4.0-6.9)
+      - Issue Type: Security
+    Actions:
+      - Block Download: false
+      - Generate Info: true
+      - Create Report: true
+    Grace Period: 30 days
+```
+
+### Example 2: License Compliance Policy
+
+```yaml
+Policy Name: "License Compliance Policy"
+Description: "Ensure license compliance for commercial use"
+Type: License
+
+Rules:
+  - Name: "Block Copyleft Licenses"
+    Priority: 1
+    Criteria:
+      License Types:
+        - GPL
+        - AGPL
+        - GPL-2.0
+        - GPL-3.0
+    Actions:
+      - Block Download: true
+      - Notifications:
+          - Email: legal@company.com
+          - Slack: #legal-compliance
+      - Create Jira:
+          Project: LEGAL
+          Issue Type: Compliance Issue
+  
+  - Name: "Warn on Weak Copyleft"
+    Priority: 2
+    Criteria:
+      License Types:
+        - LGPL
+        - MPL
+        - EPL
+    Actions:
+      - Generate Warning: true
+      - Require Review: true
+      - Notifications:
+          - Email: architecture@company.com
+  
+  - Name: "Allow Permissive Licenses"
+    Priority: 3
+    Criteria:
+      License Types:
+        - MIT
+        - Apache-2.0
+        - BSD-3-Clause
+        - ISC
+    Actions:
+      - Allow: true
+      - Track Usage: true
+```
+
+### Example 3: Custom Operational Security Policy
+
+```yaml
+Policy Name: "Operational Security Policy"
+Description: "Custom security rules for operations"
+Type: Operational Security
+
+Rules:
+  - Name: "Block Unmaintained Packages"
+    Priority: 1
+    Criteria:
+      - No Updates in Last: 365 days
+      - Has Known Vulnerabilities: true
+    Actions:
+      - Block Download: true
+      - Require Architecture Review: true
+  
+  - Name: "Enforce Base Image Standards"
+    Priority: 2
+    Criteria:
+      - Resource Type: Docker
+      - Base Image Not In:
+          - "alpine:latest"
+          - "ubuntu:20.04"
+          - "node:20-alpine"
+    Actions:
+      - Generate Warning: true
+      - Message: "Use approved base images only"
+  
+  - Name: "Require SBOM"
+    Priority: 3
+    Criteria:
+      - Deployment Target: Production
+      - SBOM Present: false
+    Actions:
+      - Block Promotion: true
+      - Message: "SBOM required for production deployment"
+```
+
+## Rule Components Explained
+
+### 1. Criteria (Conditions)
+
+**Security-Based:**
+```yaml
+Criteria:
+  - CVE Score: >= 7.0
+  - CVSS v3 Vector: AV:N  # Network attack vector
+  - Has Exploit Available: true
+  - Fixed Version Available: true
+  - Component Age: < 30 days  # Recently discovered
+```
+
+**License-Based:**
+```yaml
+Criteria:
+  - License Type: GPL
+  - License Category: Copyleft
+  - Unknown Licenses: true
+  - Multiple Licenses: true
+```
+
+**Operational:**
+```yaml
+Criteria:
+  - Component Age: > 730 days
+  - Last Updated: > 365 days ago
+  - Deprecated: true
+  - End of Life: true
+```
+
+### 2. Actions
+
+**Blocking Actions:**
+- **Block Download:** Prevent artifact download (HTTP 403)
+- **Block Promotion:** Prevent promotion to next stage
+- **Fail Build:** Fail CI/CD pipeline
+
+**Notification Actions:**
+- **Email:** Send to specified addresses
+- **Slack/Teams:** Post to channels
+- **Webhook:** Call custom API
+- **PagerDuty:** Create incident
+- **Jira:** Create ticket automatically
+
+**Informational:**
+- **Generate Warning:** Show in UI
+- **Create Report:** Generate compliance report
+- **Audit Log:** Record for compliance
+
+### 3. Grace Period
+
+Time before policy enforcement takes effect:
+
+```yaml
+Grace Period: 14 days
+# Allows time for remediation before blocking
+# Useful for rolling out new policies
+```
+
+## Advanced Policy Patterns
+
+### Multi-Environment Strategy
+
+```yaml
+# Development - Lenient
+Policy: "Dev Security"
+Rules:
+  - Severity >= High → Warn only
+  - All licenses allowed
+  - Grace Period: 90 days
+
+# Staging - Moderate
+Policy: "Staging Security"
+Rules:
+  - Severity >= High → Block
+  - Severity >= Medium → Warn
+  - GPL/AGPL → Warn
+  - Grace Period: 14 days
+
+# Production - Strict
+Policy: "Production Security"
+Rules:
+  - Severity >= Critical → Block immediately
+  - Severity >= High → Block
+  - GPL/AGPL/LGPL → Block
+  - Unknown licenses → Block
+  - Grace Period: 0 days
+```
+
+### Conditional Rules
+
+```yaml
+Rule: "Critical Components Only"
+Criteria:
+  - Severity: Critical
+  - AND Component In:
+      - "openssl"
+      - "openssh"
+      - "kernel"
 Actions:
-  - Block Download
-  - Send Notification
-  - Create Jira Ticket
+  - Block Download: true
+  - Emergency Alert: true
 ```
 
 ---
@@ -1009,37 +1560,250 @@ Actions:
 
 ## Why Track Licenses?
 
-- **Legal Risk:** Some licenses require source disclosure
-- **Commercial Restrictions:** GPL, AGPL incompatible with proprietary software
-- **Compliance:** Corporate policies, customer requirements
+### Legal Risks
+- **Source Disclosure:** Some licenses require publishing your source code
+- **Copyleft Effect:** Viral licenses can affect entire codebase
+- **Patent Claims:** Some licenses have implicit patent grants
+- **Liability:** Violation can lead to lawsuits and damages
+
+### Business Risks
+- **Commercial Restrictions:** GPL/AGPL incompatible with proprietary software
+- **Customer Requirements:** Government/enterprise contracts often restrict licenses
+- **M&A Due Diligence:** License issues can derail acquisitions
+- **Compliance Audits:** Regulatory requirements (GDPR, export controls)
 
 ## License Categories
 
-| License | Type | Risk | Commercial Use |
-|---------|------|------|----------------|
-| MIT, Apache 2.0 | Permissive | Low | Yes |
-| LGPL | Weak Copyleft | Medium | Conditions apply |
-| GPL, AGPL | Strong Copyleft | High | Restricted |
-| Proprietary | Custom | Varies | Review terms |
+| License | Type | Risk | Commercial Use | Requirements |
+|---------|------|------|----------------|--------------|
+| MIT, BSD, Apache 2.0 | Permissive | Low | ✅ Yes | Attribution only |
+| LGPL | Weak Copyleft | Medium | ⚠️ Conditions | Dynamic linking OK, static linking shares code |
+| GPL v2/v3 | Strong Copyleft | High | ❌ Restricted | Must share all derivative code |
+| AGPL | Network Copyleft | Very High | ❌ Restricted | Must share code even for SaaS |
+| Proprietary/Custom | Varies | Varies | ❓ Review | Read terms carefully |
+| Unknown/Unidentified | Unknown | Very High | ❌ Block | Cannot assess risk |
+
+## Common Licenses Explained
+
+### Permissive Licenses (Low Risk)
+
+**MIT License**
+- ✅ Use commercially
+- ✅ Modify freely
+- ✅ Sublicense
+- ⚠️ Must include license text
+- ⚠️ Must include copyright notice
+
+**Apache 2.0**
+- Same as MIT, plus:
+- ✅ Explicit patent grant
+- ✅ Protection against patent trolling
+- ⚠️ Must state modifications
+
+### Copyleft Licenses (High Risk)
+
+**GPL v3**
+- ✅ Use internally
+- ❌ Cannot distribute proprietary derivative
+- ❌ Entire work becomes GPL
+- ⚠️ Patent retaliation clause
+- ⚠️ Anti-tivoization clause
+
+**AGPL**
+- Same as GPL v3, plus:
+- ❌ SaaS/web service = distribution
+- ❌ Must share code if accessible over network
 
 ## Xray License Scanning
 
+### Detection Methods
+
+1. **License Files:** LICENSE, COPYING files
+2. **Package Metadata:** package.json, pom.xml
+3. **Source Code Headers:** Copyright notices in files
+4. **SPDX Identifiers:** Standardized license IDs
+5. **Heuristic Analysis:** License text pattern matching
+
+### Complete Policy Example
+
 ```yaml
-Policy: "License Compliance"
-Rule: "Block GPL in Production"
-Conditions:
-  - License Type: GPL
-  - License Type: AGPL
-Actions:
-  - Block Download
-  - Notify Legal Team
+Policy Name: "Enterprise License Compliance"
+Description: "Ensure all dependencies meet commercial use requirements"
+
+Rules:
+  # Blocked Licenses
+  - Name: "Block Strong Copyleft"
+    Priority: 1
+    Criteria:
+      License Types:
+        - GPL-2.0
+        - GPL-3.0
+        - AGPL-3.0
+        - SSPL  # Server Side Public License
+    Actions:
+      - Block Download: true
+      - Block Build: true
+      - Notifications:
+          - Email: legal@company.com
+          - Slack: #license-violations
+      - Create Jira:
+          Project: LEGAL
+          Priority: Blocker
+    Grace Period: 0 days
+  
+  # Review Required
+  - Name: "Review Weak Copyleft"
+    Priority: 2
+    Criteria:
+      License Types:
+        - LGPL-2.1
+        - LGPL-3.0
+        - MPL-2.0  # Mozilla Public License
+        - EPL-2.0  # Eclipse Public License
+    Actions:
+      - Generate Warning: true
+      - Require Manual Review: true
+      - Notifications:
+          - Email: architecture-review@company.com
+    Grace Period: 14 days
+  
+  # Unknown - Block by Default
+  - Name: "Block Unknown Licenses"
+    Priority: 1
+    Criteria:
+      - Unknown License: true
+      - No License Found: true
+    Actions:
+      - Block Download: true
+      - Message: "All dependencies must have identifiable licenses"
+    Grace Period: 0 days
+  
+  # Commercial/Proprietary - Review
+  - Name: "Review Commercial Licenses"
+    Priority: 2
+    Criteria:
+      License Categories:
+        - Commercial
+        - Proprietary
+    Actions:
+      - Require Review: true
+      - Check License Agreement: true
+  
+  # Allowed Licenses
+  - Name: "Allow Permissive Licenses"
+    Priority: 3
+    Criteria:
+      License Types:
+        - MIT
+        - BSD-2-Clause
+        - BSD-3-Clause
+        - Apache-2.0
+        - ISC
+        - Unlicense
+    Actions:
+      - Allow: true
+      - Track Usage: true
+```
+
+## License Compliance Workflow
+
+```mermaid
+flowchart TD
+    A[New Dependency] --> B[Xray Scans License]
+    B --> C{License Detected?}
+    C -->|No| D[Block - Unknown License]
+    C -->|Yes| E{License Type?}
+    E -->|Permissive| F[✅ Approved - Auto Allow]
+    E -->|Weak Copyleft| G[⚠️ Review Required]
+    E -->|Strong Copyleft| H[❌ Blocked]
+    G --> I{Review Decision}
+    I -->|Approve| J[Add to Whitelist]
+    I -->|Reject| K[Find Alternative]
+    H --> K
+    D --> K
+    K --> A
+    
+    style F fill:#e8f5e9
+    style G fill:#fff9c4
+    style H fill:#ffebee
+    style D fill:#ffebee
 ```
 
 ## Best Practices
 
-- Define acceptable licenses early
-- Review dependencies before adding
-- Regular license audits
+### 1. Define Policy Early
+```yaml
+# Document acceptable licenses before project starts
+Acceptable Licenses:
+  - MIT
+  - Apache-2.0
+  - BSD-3-Clause
+Review Required:
+  - LGPL (with legal approval)
+Blocked:
+  - GPL
+  - AGPL
+  - Unknown
+```
+
+### 2. Pre-Approval Process
+- Maintain whitelist of approved dependencies
+- Legal review before adding new licenses
+- Document approval decision and reasoning
+
+### 3. Automated Scanning
+- Scan every build
+- Block CI/CD on violations
+- No manual license checks
+
+### 4. Regular Audits
+- Quarterly license compliance review
+- Track license changes in updates
+- Monitor legal landscape changes
+
+### 5. Developer Education
+- Train developers on license implications
+- Provide license decision tree
+- Make compliance data visible
+
+## Handling License Violations
+
+### Discovered Violation
+
+1. **Immediate:** Stop using the dependency
+2. **Short-term:** Find compliant alternative
+3. **Document:** Record violation and remediation
+4. **Prevent:** Update policies to catch similar issues
+
+### Alternative Approaches
+
+```bash
+# Example: Replace GPL'd package
+# Before (GPL violation)
+npm install some-gpl-package
+
+# After (MIT license alternative)
+npm install compliant-alternative
+```
+
+### Exception Process
+
+```markdown
+# License Exception Request
+
+**Package:** readline-sync
+**License:** GPL-3.0
+**Justification:** 
+  - Used only in development/testing
+  - Not distributed in production artifact
+  - Interactive CLI tool for developers only
+**Mitigation:**
+  - Listed in devDependencies
+  - Not included in production build
+  - Documented as dev-only
+**Approved By:** Legal Team, CTO
+**Review Date:** Annually
+```
 
 ---
 
