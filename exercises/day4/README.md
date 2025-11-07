@@ -53,9 +53,11 @@ Configure Xray policies to enforce security and compliance rules
 
 - `docker-compose.yml` - Quick setup for SonarQube
 - `sonar-project.properties.template` - Configuration template for SonarQube scanner
-- `Dockerfile` - Example Dockerfile for nodejs_server
+- `Dockerfile` - Example Dockerfile (copy to nodejs_server directory or use as reference)
 - `github-workflow-sonar.yml` - GitHub Actions workflow template
 - `INSTRUCTOR_GUIDE.md` - Detailed solutions and teaching notes
+
+**Note:** The Dockerfile has been copied to `exercises/nodejs_server/` for direct use in exercises 4-5.
 
 ## Prerequisites
 
@@ -68,6 +70,7 @@ Configure Xray policies to enforce security and compliance rules
 ### For Exercise 1-2
 - Docker Desktop with at least 4GB RAM allocated
 - Port 9000 available (not used by other services)
+- **Note:** nodejs_server directory should exist at `exercises/nodejs_server/`
 
 ### For Exercise 3
 - GitHub account

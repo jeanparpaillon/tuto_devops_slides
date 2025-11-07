@@ -29,6 +29,9 @@ jobs:
 
       - name: Run tests with coverage
         run: npm test -- --coverage
+        # continue-on-error allows the workflow to proceed even if tests fail
+        # This is useful for training to see SonarQube analysis even with failing tests
+        # In production, remove this line to fail the build on test failures
         continue-on-error: true
 
       - name: SonarQube Scan

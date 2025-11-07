@@ -1362,6 +1362,13 @@ docker rmi myapp:tag
 - **SonarQube:** admin / admin (change on first login)
 - **Artifactory:** (provided by instructor)
 
+**⚠️ SECURITY WARNING:** Default credentials shown here are for training purposes only.
+In production environments:
+- Always change default credentials immediately
+- Use strong, unique passwords
+- Implement proper access control and authentication
+- Never commit credentials to version control
+
 ---
 
 **End of Instructor Guide**
