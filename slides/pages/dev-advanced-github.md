@@ -1,8 +1,11 @@
 ---
 layout: section
+epoch: d5am
 ---
 
 # Day 5 — Advanced GitHub usage
+
+**Duration**: 3.5 hours (Morning Session)
 
 ## Objectives
 
@@ -13,6 +16,8 @@ layout: section
 ---
 
 # Day 5 — Building on the Week
+
+**Time: 15 minutes**
 
 **Day 1**: Git & GitHub basics → branches, PRs
 
@@ -46,6 +51,8 @@ graph TB
 
 # GitHub Actions — advanced triggers
 
+**Time: 45 minutes**
+
 **Recall from Day 2**: We created workflows with `on: push`
 
 **Today**: We expand to sophisticated triggers
@@ -68,6 +75,8 @@ on:
 
 # Reusable and composite workflows
 
+**Time: 45 minutes**
+
 - Reusable workflows with workflow_call
 - Composite actions to share steps
 
@@ -84,7 +93,15 @@ jobs:
 
 ---
 
+# ☕ Break
+
+**Time: 15 minutes**
+
+---
+
 # Environments and approvals
+
+**Time: 45 minutes**
 
 - Protected environments (dev, staging, prod)
 - Required reviewers and wait timers
@@ -93,6 +110,8 @@ jobs:
 ---
 
 # Caching and artifacts
+
+**Time: 45 minutes**
 
 **Building on Day 3**: We learned about artifact management with Artifactory
 
@@ -106,6 +125,8 @@ jobs:
 
 # GitHub-native security
 
+**Time: 45 minutes**
+
 **Building on Day 4**: We learned SonarQube and Xray
 
 **Today**: GitHub's integrated security features
@@ -116,8 +137,19 @@ jobs:
 - Security advisories
 
 ---
+layout: section
+epoch: d5pm
+---
+
+# Afternoon Session
+
+**Duration**: 3.5 hours
+
+---
 
 # Complete workflow example
+
+**Time: 90 minutes**
 
 Bringing together all 5 days:
 
@@ -200,7 +232,15 @@ jobs:
 
 ---
 
+# ☕ Break
+
+**Time: 15 minutes**
+
+---
+
 # Project management with GitHub
+
+**Time: 30 minutes**
 
 - Issues, labels, milestones
 - Projects (tables/boards), workflows automation
@@ -209,7 +249,22 @@ jobs:
 
 ---
 
+# Best Practices & Wrap-up
+
+**Time: 30 minutes**
+
+## Key Takeaways
+
+- Use advanced triggers to automate workflows
+- Leverage reusable workflows for consistency
+- Implement proper security scanning
+- Use GitHub Projects for team coordination
+
+---
+
 # Practical exercises
+
+**Time: 20 minutes**
 
 - Add scheduled maintenance workflow
 - Create reusable workflow for testing
