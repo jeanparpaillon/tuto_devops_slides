@@ -76,7 +76,7 @@ Send these prerequisites before class:
 
 **Objectives**: Build Docker images in CI and push to GitHub Container Registry.
 
-**Objectives**: This is the most complex exercise - allow extra time.
+**Note**: This is the most complex exercise - allow extra time.
 
 **Instructor Actions**:
 1. Show how to enable GHCR (GitHub Packages)
