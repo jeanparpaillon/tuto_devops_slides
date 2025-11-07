@@ -6,6 +6,51 @@ epoch: d3am
 # Artifactory
 
 ---
+layout: section
+---
+
+# Recap: What We Built on Day 2
+
+## Building on Our Foundation
+
+---
+
+# Day 2 Achievements
+
+## What we accomplished together
+
+✅ **Containerized a Node.js application**
+- Created a multi-stage Dockerfile
+- Optimized image size with Alpine Linux
+- Built the `nodejs_server` application
+
+✅ **Set up GitHub Actions CI/CD**
+- Automated testing on every push
+- Built Docker images automatically
+- Pushed images to **GitHub Container Registry (GHCR)**
+
+✅ **Published our first container image**
+- Tagged with commit SHA and `latest`
+- Made it available via `ghcr.io`
+
+---
+
+# Today's Challenge
+
+## From Development to Production-Ready Artifact Management
+
+**Day 2 got us started**, but in enterprise environments we need:
+
+- 🏢 **Centralized control** over all artifacts (not just Docker images)
+- 🔒 **Security scanning** and vulnerability management
+- 📦 **Multiple artifact types**: npm packages, Docker images, JARs, etc.
+- 🌐 **Offline capability** - not dependent on external services
+- 📊 **Governance and compliance** - track what goes to production
+- ⚡ **Performance** - caching and faster builds
+
+**Today**: We'll learn how **JFrog Artifactory** solves these challenges and integrate it with our Day 2 workflow.
+
+---
 layout: two-cols-header
 ---
 
@@ -127,6 +172,84 @@ flowchart TB
 - Centralized security scanning
 - Bandwidth optimization
 - Consistent across all environments
+
+---
+layout: two-cols-header
+---
+
+# GHCR vs Artifactory: When to Use Each?
+
+::left::
+
+## GitHub Container Registry (Day 2)
+
+**✅ Great for:**
+- Quick setup (built into GitHub)
+- Open source projects
+- Public container images
+- Simple CI/CD with GitHub Actions
+- Free for public repositories
+
+**📦 What it handles:**
+- Container images (Docker, OCI)
+- npm packages
+- Maven, NuGet, RubyGems packages
+
+**💡 We used GHCR on Day 2** because it's perfect for getting started quickly!
+
+::right::
+
+## JFrog Artifactory (Today)
+
+**✅ Enterprise-grade for:**
+- Centralized artifact management
+- **All package types** in one place
+- Advanced security scanning
+- License compliance
+- Fine-grained access control
+- High availability & performance
+- Offline/air-gapped environments
+
+**📦 Supports 30+ package types:**
+- Docker, npm, Maven, NuGet, PyPI, Go modules, Helm charts, and more!
+
+**🏢 Use in production** for governance, security, and control.
+
+---
+
+# Migration Path: GHCR → Artifactory
+
+## Building on Day 2's Work
+
+**What we'll do today:**
+
+1. **Keep GHCR** for open source/public images (it's free!)
+2. **Add Artifactory** for:
+   - Private/internal artifacts
+   - Caching external dependencies
+   - Security scanning before production
+   - Multi-format artifact management
+
+**Our updated workflow:**
+
+```mermaid
+flowchart LR
+  DEV[Developer] -->|npm install| ART[Artifactory<br/>npm cache]
+  DEV -->|docker pull| ART
+  
+  CI[GitHub Actions] -->|Build & Test| CI
+  CI -->|Push public images| GHCR[GitHub Container<br/>Registry]
+  CI -->|Push internal artifacts| ART
+  
+  ART -->|Scan| SCAN[Security<br/>Scan]
+  SCAN -->|Approved| PROD[Production]
+  
+  style ART fill:#c8e6c9,stroke:#43a047,stroke-width:3px
+  style GHCR fill:#bbdefb,stroke:#1e88e5,stroke-width:2px
+  style PROD fill:#fff9c4,stroke:#f9a825,stroke-width:2px
+```
+
+**🎯 Best practice**: Use both! GHCR for simplicity, Artifactory for enterprise needs.
 
 ---
 layout: section
@@ -1066,27 +1189,38 @@ docker pull localhost:8082/docker/nginx:alpine
 # Exercise 5: Push Docker Image to Artifactory
 
 ## Objective
-Build and push a Docker image from Day 2's Node.js app
+Build and push the **nodejs_server** Docker image from Day 2 to Artifactory
 
 ## Steps (30 minutes)
 
-**1. Use your Node.js app from Day 2 (or create a simple one):**
-
-```dockerfile
-# Dockerfile
-FROM node:18-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-EXPOSE 3000
-CMD ["npm", "start"]
-```
-
-**2. Build the image:**
+**1. Navigate to your nodejs_server from Day 2:**
 
 ```bash
-docker build -t my-node-app:1.0.0 .
+cd exercises/nodejs_server
+# This is the same app we containerized on Day 2!
+```
+
+**2. Review the Dockerfile from Day 2:**
+
+```dockerfile
+# Dockerfile (multi-stage build from Day 2)
+FROM node:20-alpine AS deps
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+FROM node:20-alpine AS runner
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+EXPOSE 3000
+CMD ["node", "server.js"]
+```
+
+**3. Build the image (same as Day 2):**
+
+```bash
+docker build -t nodejs-server:1.0.0 .
 ```
 
 ---
@@ -1095,62 +1229,135 @@ docker build -t my-node-app:1.0.0 .
 
 ## Steps (continued)
 
-**3. Tag for Artifactory:**
+**4. Tag for Artifactory (instead of GHCR):**
 
 ```bash
-docker tag my-node-app:1.0.0 \
-  localhost:8082/docker-local/my-node-app:1.0.0
+# On Day 2, we tagged for GHCR like this:
+# docker tag nodejs-server:1.0.0 ghcr.io/org/nodejs-server:1.0.0
 
-docker tag my-node-app:1.0.0 \
-  localhost:8082/docker-local/my-node-app:latest
+# Today, we tag for Artifactory:
+docker tag nodejs-server:1.0.0 \
+  localhost:8082/docker-local/nodejs-server:1.0.0
+
+docker tag nodejs-server:1.0.0 \
+  localhost:8082/docker-local/nodejs-server:latest
 ```
 
-**4. Push to Artifactory:**
+**5. Push to Artifactory:**
 
 ```bash
-docker push localhost:8082/docker-local/my-node-app:1.0.0
-docker push localhost:8082/docker-local/my-node-app:latest
+# On Day 2: docker push ghcr.io/org/nodejs-server:1.0.0
+# Today: push to Artifactory instead
+docker push localhost:8082/docker-local/nodejs-server:1.0.0
+docker push localhost:8082/docker-local/nodejs-server:latest
 ```
 
-**5. Verify in Artifactory:**
+**6. Verify in Artifactory:**
 
-- Go to Artifacts → docker-local → my-node-app
-- View image layers, manifest
+- Go to Artifacts → docker-local → nodejs-server
+- View image layers, manifest (same layers as Day 2!)
 - Check image size and checksums
+- Notice: Same image, different registry
 
 **Expected outcome:**
-- Docker image pushed to docker-local
-- Multiple tags visible
-- Image can be pulled by others
+- Same Docker image from Day 2, now in Artifactory
+- Multiple tags visible (1.0.0 and latest)
+- Image can be pulled by team members from Artifactory
+- Ready for security scanning on Day 4!
+
+**💡 Comparison:**
+- **Day 2**: `docker push ghcr.io/org/nodejs-server:1.0.0` (public GitHub registry)
+- **Day 3**: `docker push localhost:8082/docker-local/nodejs-server:1.0.0` (private Artifactory)
 
 ---
 
-# Exercise 6: Update GitHub Actions Workflow
+# Exercise 6: Migrate Day 2 Workflow to Artifactory
 
 ## Objective
-Integrate Artifactory with your CI/CD from Day 2
+Enhance your Day 2 CI/CD workflow to use Artifactory alongside GHCR
 
-## Steps (40 minutes)
+## Recap: Day 2 Workflow
+
+**What we had on Day 2:**
+- ✅ Automated tests with npm
+- ✅ Docker build and push to **GHCR**
+- ✅ Tagged with commit SHA and latest
+
+**What we'll add today:**
+- 📦 Use Artifactory for **npm dependencies** (faster, cached)
+- 🔒 Push Docker images to **Artifactory** for internal use
+- 🌐 Keep GHCR for public/open source images (optional)
+
+---
+
+# Exercise 6: Setup (Steps 1-2)
+
+## Steps (40 minutes total)
 
 **1. Add Artifactory secrets to GitHub:**
 
-- Go to your repository → Settings → Secrets
+- Go to your repository → Settings → Secrets and variables → Actions
 - Add `ARTIFACTORY_URL`: `http://your-artifactory-server:8082`
-- Add `ARTIFACTORY_USER`: `admin`
+- Add `ARTIFACTORY_USER`: `admin`  
 - Add `ARTIFACTORY_PASSWORD`: your password
+- Add `ARTIFACTORY_TOKEN`: your API token (from Artifactory UI)
 
-**2. Update your workflow from Day 2:**
+**2. Review your Day 2 workflow:**
 
 ```yaml
-# .github/workflows/build.yml
-name: Build and Publish
+# Day 2 workflow (.github/workflows/ci.yml)
+name: CI/CD
 
 on:
   push:
     branches: [main]
 
 jobs:
-  build:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm test
+
+  docker:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
+```
+
+---
+
+# Exercise 6: Enhanced Workflow with Artifactory
+
+## Updated workflow with Artifactory integration
+
+```yaml
+# .github/workflows/ci.yml (Enhanced version)
+name: CI/CD with Artifactory
+
+on:
+  push:
+    branches: [main, develop]
+
+jobs:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -1158,29 +1365,48 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-```
-
----
-
-# Exercise 6: GitHub Actions Integration (cont.)
-
-## Workflow (continued)
-
-```yaml
-      # Configure npm to use Artifactory
+          node-version: '20'
+      
+      # NEW: Configure npm to use Artifactory for dependencies
       - name: Setup Artifactory npm registry
         run: |
           echo "registry=${{ secrets.ARTIFACTORY_URL }}/artifactory/api/npm/npm/" > .npmrc
           echo "//${{ secrets.ARTIFACTORY_URL }}/artifactory/api/npm/npm/:_authToken=${{ secrets.ARTIFACTORY_TOKEN }}" >> .npmrc
       
+      # npm ci now pulls from Artifactory (faster, cached!)
       - name: Install dependencies via Artifactory
         run: npm ci
       
       - name: Run tests
         run: npm test
+```
+
+---
+
+# Exercise 6: Docker Build with Dual Registry Push
+
+## Push to both GHCR (public) and Artifactory (internal)
+
+```yaml
+  docker:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
       
-      # Build Docker image and push to Artifactory
+      # Login to GHCR (keep this from Day 2 for public images)
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      # NEW: Also login to Artifactory
       - name: Login to Artifactory Docker
         uses: docker/login-action@v3
         with:
@@ -1188,47 +1414,87 @@ jobs:
           username: ${{ secrets.ARTIFACTORY_USER }}
           password: ${{ secrets.ARTIFACTORY_PASSWORD }}
       
-      - name: Build and push Docker image
+      # Build once, push to both registries
+      - name: Build and push to both registries
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           tags: |
-            ${{ secrets.ARTIFACTORY_URL }}/docker-local/my-node-app:${{ github.sha }}
-            ${{ secrets.ARTIFACTORY_URL }}/docker-local/my-node-app:latest
+            ghcr.io/${{ github.repository }}:${{ github.sha }}
+            ghcr.io/${{ github.repository }}:latest
+            ${{ secrets.ARTIFACTORY_URL }}/docker-local/nodejs-server:${{ github.sha }}
+            ${{ secrets.ARTIFACTORY_URL }}/docker-local/nodejs-server:latest
 ```
+
+**💡 Why push to both?**
+- **GHCR**: Free, public access, great for open source
+- **Artifactory**: Internal use, security scanning, production deployment
 
 ---
 
-# Exercise 6: GitHub Actions Integration (cont.)
+# Exercise 6: Verification Steps
 
-## Steps (continued)
+## Testing the enhanced workflow
 
-**3. Test the workflow:**
+**3. Commit and push the changes:**
 
 ```bash
-git add .github/workflows/build.yml
-git commit -m "Add Artifactory integration"
+git add .github/workflows/ci.yml
+git commit -m "Integrate Artifactory with Day 2 CI/CD workflow"
 git push
 ```
 
-**4. Monitor the workflow:**
+**4. Monitor the workflow run:**
 
-- Go to GitHub → Actions
-- Watch the build
-- Verify npm packages pulled from Artifactory
-- Verify Docker image pushed to Artifactory
+- Go to GitHub → Actions tab
+- Click on the running workflow
+- Watch each step complete:
+  - ✅ npm dependencies pulled from Artifactory (faster!)
+  - ✅ Tests run successfully
+  - ✅ Docker image pushed to both registries
 
-**5. Check Artifactory:**
+**5. Verify in GitHub:**
 
-- See build info in Artifactory UI
-- View Docker image with git commit SHA tag
-- Check download statistics
+- Go to your repository main page
+- Check **Packages** section → Image appears in GHCR with commit SHA tag
 
-**Expected outcome:**
-- CI/CD uses Artifactory for dependencies
-- Build artifacts published to Artifactory
-- Full traceability from commit to artifact
+**6. Verify in Artifactory:**
+
+- Open Artifactory UI → Artifacts → npm-remote
+  - See cached npm dependencies (express, etc.)
+- Navigate to docker-local → nodejs-server
+  - View your image with tags: latest and commit SHA
+  - Check image layers and manifest
+- Go to Builds tab (if build info integration enabled)
+  - See build information linked to git commit
+
+---
+
+# Exercise 6: What We Accomplished
+
+## Expected outcomes and benefits
+
+**✅ Migration complete! You've successfully:**
+
+1. **Enhanced your Day 2 workflow** with enterprise-grade artifact management
+2. **Integrated Artifactory** for npm and Docker without breaking existing setup
+3. **Kept GHCR** for public images (best of both worlds!)
+4. **Improved build speed** - npm dependencies now cached in Artifactory
+5. **Added security scanning capability** - ready for Day 4!
+6. **Enabled full traceability** - from git commit to production artifact
+
+**📊 Compare the results:**
+
+| Aspect | Day 2 (GHCR only) | Day 3 (with Artifactory) |
+|--------|-------------------|--------------------------|
+| npm dependencies | Downloaded from npmjs.org every time | Cached in Artifactory, faster builds |
+| Docker images | GHCR only | Both GHCR (public) + Artifactory (internal) |
+| Security scanning | None | Ready for Xray integration (Day 4) |
+| Offline capability | No | Yes, cached artifacts work offline |
+| Governance | Limited | Full control over artifacts |
+
+**🎯 Next**: On Day 4, we'll add security scanning with Xray!
 
 ---
 
