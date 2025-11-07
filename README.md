@@ -63,7 +63,7 @@ Day 5
 
 # DevOps for operators
 
-Duration : 5 Days
+## Full Program (5 Days)
 
 Day 1
     - DevOps basics
@@ -94,27 +94,38 @@ Day 2
 
 Day 3
     - Ansible basics
-        - playbooks
-        - role
-    - Ansible simple playbook
-        - Exercise: ensure packages, write a file, ...
-    - Ansible galaxy
-        - Basics
-        - Exercise: use kubespray collection
-    - Testing Ansible
+        - Inventory, playbooks, roles
+        - Idempotency and modules
+        - Exercise: simple playbook (ensure packages, write a file)
+    - Terraform to Ansible integration
+        - Using Terraform outputs as Ansible inventory
+        - Dynamic inventory management
+        - Exercise: generate and use inventory from Terraform
+    - Kubernetes setup with Ansible
+        - Introduction to Kubespray collection
+        - Ansible Galaxy and requirements.yml
+        - Exercise: deploy Kubernetes cluster on terraform infrastructure
+        - Verify cluster: kubectl get nodes, CNI installation (Calico/Flannel)
 
 Day 4
-    - Kubernetes
-        - arch
-        - pods
-        - containers
-        - SDA, flannel, calico
-        - storage, ...
     - Deploy simple application
-        - Exercise
-    - Deploy complex application
-        - Web, DB, ...
-        - Exercise
+        - Understanding Kubernetes deployments and services
+        - Service types: ClusterIP, NodePort, LoadBalancer
+        - Exercise: deploy simple web app (nginx or nodejs)
+        - Verify pods and internal access
+    - Deploy application with external access
+        - Ingress controllers (nginx-ingress or traefik)
+        - Ingress resources and path/host-based routing
+        - Exercise: configure ingress for external access
+    - Load balancing and scaling
+        - Service load balancing in Kubernetes
+        - Manual scaling: kubectl scale
+        - Horizontal Pod Autoscaler (HPA)
+        - Exercise: scale deployments and test load distribution
+    - DNS and service discovery
+        - Kubernetes internal DNS (CoreDNS)
+        - Service discovery mechanisms
+        - Exercise: test DNS resolution and service discovery
         
 Day 5
 One or several of following topics
