@@ -1,0 +1,76 @@
+{
+  "name": "license-compliance-policy",
+  "description": "License compliance policy - blocks GPL and restrictive licenses",
+  "type": "license",
+  "rules": [
+    {
+      "name": "block-gpl-licenses",
+      "priority": 1,
+      "criteria": {
+        "banned_licenses": [
+          "GPL-2.0",
+          "GPL-3.0",
+          "AGPL-1.0",
+          "AGPL-3.0"
+        ]
+      },
+      "actions": {
+        "block_download": true,
+        "block_deployment": true,
+        "fail_build": true,
+        "notify": {
+          "emails": ["legal-team@example.com"]
+        }
+      }
+    },
+    {
+      "name": "warn-lgpl-licenses",
+      "priority": 2,
+      "criteria": {
+        "allowed_with_warning": [
+          "LGPL-2.0",
+          "LGPL-2.1",
+          "LGPL-3.0"
+        ]
+      },
+      "actions": {
+        "block_download": false,
+        "block_deployment": false,
+        "fail_build": false,
+        "notify": {
+          "emails": ["dev-team@example.com"]
+        },
+        "create_ticket": {
+          "enabled": true,
+          "project": "LEGAL",
+          "issue_type": "License Review"
+        }
+      }
+    },
+    {
+      "name": "allow-permissive-licenses",
+      "priority": 3,
+      "criteria": {
+        "allowed_licenses": [
+          "MIT",
+          "Apache-2.0",
+          "BSD-2-Clause",
+          "BSD-3-Clause",
+          "ISC"
+        ]
+      },
+      "actions": {
+        "block_download": false,
+        "block_deployment": false,
+        "fail_build": false
+      }
+    }
+  ],
+  "watch": {
+    "name": "all-artifacts-watch",
+    "description": "Watch for all artifacts for license compliance",
+    "repositories": {
+      "type": "all-repos"
+    }
+  }
+}

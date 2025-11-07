@@ -1,0 +1,65 @@
+{
+  "name": "production-security-policy",
+  "description": "Security policy for production artifacts - blocks critical vulnerabilities",
+  "type": "security",
+  "rules": [
+    {
+      "name": "block-critical-vulnerabilities",
+      "priority": 1,
+      "criteria": {
+        "min_severity": "Critical",
+        "cvss_score_range": {
+          "min": 9.0,
+          "max": 10.0
+        }
+      },
+      "actions": {
+        "block_download": true,
+        "block_deployment": true,
+        "fail_build": true,
+        "notify": {
+          "emails": ["security-team@example.com"],
+          "slack_webhook": "https://hooks.slack.com/services/YOUR/WEBHOOK/URL"
+        }
+      }
+    },
+    {
+      "name": "warn-high-vulnerabilities",
+      "priority": 2,
+      "criteria": {
+        "min_severity": "High",
+        "cvss_score_range": {
+          "min": 7.0,
+          "max": 8.9
+        }
+      },
+      "actions": {
+        "block_download": false,
+        "block_deployment": false,
+        "fail_build": false,
+        "notify": {
+          "emails": ["dev-team@example.com"]
+        },
+        "create_ticket": {
+          "enabled": true,
+          "project": "SEC",
+          "issue_type": "Security Vulnerability"
+        }
+      }
+    }
+  ],
+  "watch": {
+    "name": "production-watch",
+    "description": "Watch for production Docker images",
+    "repositories": {
+      "type": "repository",
+      "repositories": [
+        "docker-prod-local"
+      ],
+      "filters": {
+        "package_type": "Docker",
+        "path_pattern": "**/production/*"
+      }
+    }
+  }
+}

@@ -1,0 +1,93 @@
+# Multi-stage Dockerfile Example for Node.js Application
+# This demonstrates best practices for building secure, optimized container images
+
+# syntax=docker/dockerfile:1
+
+# ============================================
+# Stage 1: Build Dependencies
+# ============================================
+FROM node:20-alpine AS builder
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files first (better layer caching)
+COPY package*.json ./
+
+# Install ALL dependencies (including devDependencies for building)
+RUN npm ci
+
+# Copy source code
+COPY . .
+
+# Run build commands if needed (linting, transpiling, etc.)
+RUN npm run build || echo "No build step required"
+
+# ============================================
+# Stage 2: Production Dependencies
+# ============================================
+FROM node:20-alpine AS deps
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install ONLY production dependencies
+RUN npm ci --omit=dev && \
+    npm cache clean --force
+
+# ============================================
+# Stage 3: Final Runtime Image
+# ============================================
+FROM node:20-alpine AS runner
+
+# Add metadata labels
+LABEL maintainer="devops@example.com"
+LABEL version="1.0"
+LABEL description="Node.js server for DevOps training"
+
+# Set working directory
+WORKDIR /app
+
+# Create non-root user for security
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+
+# Copy production dependencies from deps stage
+COPY --from=deps --chown=nodejs:nodejs /app/node_modules ./node_modules
+
+# Copy application code
+COPY --chown=nodejs:nodejs . .
+
+# Switch to non-root user
+USER nodejs
+
+# Expose the application port
+EXPOSE 3000
+
+# Set environment to production
+ENV NODE_ENV=production
+ENV PORT=3000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD node -e "require('http').get('http://localhost:3000', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
+
+# Start the application
+CMD ["node", "server.js"]
+
+# ============================================
+# Build and Run Instructions:
+# ============================================
+# Build:
+#   docker build -t nodejs-server:latest .
+#
+# Run:
+#   docker run -d -p 3000:3000 --name my-server nodejs-server:latest
+#
+# Security Scan (with Docker Scout):
+#   docker scout cves nodejs-server:latest
+#
+# Multi-platform build:
+#   docker buildx build --platform linux/amd64,linux/arm64 -t nodejs-server:latest .
