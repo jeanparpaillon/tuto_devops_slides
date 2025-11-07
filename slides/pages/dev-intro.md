@@ -542,6 +542,8 @@ After these exercises, remember:
 7. **Review changes** with `git diff` before committing
 8. **Use `git help`** when in doubt
 
+**Modern Git**: Recent Git versions introduce `git switch` (for switching branches) and `git restore` (for restoring files) as alternatives to `git checkout`. While we use `git checkout` in these exercises (most common in existing projects), feel free to explore these newer commands!
+
 ---
 
 # GitHub — collaboration
