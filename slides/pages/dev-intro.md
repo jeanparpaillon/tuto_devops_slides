@@ -395,18 +395,19 @@ layout: section
 ## Steps (20 minutes)
 
 1. **Create a new repository on GitHub**
-   - Go to github.com → New repository
+   - Go to GitHub.com → New repository
    - Name: `devops-training-YOUR_USERNAME`
    - Add README.md
    - Choose .gitignore (Node)
 
-2. **Link to local repository**
+2. **Clone and make changes**
    ```sh
    git clone https://github.com/YOUR_USERNAME/devops-training-YOUR_USERNAME.git
    cd devops-training-YOUR_USERNAME
-   echo "# My DevOps Project" >> README.md
+   echo "## Description" >> README.md
+   echo "This is my DevOps training project" >> README.md
    git add README.md
-   git commit -m "Update README"
+   git commit -m "Add project description to README"
    git push origin main
    ```
 
@@ -417,7 +418,7 @@ layout: section
 ## Steps (30 minutes)
 
 1. **Fork the training repository**
-   - Navigate to `github.com/INSTRUCTOR_USERNAME/tuto_devops_github`
+   - Navigate to `GitHub.com/INSTRUCTOR_USERNAME/tuto_devops_github`
    - Click "Fork" button
    - Fork to your account
 
@@ -462,7 +463,7 @@ layout: section
 ## Steps (continued)
 
 3. **Create a Pull Request**
-   - Go to GitHub → Pull Requests → New
+   - Go to GitHub → Pull requests → New pull request
    - Base: main, Compare: feature/user-auth
    - Title: "Implement user authentication"
    - Link to issue: "Closes #1"
