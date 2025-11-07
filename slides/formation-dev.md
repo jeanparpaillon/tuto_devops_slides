@@ -25,6 +25,10 @@ src: ./pages/dev-containerization.md
 ---
 
 ---
+src: ./pages/dev-github-actions-exercises.md
+---
+
+---
 src: ./pages/dev-intro-artifactory.md
 ---
 

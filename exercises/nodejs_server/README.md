@@ -58,13 +58,40 @@ make test
 
 - `GET /` - Returns "Hello World, it is [current date and time]"
 
+## Docker
+
+Build and run with Docker:
+
+```bash
+# Build the image
+docker build -t nodejs-server .
+
+# Run the container
+docker run --rm -p 3000:3000 nodejs-server
+
+# Visit http://localhost:3000
+```
+
+## GitHub Actions
+
+This project includes GitHub Actions workflow templates for CI/CD exercises. See [`.github/workflows/README.md`](.github/workflows/README.md) for details.
+
+Available workflows:
+- **Exercise 1**: First workflow with basic checks
+- **Exercise 2**: Automated testing with npm test
+- **Exercise 3**: Docker build and push to GHCR
+- **Complete CI/CD**: Full pipeline combining all exercises
+
 ## Project Structure
 
 ```
 nodejs_server/
+├── .github/
+│   └── workflows/     # GitHub Actions workflow templates
 ├── server.js          # Main application file
 ├── server.test.js     # Test file
 ├── package.json       # Project dependencies and scripts
+├── Dockerfile         # Docker container definition
 ├── Makefile          # Optional Makefile for common tasks
 ├── .nvmrc            # Node.js version specification
 ├── .editorconfig     # Editor configuration for consistent coding style
