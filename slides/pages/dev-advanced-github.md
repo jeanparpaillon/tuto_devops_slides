@@ -66,6 +66,222 @@ on:
 
 ---
 
+# Matrix Builds
+
+Test across multiple configurations in parallel:
+
+```yaml
+strategy:
+  matrix:
+    os: [ubuntu-latest, windows-latest, macos-latest]
+    node-version: [16, 18, 20]
+```
+
+**Benefits**:
+
+- Run tests on multiple OS/versions simultaneously
+- Catch platform-specific bugs early
+- Reduce total CI time with parallelization
+
+---
+
+# Matrix Builds — Advanced
+
+Control matrix execution with include/exclude:
+
+```yaml
+strategy:
+  matrix:
+    os: [ubuntu-latest, windows-latest, macos-latest]
+    node-version: [16, 18, 20]
+    include:
+      - os: ubuntu-latest
+        node-version: 20
+        extra: "lint"
+    exclude:
+      - os: windows-latest
+        node-version: 16
+  fail-fast: false  # Continue other jobs if one fails
+```
+
+**Use cases**: Cross-platform libraries, multiple runtime versions
+
+---
+
+# Concurrency Control
+
+Prevent overlapping workflow runs:
+
+```yaml
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+```
+
+**Use cases**:
+
+- Save CI minutes by canceling outdated runs
+- Prevent deployment conflicts
+- Control resource usage
+
+**Example**: Cancel old builds when new commits are pushed
+
+---
+
+# Manual Workflow Triggers
+
+Trigger workflows manually with custom inputs:
+
+```yaml
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        options: [dev, staging, prod]
+        required: true
+      debug:
+        type: boolean
+        default: false
+      version:
+        type: string
+        description: 'Version to deploy'
+```
+
+**Access inputs**: `${{ inputs.environment }}`
+
+---
+
+# Contexts Deep Dive — GitHub Context
+
+The `${{ github }}` context provides workflow metadata:
+
+```yaml
+steps:
+  - name: Print context
+    run: |
+      echo "Ref: ${{ github.ref }}"
+      echo "SHA: ${{ github.sha }}"
+      echo "Actor: ${{ github.actor }}"
+      echo "Event: ${{ github.event_name }}"
+      echo "Repository: ${{ github.repository }}"
+```
+
+**Common uses**: Conditional logic, tagging, notifications
+
+---
+
+# Contexts Deep Dive — Secrets and Variables
+
+**Secrets** (`${{ secrets }}`): Sensitive data (API keys, tokens)
+
+```yaml
+env:
+  API_KEY: ${{ secrets.API_KEY }}
+```
+
+**Variables** (`${{ vars }}`): Non-sensitive configuration
+
+```yaml
+env:
+  DEPLOYMENT_URL: ${{ vars.STAGING_URL }}
+```
+
+**Environment variables** (`${{ env }}`): Job-level variables
+
+```yaml
+env:
+  BUILD_VERSION: 1.0.0
+steps:
+  - run: echo ${{ env.BUILD_VERSION }}
+```
+
+---
+
+# Contexts Deep Dive — Steps and Needs
+
+**Steps context** (`${{ steps }}`): Access outputs from previous steps
+
+```yaml
+- id: build
+  run: echo "version=1.2.3" >> $GITHUB_OUTPUT
+- run: echo "Built version ${{ steps.build.outputs.version }}"
+```
+
+**Needs context** (`${{ needs }}`): Access outputs from previous jobs
+
+```yaml
+jobs:
+  build:
+    outputs:
+      version: ${{ steps.build.outputs.version }}
+  deploy:
+    needs: build
+    steps:
+      - run: echo "Deploy ${{ needs.build.outputs.version }}"
+```
+
+---
+
+# Contexts Deep Dive — Runner Context
+
+The `${{ runner }}` context provides information about the runner:
+
+```yaml
+steps:
+  - name: Runner info
+    run: |
+      echo "OS: ${{ runner.os }}"
+      echo "Arch: ${{ runner.arch }}"
+      echo "Temp: ${{ runner.temp }}"
+      echo "Tool cache: ${{ runner.tool_cache }}"
+```
+
+**Use cases**: Platform-specific commands, caching paths
+
+---
+
+# Debugging Workflows
+
+**Enable debug logging** with repository secrets:
+
+```yaml
+# Set these secrets in repository settings:
+# ACTIONS_STEP_DEBUG = true
+# ACTIONS_RUNNER_DEBUG = true
+```
+
+**Debugging techniques**:
+
+- Read workflow logs effectively
+- Print context: `echo '${{ toJSON(github) }}'`
+- Use tmate action for SSH debugging
+- Check runner environment: `env | sort`
+
+**Common errors**: Missing secrets, wrong paths, syntax errors
+
+---
+
+# Performance Optimization
+
+**Best practices**:
+
+- Minimize job dependencies (run in parallel when possible)
+- Use appropriate runners (ubuntu is fastest/cheapest)
+- Cache dependencies aggressively
+- Optimize Docker layer caching
+- Use `if` conditions to skip unnecessary steps
+
+```yaml
+- name: Build
+  if: github.event_name == 'push'
+  run: npm run build
+```
+
+**Result**: Faster feedback, lower costs
+
+---
+
 # Reusable and composite workflows
 
 - Reusable workflows with workflow_call
