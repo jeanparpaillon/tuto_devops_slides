@@ -633,7 +633,7 @@ Configure custom quality gates and see build pass/fail based on code quality
 Integrate SonarQube scanning into GitHub Actions workflow
 
 ## Steps
-1. Fork nodejs_server to personal GitHub
+1. Fork `exercises/nodejs_server` to personal GitHub
 2. Create SonarCloud account or use SonarQube server
 3. Add repository secrets: `SONAR_TOKEN`, `SONAR_HOST_URL`
 4. Create `.github/workflows/sonar.yml`
@@ -1434,7 +1434,7 @@ Organizational Adoption and Continuous Improvement
 
 ## Training Materials
 
-- Exercise files: `exercises/day4/`
+- Exercise files: `exercises/nodejs_server/`
 - Sample workflows: `.github/workflows/`
 - Docker Compose files for local setup
 - Configuration examples
@@ -1448,4 +1448,4 @@ Tomorrow we'll cover:
 
 ## Questions?
 
-💬 **Open discussion and Q&A**
+**Open discussion and Q&A**
