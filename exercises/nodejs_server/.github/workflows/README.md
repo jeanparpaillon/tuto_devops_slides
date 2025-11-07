@@ -42,16 +42,19 @@ This directory contains GitHub Actions workflow templates for the hands-on exerc
 ### Method 1: Copy to Your Repository
 
 1. Create `.github/workflows/` directory in your repository:
+
    ```bash
    mkdir -p .github/workflows
    ```
 
 2. Copy the desired workflow file:
+
    ```bash
    cp exercises/nodejs_server/.github/workflows/exercise-1-first-workflow.yml .github/workflows/
    ```
 
 3. Commit and push:
+
    ```bash
    git add .github/workflows/
    git commit -m "Add GitHub Actions workflow"
@@ -69,6 +72,7 @@ Follow the exercise instructions in the slides to create workflows step by step.
 While you cannot run GitHub Actions locally in the same environment, you can:
 
 1. **Validate YAML syntax**:
+
    ```bash
    # Using yamllint
    yamllint .github/workflows/*.yml
@@ -77,6 +81,7 @@ While you cannot run GitHub Actions locally in the same environment, you can:
    ```
 
 2. **Test individual commands**:
+
    ```bash
    # Test the same commands that run in CI
    npm ci
@@ -85,6 +90,7 @@ While you cannot run GitHub Actions locally in the same environment, you can:
    ```
 
 3. **Use act (GitHub Actions locally)**:
+
    ```bash
    # Install act: https://github.com/nektos/act
    brew install act  # macOS

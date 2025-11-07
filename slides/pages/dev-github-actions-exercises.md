@@ -268,6 +268,7 @@ docker run --rm -p 3000:3000 ghcr.io/YOUR_USERNAME/YOUR_REPO:latest
 **Problem**: `denied: permission_denied: write_package`
 
 **Solution**: Add `permissions:` block to job:
+
 ```yaml
 permissions:
   contents: read
@@ -298,6 +299,7 @@ Practice troubleshooting common workflow issues.
 ## Scenario 1: YAML syntax error
 
 Introduce this error:
+
 ```yaml
 jobs:
   test:
@@ -311,6 +313,7 @@ jobs:
 - Error message in commit status
 
 **Fix**: Correct indentation
+
 ```yaml
 jobs:
   test:
@@ -324,6 +327,7 @@ jobs:
 ## Scenario 2: Missing permissions
 
 Try to create a release without permissions:
+
 ```yaml
 jobs:
   release:
@@ -340,6 +344,7 @@ jobs:
 - Error: insufficient permissions
 
 **Fix**: Add permissions
+
 ```yaml
 jobs:
   release:
@@ -375,6 +380,7 @@ Error: Process completed with exit code 1.
 **Diagnosis**: No test script in package.json
 
 **Fix**: Add to package.json:
+
 ```json
 {
   "scripts": {
@@ -390,6 +396,7 @@ Error: Process completed with exit code 1.
 ## Enable debug logging
 
 Add to workflow file:
+
 ```yaml
 env:
   ACTIONS_STEP_DEBUG: true
