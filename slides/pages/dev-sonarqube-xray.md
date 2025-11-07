@@ -559,11 +559,13 @@ In JFrog Platform:
 
 ## Step 3: Add Rules
 
-**Rule 1: Block Critical**
+### Rule 1: Block Critical
+
 - Criteria: Min Severity = **Critical**
 - Action: **Fail Build** ❌
 
-**Rule 2: Warn High**
+### Rule 2: Warn High
+
 - Criteria: Min Severity = **High**
 - Action: **Generate Violations** ⚠️
 
@@ -578,7 +580,8 @@ Create second policy for licenses:
 1. Name: **"License Compliance"**
 2. Type: **License**
 
-**Rule: Block GPL**
+### Rule: Block GPL
+
 - Banned licenses: **GPL, AGPL**
 - Allowed licenses: **MIT, Apache-2.0, BSD**
 - Action: **Fail Build** ❌
