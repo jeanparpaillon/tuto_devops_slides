@@ -202,10 +202,308 @@ jobs:
 
 # Project management with GitHub
 
-- Issues, labels, milestones
-- Projects (tables/boards), workflows automation
-- Discussions and Wikis
-- Code Owners and branch protection rules
+GitHub provides a comprehensive suite of project management tools:
+
+- **GitHub Projects v2**: Modern project boards with automation
+- **Issue management**: Templates, labels, milestones
+- **Branch protection**: Code reviews and quality gates
+- **Discussions & Wiki**: Team collaboration
+- **Code Owners**: Automated review assignments
+
+---
+
+# GitHub Projects v2 — Introduction
+
+**What is GitHub Projects v2?**
+
+A flexible project management tool integrated with GitHub repositories
+
+**Key differences from Projects (classic)**:
+- Table, board, and roadmap views
+- Custom fields (text, number, date, single select, iteration)
+- Built-in automation workflows
+- GraphQL API for advanced integrations
+
+**Benefits**:
+- Track issues and pull requests across multiple repositories
+- Visualize work in progress
+- Automate status updates
+
+---
+
+# GitHub Projects v2 — Configuration
+
+**Creating and configuring a project**:
+
+1. **Create project**: From repository or organization
+2. **Add items**: Issues, PRs, or draft issues
+3. **Custom fields**:
+   - Text: Notes, descriptions
+   - Number: Story points, priority scores
+   - Date: Deadlines, release dates
+   - Single select: Status (Todo, In Progress, Done)
+   - Iteration: Sprint planning
+
+4. **Views**:
+   - **Table**: Spreadsheet-like view with filters
+   - **Board**: Kanban-style cards
+   - **Roadmap**: Timeline view for planning
+
+5. **Filters and grouping**: Organize by status, assignee, labels, etc.
+
+---
+
+# GitHub Projects v2 — Automation
+
+**Built-in automations**:
+- Auto-add items when: Issue created, PR opened
+- Auto-set status when: Issue closed, PR merged
+- Auto-archive items after inactivity
+
+**GraphQL API for advanced automation**:
+
+```graphql
+mutation {
+  updateProjectV2ItemFieldValue(input: {
+    projectId: "PROJECT_ID"
+    itemId: "ITEM_ID"
+    fieldId: "FIELD_ID"
+    value: { singleSelectOptionId: "OPTION_ID" }
+  }) {
+    projectV2Item { id }
+  }
+}
+```
+
+---
+
+# GitHub Projects v2 — Workflow Integration
+
+**Integrate projects with GitHub Actions**:
+
+```yaml
+name: Update Project Status
+on:
+  issues:
+    types: [opened, closed]
+
+jobs:
+  update-project:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/add-to-project@v0.5.0
+        with:
+          project-url: https://github.com/users/USERNAME/projects/1
+          github-token: ${{ secrets.GH_TOKEN }}
+```
+
+**Benefits**:
+- Automatic project updates
+- Consistent workflow enforcement
+- Reduced manual tracking
+
+---
+
+# Issue Templates and Forms
+
+**Structured issue creation with YAML forms**:
+
+```yaml
+# .github/ISSUE_TEMPLATE/bug_report.yml
+name: Bug Report
+description: File a bug report
+labels: ["bug", "triage"]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: v1.0.0
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options: [Critical, High, Medium, Low]
+```
+
+---
+
+# Labels and Milestones
+
+**Organizing work with labels**:
+
+**Priority labels**:
+- `P0` - Critical (red)
+- `P1` - High (orange)
+- `P2` - Medium (yellow)
+- `P3` - Low (green)
+
+**Type labels**:
+- `bug` - Something isn't working
+- `feature` - New feature request
+- `documentation` - Documentation improvements
+- `enhancement` - Improvement to existing feature
+
+**Status labels**:
+- `needs-triage` - Requires review
+- `in-progress` - Being worked on
+- `blocked` - Blocked by dependencies
+
+**Milestones**:
+- Group issues by release version
+- Track progress toward goals
+- Set due dates for planning
+
+---
+
+# Issue Automation
+
+**Automate issue management with GitHub Actions**:
+
+```yaml
+name: Auto-label issues
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            if (context.payload.issue.title.includes('[BUG]')) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.issue.number,
+                labels: ['bug', 'needs-triage']
+              });
+            }
+```
+
+**Other automation ideas**:
+- Auto-assign based on labels
+- Stale issue management
+- Auto-close duplicate issues
+
+---
+
+# Branch Protection Rules
+
+**Configure protection for main/production branches**:
+
+✅ **Required checks**:
+- Require pull request reviews (1-3 reviewers)
+- Dismiss stale approvals on new commits
+- Require review from code owners
+- Require status checks to pass (CI, CodeQL, etc.)
+- Require conversation resolution
+
+✅ **Code quality**:
+- Require signed commits
+- Require linear history (no merge commits)
+
+❌ **Restrictions**:
+- Allow force pushes (usually disabled)
+- Allow deletions (usually disabled)
+
+**Benefits**: Enforce quality gates, prevent accidents, ensure review
+
+---
+
+# Code Owners
+
+**CODEOWNERS file for automatic review assignments**:
+
+```
+# Global owners
+*                           @org/team-leads
+
+# Frontend
+/src/frontend/**            @org/frontend-team
+*.css                       @org/design-team
+
+# Backend
+/src/backend/**             @org/backend-team
+/src/api/**                 @org/api-team
+
+# Infrastructure
+/.github/**                 @org/devops-team
+/terraform/**               @org/devops-team
+/Dockerfile                 @org/security-team
+
+# Documentation
+/docs/**                    @org/tech-writers
+*.md                        @org/tech-writers
+```
+
+**Features**:
+- Automatic review requests
+- Enforce with branch protection
+- Team-based ownership
+
+---
+
+# Discussions and Wiki
+
+**GitHub Discussions**:
+
+**Categories**:
+- 📢 **Announcements**: Important updates
+- ❓ **Q&A**: Questions and answers (accepts solutions)
+- 💡 **Ideas**: Feature requests and suggestions
+- 🎉 **Show and tell**: Share projects and achievements
+
+**Features**:
+- Polls for community decisions
+- Convert discussions to issues
+- Pin important discussions
+
+**GitHub Wiki**:
+- Documentation organization
+- Sidebar navigation for easy browsing
+- Collaborative editing
+- Version control for all pages
+
+**When to use Wiki vs docs/ folder**: Wiki for collaborative docs, docs/ for versioned content
+
+---
+
+# Additional Features
+
+**Pull request templates**:
+- `.github/pull_request_template.md`
+- Standardize PR descriptions
+- Checklists for reviewers
+
+**Saved replies**:
+- Common responses to issues/PRs
+- Save time on repetitive answers
+
+**Slash commands**:
+- `/duplicate` - Mark as duplicate
+- `/close` - Close issue/PR
+- `/assign @user` - Assign to user
+
+**Keyboard shortcuts**:
+- `?` - Show keyboard shortcuts
+- `t` - File finder
+- `s` - Focus search
+
+**Notification management**:
+- Watch/unwatch repositories
+- Custom notification routing
+- Email vs web preferences
 
 ---
 
