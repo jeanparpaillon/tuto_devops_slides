@@ -154,6 +154,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
         
+      - name: Build project
+        run: npm run build
+        
       - name: Run tests
         run: npm test
         
@@ -176,10 +179,21 @@ jobs:
       - uses: actions/checkout@v4
       
       # Day 4 & 5: GitHub-native security
-      - name: Run CodeQL
+      - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
           languages: javascript
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install and build
+        run: |
+          npm ci
+          npm run build
+          
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
 ```
