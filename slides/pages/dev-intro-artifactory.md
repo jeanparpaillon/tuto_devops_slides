@@ -18,7 +18,7 @@ layout: two-cols-header
 An **artifact** is any output produced during the software development lifecycle:
 
 - **Binaries**: compiled executables, libraries
-- **Packages**: npm, NuGet, Maven, Python wheels
+- **Packages**: npm, Maven, Python wheels
 - **Container images**: Docker images
 - **Documentation**: generated docs, PDFs
 - **Build outputs**: compiled code, bundles
@@ -49,7 +49,6 @@ flowchart TB
   subgraph internet["External Registries"]
     B[npmjs.org]
     C[Docker Hub]
-    D[NuGet Gallery]
   end
   
   subgraph ci["CI/CD Pipeline"]
@@ -91,27 +90,25 @@ flowchart TB
     direction TB
     B[npm Cache]
     C[Docker Cache]
-    D[NuGet Cache]
-    E[Security Scan]
+    D[Security Scan]
   end
   
   subgraph internet["External Registries"]
-    F[npmjs.org]
-    G[Docker Hub]
-    H[NuGet Gallery]
+    E[npmjs.org]
+    F[Docker Hub]
   end
   
   subgraph ci["CI/CD Pipeline"]
-    I[Build]
+    G[Build]
   end
   
   subgraph prod["Production"]
-    J[Deploy]
+    H[Deploy]
   end
   
   A -->|Download| artifactory
-  I -->|Download & Upload| artifactory
-  J -->|Pull| artifactory
+  G -->|Download & Upload| artifactory
+  H -->|Pull| artifactory
   artifactory -->|Cache| internet
   
   style artifactory fill:#c8e6c9,stroke:#43a047,stroke-width:3px
@@ -825,7 +822,9 @@ layout: section
 - Docker and Docker Compose installed
 - Node.js and npm installed
 - Access to a running Artifactory instance
-- Sample Node.js project from Day 2
+- **Node.js project from Day 2** (the containerized app you built)
+
+**Note**: These exercises build upon the Node.js application and Docker workflows you created on Day 2.
 
 ---
 
@@ -865,7 +864,7 @@ docker logs -f artifactory
 # Exercise 2: Configure npm to Use Artifactory
 
 ## Objective
-Set up npm to download packages through Artifactory
+Set up npm to download packages through Artifactory as a proxy
 
 ## Steps (25 minutes)
 
@@ -873,8 +872,12 @@ Set up npm to download packages through Artifactory
 
 - Navigate to Administration → Repositories → Add Repositories
 - Create **Remote**: `npm-remote` → URL: `https://registry.npmjs.org`
+  - This will cache packages from npmjs.org
 - Create **Local**: `npm-local`
+  - This will store your internal packages
 - Create **Virtual**: `npm` → Include: `npm-local`, `npm-remote`
+  - Set default deployment repository to `npm-local`
+  - **This virtual repository is your single endpoint for all npm operations**
 
 **2. Configure npm on your machine:**
 
@@ -998,15 +1001,18 @@ npm install @mycompany/my-internal-lib
 # Exercise 4: Configure Docker Registry
 
 ## Objective
-Set up Docker to use Artifactory for image management
+Set up Docker to use Artifactory for image management and create a virtual Docker repository
 
 ## Steps (35 minutes)
 
 **1. Create Docker repositories in Artifactory:**
 
 - **Remote**: `docker-remote` → URL: `https://registry-1.docker.io`
+  - This caches images from Docker Hub
 - **Local**: `docker-local`
+  - This stores your own Docker images
 - **Virtual**: `docker` → Include both, set `docker-local` as default deployment
+  - **This virtual repository provides a single endpoint for pulling and pushing images**
 
 **2. Configure Docker daemon:**
 
@@ -1066,15 +1072,17 @@ docker pull localhost:8082/docker/nginx:alpine
 # Exercise 5: Push Docker Image to Artifactory
 
 ## Objective
-Build and push a Docker image from Day 2's Node.js app
+Push the Docker image you built on Day 2 to Artifactory
 
 ## Steps (30 minutes)
 
-**1. Use your Node.js app from Day 2 (or create a simple one):**
+**1. Use your Node.js app from Day 2:**
+
+If you completed Day 2's exercises, you should have a Dockerfile. If not, here's a reference:
 
 ```dockerfile
 # Dockerfile
-FROM node:18-alpine
+FROM node:20-alpine
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
@@ -1128,18 +1136,21 @@ docker push localhost:8082/docker-local/my-node-app:latest
 # Exercise 6: Update GitHub Actions Workflow
 
 ## Objective
-Integrate Artifactory with your CI/CD from Day 2
+Integrate Artifactory with the GitHub Actions CI/CD workflow you built on Day 2
 
 ## Steps (40 minutes)
 
 **1. Add Artifactory secrets to GitHub:**
 
-- Go to your repository → Settings → Secrets
+- Go to your repository → Settings → Secrets and variables → Actions
 - Add `ARTIFACTORY_URL`: `http://your-artifactory-server:8082`
 - Add `ARTIFACTORY_USER`: `admin`
 - Add `ARTIFACTORY_PASSWORD`: your password
+- Add `ARTIFACTORY_TOKEN`: your API token (preferred over password)
 
-**2. Update your workflow from Day 2:**
+**2. Extend your workflow from Day 2:**
+
+Starting from the workflow you created on Day 2 (Exercise 3), add Artifactory integration:
 
 ```yaml
 # .github/workflows/build.yml
@@ -1158,7 +1169,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 ```
 
 ---
