@@ -66,21 +66,126 @@ on:
 
 ---
 
-# Reusable and composite workflows
-
-- Reusable workflows with workflow_call
-- Composite actions to share steps
+# Reusable Workflows - Inputs & Outputs
 
 ```yaml
-# .github/workflows/reuse.yml
-on: workflow_call
+# .github/workflows/reusable-build.yml
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        required: true
+        type: string
+      environment:
+        required: false
+        type: string
+        default: 'dev'
+    outputs:
+      build-id:
+        description: "Build identifier"
+        value: ${{ jobs.build.outputs.build-id }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      build-id: ${{ steps.build.outputs.id }}
     steps:
       - uses: actions/checkout@v4
-      - run: make ci
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+      - run: npm ci && npm run build
+      - id: build
+        run: echo "id=$(date +%s)" >> $GITHUB_OUTPUT
 ```
+
+---
+
+# Using Reusable Workflows
+
+```yaml
+# .github/workflows/ci.yml
+jobs:
+  build:
+    uses: ./.github/workflows/reusable-build.yml
+    with:
+      node-version: '20'
+      environment: 'production'
+  
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deploying build ${{ needs.build.outputs.build-id }}"
+```
+
+**Key points**:
+- Use `uses:` to call reusable workflow
+- Pass inputs with `with:`
+- Access outputs via `needs.<job>.outputs.<output>`
+
+---
+
+# Managing Secrets in Reusable Workflows
+
+```yaml
+# Define in reusable workflow
+on:
+  workflow_call:
+    secrets:
+      NPM_TOKEN:
+        required: true
+      DEPLOY_KEY:
+        required: false
+
+# Call with explicit secrets
+jobs:
+  build:
+    uses: ./.github/workflows/reusable.yml
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+    
+    # Or inherit all secrets
+    secrets: inherit
+```
+
+---
+
+# Organization and Best Practices
+
+- **Centralized workflows**: Store in `.github` repository for org-wide access
+- **Versioning**: Use tags or branches (`@v1`, `@main`)
+- **Naming**: Clear, descriptive names (`reusable-build.yml`, `reusable-test.yml`)
+- **Documentation**: Document inputs, outputs, and secrets in README
+- **When to use**: Reusable workflows vs composite actions
+
+---
+
+# Composite Actions
+
+For reusable steps within a workflow:
+
+```yaml
+# .github/actions/setup-node-env/action.yml
+name: 'Setup Node Build Environment'
+description: 'Setup Node.js and install dependencies'
+inputs:
+  node-version:
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: 'npm'
+    - run: npm ci
+      shell: bash
+```
+
+Use: `uses: ./.github/actions/setup-node-env`
 
 ---
 
