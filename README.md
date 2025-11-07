@@ -63,7 +63,7 @@ Day 5
 
 # DevOps for operators
 
-Duration : 5 Days
+## Full Program (5 Days)
 
 Day 1
     - DevOps basics
@@ -126,3 +126,68 @@ One or several of following topics
         - RBAC Kubernetes
         - ACL
         - Vulnerability scan
+
+## Infrastructure Tutorial (2 Days)
+
+**Objective**: Deploy a simple web application and an application with external access on tutorial infrastructure
+
+**Technologies**: Terraform (libvirt and vmware), Ansible, Kubernetes
+
+### Day 1 - Infrastructure Setup and Configuration
+
+**Morning: Terraform Basics and Infrastructure Setup**
+- Understand Terraform basics
+  - Resources, providers, variables, outputs
+  - State management (local and remote)
+  - Lifecycle: init, plan, apply, destroy
+  - Exercise: Setup local environment (libvirt or VMware)
+- Setup Terraform infrastructure
+  - Create infrastructure code for 1 master + 2 worker nodes
+  - Network configuration and cloud-init setup
+  - Exercise: Deploy VMs with Terraform
+  - Generate Ansible inventory from Terraform outputs
+
+**Afternoon: Ansible Basics and Kubernetes Setup**
+- Understand Ansible basics
+  - Inventory structure (hosts, groups, variables)
+  - Playbooks and roles
+  - Modules and idempotency
+  - Exercise: Simple playbook (package installation, file management)
+- Setup Kubernetes cluster with Ansible
+  - Introduction to Kubespray or similar collection
+  - Ansible Galaxy and requirements.yml
+  - Exercise: Deploy Kubernetes on infrastructure
+  - Verify cluster: kubectl get nodes, kubectl get pods -A
+  - Install CNI (Calico or Flannel)
+
+### Day 2 - Application Deployment and Advanced Features
+
+**Morning: Deploy Applications**
+- Deploy simple web application
+  - Understanding Kubernetes manifests (deployments, services)
+  - Create deployment for simple web app (nginx or nodejs)
+  - Exercise: Deploy and access application internally
+  - Verify pods and services
+- Deploy application with external access
+  - Ingress controllers and load balancers
+  - Service types: ClusterIP, NodePort, LoadBalancer
+  - Exercise: Configure ingress for external access
+  - DNS configuration basics
+
+**Afternoon: Scaling, Load Balancing, and DNS**
+- Play with load balancing
+  - Service load balancing in Kubernetes
+  - Multiple replicas and distribution
+  - Exercise: Test load balancing with multiple pods
+- Scaling applications
+  - Manual scaling: kubectl scale
+  - Introduction to Horizontal Pod Autoscaler (HPA)
+  - Exercise: Scale deployments and observe behavior
+- DNS and service discovery
+  - Kubernetes internal DNS
+  - External DNS configuration
+  - Exercise: Test service discovery and DNS resolution
+- Wrap-up and next steps
+  - Review of deployed infrastructure
+  - Monitoring basics (optional if time permits)
+  - Best practices and production considerations
