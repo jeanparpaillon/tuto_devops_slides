@@ -95,13 +95,16 @@ See [ISSUE_COORDINATION_GUIDE.md](../ISSUE_COORDINATION_GUIDE.md) for coordinati
 
 # Authenticate
 gh auth login
+
+# Navigate to your repository (replace with your actual repository path)
+cd /path/to/your/repository
 ```
 
 ### Create Issues with gh CLI
 
 ```bash
-# Navigate to repository
-cd /path/to/tuto_devops_slides
+# Navigate to your repository (replace with your actual repository path)
+cd /path/to/your/repository
 
 # Issue #1
 gh issue create \
