@@ -2,6 +2,22 @@
 
 This file contains templates for the GitHub issues that should be created based on the Day 3 and Day 4 reorganization of the production program.
 
+## ⚠️ File Dependency Warnings
+
+**IMPORTANT**: Some issues modify the same files. Review dependencies before assigning multiple issues simultaneously to avoid merge conflicts.
+
+### Critical File Conflicts:
+- **`slides/pages/prod-k8s-apps.md`**: Issues #1, #3, #4
+- **`README.md`**: Issue #7
+
+### Recommended Assignment Order:
+1. **First**: Issue #1 (creates prod-k8s-apps.md) 
+2. **After Issue #1**: Issues #3 and #4 (modify prod-k8s-apps.md)
+3. **Independent**: Issues #2, #5, #6 (no conflicts)
+4. **Last**: Issue #7 (modifies README.md and build config)
+
+See detailed dependency matrix at the end of this document.
+
 ---
 
 ## Issue 1: Create missing slide file prod-k8s-apps.md
@@ -9,6 +25,11 @@ This file contains templates for the GitHub issues that should be created based 
 **Title**: Create missing slide file for Kubernetes application deployment
 
 **Labels**: `slides`, `kubernetes`, `bug`, `high-priority`
+
+**⚠️ File Dependencies**: 
+- **Creates**: `slides/pages/prod-k8s-apps.md`
+- **References**: `slides/formation-prod.md`
+- **⚠️ BLOCKS**: Issue #3, Issue #4 (both modify prod-k8s-apps.md - complete this first)
 
 **Body**:
 ```markdown
@@ -73,6 +94,11 @@ The slide file should cover:
 **Title**: Enhance Day 3 slides for Ansible and K8s integration
 
 **Labels**: `slides`, `ansible`, `enhancement`, `day3`
+
+**⚠️ File Dependencies**: 
+- **Modifies**: `slides/pages/prod-ansible-basics.md`
+- **Creates**: `slides/pages/prod-terraform-ansible-integration.md`, `slides/pages/prod-k8s-kubespray.md`
+- **⚠️ NO CONFLICTS**: Can be worked on independently
 
 **Body**:
 ```markdown
@@ -144,6 +170,11 @@ Update the Ansible slides (`prod-ansible-basics.md` and related files) to suppor
 **Title**: Improve Day 4 slides for external application deployment patterns
 
 **Labels**: `slides`, `kubernetes`, `ingress`, `enhancement`, `high-priority`
+
+**⚠️ File Dependencies**: 
+- **Modifies**: `slides/pages/prod-ansible-public.md`, `slides/pages/prod-k8s-apps.md`
+- **⚠️ DEPENDS ON**: Issue #1 (prod-k8s-apps.md must exist first)
+- **⚠️ CONFLICTS WITH**: Issue #4 (both modify prod-k8s-apps.md - coordinate or sequence)
 
 **Body**:
 ```markdown
@@ -228,6 +259,12 @@ Replace abstract examples with concrete, tested application:
 **Title**: Create dedicated slides for load balancing, scaling, and DNS
 
 **Labels**: `slides`, `kubernetes`, `enhancement`, `new-content`
+
+**⚠️ File Dependencies**: 
+- **Option 1 - Modifies**: `slides/pages/prod-k8s-apps.md`
+- **Option 2 - Creates**: `slides/pages/prod-scaling-lb.md`
+- **⚠️ DEPENDS ON**: Issue #1 (prod-k8s-apps.md must exist first)
+- **⚠️ CONFLICTS WITH**: Issue #3 (both modify prod-k8s-apps.md - coordinate or sequence)
 
 **Body**:
 ```markdown
@@ -368,6 +405,10 @@ Add to `prod-k8s-apps.md`:
 **Title**: Create hands-on exercise files with starter code and solutions
 
 **Labels**: `exercises`, `terraform`, `ansible`, `kubernetes`, `enhancement`
+
+**⚠️ File Dependencies**: 
+- **Creates**: Multiple files in `exercises/infra-tutorial/` directory
+- **⚠️ NO CONFLICTS**: Can be worked on independently (new directory)
 
 **Body**:
 ```markdown
@@ -554,6 +595,10 @@ Each README.md should include:
 
 **Labels**: `documentation`, `cleanup`, `low-priority`
 
+**⚠️ File Dependencies**: 
+- **Modifies**: `DRAFT`
+- **⚠️ NO CONFLICTS**: Can be worked on independently
+
 **Body**:
 ```markdown
 ## Description
@@ -627,6 +672,12 @@ If content is fully integrated into slides and README:
 **Title**: Create formation-prod-2day.md for condensed tutorial format
 
 **Labels**: `slides`, `structure`, `enhancement`, `2-day-tutorial`
+
+**⚠️ File Dependencies**: 
+- **Creates**: `slides/formation-prod-2day.md`
+- **Modifies**: `README.md`, potentially `netlify.toml`, `Makefile`
+- **⚠️ MAY CONFLICT WITH**: Build configuration changes
+- **⚠️ RECOMMENDATION**: Complete all content issues (#1-4) before this structural change
 
 **Body**:
 ```markdown
@@ -804,3 +855,77 @@ These issues address all aspects mentioned in the original request:
 3. ✅ Balance sections on 2 days
 4. ✅ Update README
 5. ✅ Create issues for other files
+
+---
+
+## 📊 File Dependency Matrix
+
+This matrix shows which files each issue will modify to help coordinate work and avoid merge conflicts.
+
+| Issue # | Title | Files Modified/Created | Dependency Notes |
+|---------|-------|------------------------|------------------|
+| **1** | Create prod-k8s-apps.md | **Creates**: `slides/pages/prod-k8s-apps.md`<br>**References**: `slides/formation-prod.md` | ⚠️ **BLOCKS** Issues #3 & #4 |
+| **2** | Enhance Ansible/K8s integration | **Modifies**: `slides/pages/prod-ansible-basics.md`<br>**Creates**: `slides/pages/prod-terraform-ansible-integration.md`, `slides/pages/prod-k8s-kubespray.md` | ✅ Independent |
+| **3** | External access deployment | **Modifies**: `slides/pages/prod-ansible-public.md`, `slides/pages/prod-k8s-apps.md` | ⚠️ **DEPENDS ON** Issue #1<br>⚠️ **CONFLICTS** with Issue #4 |
+| **4** | Load balancing, scaling, DNS | **Modifies**: `slides/pages/prod-k8s-apps.md`<br>**OR Creates**: `slides/pages/prod-scaling-lb.md` | ⚠️ **DEPENDS ON** Issue #1<br>⚠️ **CONFLICTS** with Issue #3 |
+| **5** | Exercise files for 2-day tutorial | **Creates**: Many files in `exercises/infra-tutorial/*` | ✅ Independent |
+| **6** | Update DRAFT file | **Modifies**: `DRAFT` | ✅ Independent |
+| **7** | Separate 2-day slide deck | **Creates**: `slides/formation-prod-2day.md`<br>**Modifies**: `README.md`, `netlify.toml`, `Makefile` | ⚠️ Best done AFTER #1-#4 |
+
+### 🔴 Critical File Conflicts
+
+**`slides/pages/prod-k8s-apps.md`**:
+- Issue #1: Creates this file
+- Issue #3: Modifies this file (depends on #1)
+- Issue #4: Modifies this file (depends on #1)
+
+**Resolution Strategy**: 
+1. Complete Issue #1 first
+2. Then complete Issues #3 and #4 sequentially, OR
+3. Coordinate to have #3 work on external access sections and #4 work on scaling sections
+
+### 📋 Recommended Assignment Strategies
+
+#### Strategy 1: Sequential (Safest)
+1. Assign Issue #1 → Wait for completion
+2. Assign Issue #3 → Wait for completion
+3. Assign Issue #4
+4. Parallel: Issues #2, #5, #6 (no conflicts)
+5. Finally: Issue #7
+
+#### Strategy 2: Parallel with Coordination
+- **Team A**: Issue #1
+- **Team B**: Issues #2, #5, #6 (parallel, independent)
+- **Team C**: Wait for #1, then #3 (external access focus)
+- **Team D**: Wait for #3, then #4 (scaling focus)
+- **Team E**: Issue #7 (after content issues complete)
+
+#### Strategy 3: Modified Approach for Issue #4
+To avoid conflict with Issue #3:
+- Issue #4 creates a **separate file** `slides/pages/prod-scaling-lb.md` instead of modifying prod-k8s-apps.md
+- This allows Issues #3 and #4 to work in parallel after Issue #1
+
+### 🛡️ Conflict Prevention Checklist
+
+Before assigning multiple issues:
+- [ ] Check if issues modify the same files (see matrix above)
+- [ ] Ensure dependent issues are completed first (Issue #1 before #3 & #4)
+- [ ] Consider using separate files for parallel work (e.g., Issue #4 option 2)
+- [ ] Communicate with assignees about file ownership
+- [ ] Use git branches per issue
+- [ ] Coordinate merge order to minimize conflicts
+
+### 📝 Additional Notes
+
+**For Issue Assignees**:
+- Always check this matrix before starting work
+- Communicate with others working on related files
+- Pull latest changes before starting if dependencies exist
+- Consider breaking large changes into smaller, focused commits
+- Test that slides build successfully after changes
+
+**For Project Coordinators**:
+- Monitor which issues are in progress
+- Sequence dependent issues appropriately
+- Consider splitting Issue #4 to use separate file for true parallelism
+- Update this matrix if new file dependencies are discovered

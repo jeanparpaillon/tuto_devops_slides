@@ -17,6 +17,14 @@ This project uses an AI-powered multi-agent system to manage slide development. 
 - **Project Manager**: Quality assurance and consistency
 - **Trainer**: Slide organization and pedagogical balance
 
+## 📋 Issue Coordination
+
+When working on multiple issues simultaneously, please consult:
+- **[ISSUE_COORDINATION_GUIDE.md](ISSUE_COORDINATION_GUIDE.md)** - Strategies to avoid file conflicts
+- **[ISSUES_TO_CREATE.md](ISSUES_TO_CREATE.md)** - See the dependency matrix at the end
+
+These guides help coordinate parallel work and prevent merge conflicts when multiple contributors modify the same files.
+
 # DevOps for Developers
 
 Duration : 5 Days
