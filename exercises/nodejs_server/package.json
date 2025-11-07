@@ -1,0 +1,19 @@
+{
+  "name": "nodejs-server-example",
+  "version": "1.0.0",
+  "description": "Sample Node.js HTTP server for DevOps tutorial",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "node server.js",
+    "test": "node --test",
+    "build": "echo 'No build step required for this simple application'"
+  },
+  "keywords": ["devops", "tutorial", "express"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
