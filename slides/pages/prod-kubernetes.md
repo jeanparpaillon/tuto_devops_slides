@@ -2,51 +2,56 @@
 layout: section
 ---
 
-# Day 2 — Kubernetes cluster on VMware
+# Kubernetes Overview
 
-## Goal: Automate the deployment of a full K8s cluster with Terraform
+## Understanding container orchestration
 
-### Content
+### What is Kubernetes?
 
-- Terraform refresher: vSphere provider, variables, remote state
-- Architecture design: masters, workers, networking, storage
-- Hands-on workshop:
-  - `.tf` files for Kubernetes VMs
-  - Node provisioning via Terraform
-  - Cluster initialization (kubeadm)
-- Validation and tests: `kubectl get nodes`, CNI (Calico/Flannel)
+- Container orchestration platform
+- Automates deployment, scaling, and management
+- Manages containerized applications across clusters
+- Self-healing and declarative configuration
 
 ---
-layout: section
+
+# Kubernetes Architecture
+
+## Key Components
+
+### Control Plane
+- API Server: central management
+- Scheduler: pod placement
+- Controller Manager: maintains desired state
+- etcd: distributed key-value store
+
+### Worker Nodes
+- kubelet: node agent
+- Container runtime (containerd, CRI-O)
+- kube-proxy: network rules
+
 ---
 
-# Terraform
+# Why Kubernetes for Production?
 
-## Initialize repo
+## Benefits
 
-* Run
+- **Scalability**: Horizontal scaling of applications
+- **High Availability**: Self-healing and redundancy
+- **Portability**: Run anywhere (cloud, on-prem, hybrid)
+- **Resource Efficiency**: Optimal resource utilization
+- **Rolling Updates**: Zero-downtime deployments
 
-```sh
-terraform init
-```
+---
 
-* Output
+# Kubernetes Installation Approaches
 
-```sh
-find .terraform
-```
+## Multiple methods available
 
-Stores plugins, system state, etc.
+- **kubeadm**: Manual cluster setup (educational)
+- **kubespray**: Ansible-based automation (production-ready)
+- **Managed services**: EKS, AKS, GKE (cloud)
+- **K3s/MicroK8s**: Lightweight for edge/dev
 
-## Plan
-
-* Run
-
-```sh
-terraform plan
-```
-
-* Output
-
-List of resources to be created
+**Note**: We'll use kubespray with Ansible in Day 3 for reliable, automated cluster deployment
 

@@ -309,45 +309,59 @@ _Contenu_
     * Installation des outils : Terraform, Ansible, kubectl, Helm
     * Préparation du projet Git (structure, branches, README)
 
-### Jour 2 — Mise en place d’un cluster Kubernetes sur VMware avec Terraform
+### Jour 2 — Terraform : Infrastructure as Code
 
-_Objectif_ : Automatiser la création d’un cluster Kubernetes (VMs, réseau, stockage) avec Terraform sur une infra VMware.
+_Objectif_ : Maîtriser Terraform pour automatiser la création d'infrastructure (VMs) prête pour Kubernetes.
 
 _Contenu_ :
 
-* Rappels sur Terraform
+* Introduction à Terraform
     * Fichiers .tf, providers, état
+    * Syntaxe HCL : ressources, variables, outputs
+    * Cycle de vie : init, plan, apply, destroy
+* Providers
     * Provider vSphere : connexion, ressources, variables
+    * Provider libvirt/QEMU pour environnement local
 * Infrastructure cible
-    * Schéma d’architecture cible (master, workers, etc.)
+    * Schéma d'architecture cible (master, workers)
     * Réseau, stockage, DNS (selon le lab)
 * Atelier pratique :
     * Écriture des fichiers Terraform pour créer les VMs
-    * Provisionnement des nœuds Kubernetes
-    * Configuration réseau & DNS
+    * Provisionnement de 3 VMs (1 master, 2 workers)
+    * Configuration cloud-init pour SSH et utilisateurs
+    * Génération d'inventaire Ansible
     * Lancement, debug, validation
-* Installation de Kubernetes (Kubeadm)
-    * Initialisation du cluster, kubeconfig
-    * Ajout des nœuds workers
-    * Installation de CNI (e.g. Calico, Flannel)
-* Validation du cluster
-    * kubectl get nodes, kubectl get pods -A
+* Validation de l'infrastructure
+    * Connectivité SSH aux VMs
+    * Vérification des IPs et de l'inventaire
+    * VMs prêtes pour installation K8s (Jour 3)
 
-### Jour 3 — Déploiement d’une application intranet avec Ansible
+**Note**: Jour 2 se concentre uniquement sur Terraform. L'installation de Kubernetes sera réalisée au Jour 3 avec Ansible/Kubespray.
 
-_Objectif_ : Déployer une application interne (non exposée publiquement) en utilisant Ansible.
+### Jour 3 — Ansible et Installation Kubernetes
+
+_Objectif_ : Utiliser Ansible pour installer Kubernetes et déployer une application interne.
 
 _Contenu_ :
 
 * Introduction à Ansible
     * Inventaire, modules, rôles
     * Playbooks, variables, templates
-* Architecture de l'application intranet
+    * Idempotence et bonnes pratiques
+* Intégration Terraform → Ansible
+    * Utilisation des outputs Terraform comme inventaire Ansible
+    * Gestion dynamique de l'inventaire
+* Installation de Kubernetes avec Kubespray
+    * Introduction à Kubespray collection
+    * Ansible Galaxy et requirements.yml
+    * Configuration du cluster via playbooks
+    * Installation de CNI (Calico, Flannel)
+    * Validation : kubectl get nodes, kubectl get pods -A
+* Déploiement d'une application intranet
     * Exemple : wiki, CRM interne, ou portail RH
     * Composants : base de données, backend, front
-    * Déploiement sur K8s ou directement sur VMs selon scénario
+    * Déploiement sur K8s
 * Création des rôles Ansible
-    * Base système : utilisateurs, SSH, sécurité
     * Application : installation, configuration, services
 * Déploiement automatisé
     * Exécution des playbooks
@@ -355,8 +369,7 @@ _Contenu_ :
     * Logs et vérifications post-déploiement
 * Tests et validation fonctionnelle
     * Vérification des services
-    * Connexion à l’application depuis le réseau interne
-
+    * Connexion à l'application depuis le réseau interne
 ### Jour 4 — Déploiement d’une API/externe avec Ansible
 
 _Objectif_ : Déployer une application accessible depuis l’extérieur, avec les enjeux de sécurité, exposition, scalabilité.

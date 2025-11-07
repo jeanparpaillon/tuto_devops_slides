@@ -18,7 +18,7 @@ layout: section
 ## 5 intensive days
 
 1. Fundamentals & end-to-end automation
-2. Kubernetes cluster on VMware (Terraform)
-3. Intranet deployment with Ansible
-4. Public API deployment with Ansible
+2. Terraform: Infrastructure as Code (VMs ready for K8s)
+3. Ansible & Kubernetes installation (Kubespray)
+4. Application deployment on Kubernetes
 5. Monitoring, high availability, security & scaling

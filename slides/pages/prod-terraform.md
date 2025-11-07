@@ -93,3 +93,29 @@ terraform apply
 - Separate workspaces (dev/stage/prod)
 - Module version pinning
 - CI validate/plan/apply with approvals
+
+---
+
+# Day 2 Conclusion
+
+## What we accomplished
+
+✅ **Infrastructure as Code fundamentals**
+- Terraform syntax and workflow
+- Provider configuration (libvirt/vSphere)
+- Creating and managing VMs
+
+✅ **Prepared for Kubernetes**
+- 3 VMs provisioned (1 master, 2 workers)
+- SSH access configured via cloud-init
+- Ansible inventory generated
+
+## Next Steps (Day 3)
+
+🚀 **Kubernetes Installation with Ansible**
+- Use Kubespray collection for automated K8s setup
+- Install Kubernetes cluster on our Terraform VMs
+- Configure networking (CNI: Calico/Flannel)
+- Validate cluster with kubectl
+
+**Note**: We intentionally stop here to master Terraform before adding K8s complexity
