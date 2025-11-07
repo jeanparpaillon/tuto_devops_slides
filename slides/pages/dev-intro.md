@@ -392,14 +392,14 @@ layout: section
 
 1. **Create a new repository on GitHub**
    - Go to github.com → New repository
-   - Name: `devops-training-<yourname>`
+   - Name: `devops-training-YOURNAME`
    - Add README.md
    - Choose .gitignore (Node)
 
 2. **Link to local repository**
    ```sh
-   git clone https://github.com/<username>/devops-training-<yourname>.git
-   cd devops-training-<yourname>
+   git clone https://github.com/YOUR_USERNAME/devops-training-YOURNAME.git
+   cd devops-training-YOURNAME
    echo "# My DevOps Project" >> README.md
    git add README.md
    git commit -m "Update README"
@@ -413,19 +413,19 @@ layout: section
 ## Steps (30 minutes)
 
 1. **Fork the training repository**
-   - Navigate to `github.com/<instructor>/tuto_devops_github`
+   - Navigate to `github.com/INSTRUCTOR_USERNAME/tuto_devops_github`
    - Click "Fork" button
    - Fork to your account
 
 2. **Clone your fork**
    ```sh
-   git clone https://github.com/<yourname>/tuto_devops_github.git
+   git clone https://github.com/YOUR_USERNAME/tuto_devops_github.git
    cd tuto_devops_github
    ```
 
 3. **Add upstream remote**
    ```sh
-   git remote add upstream https://github.com/<instructor>/tuto_devops_github.git
+   git remote add upstream https://github.com/INSTRUCTOR_USERNAME/tuto_devops_github.git
    git fetch upstream
    ```
 
