@@ -855,12 +855,12 @@ Complete inventory of components in the image:
 
 ## CVSS Score (0-10)
 
-| Score | Severity | Action | SLA |
-|-------|----------|--------|-----|
+| Score | Severity | Recommended Action | SLA |
+|-------|----------|-------------------|-----|
 | 9.0-10.0 | **Critical** | Fix immediately | 24-48 hours |
 | 7.0-8.9 | **High** | Fix within days | 1 week |
 | 4.0-6.9 | **Medium** | Fix within weeks | 1 month |
-| 0.1-3.9 | **Low** | Consider fixing | Backlog |
+| 0.1-3.9 | **Low** | Evaluate and consider fixing | Backlog |
 
 ## CVSS Factors
 
@@ -1017,10 +1017,10 @@ Actions:
 
 | License | Type | Risk | Commercial Use |
 |---------|------|------|----------------|
-| MIT, Apache 2.0 | Permissive | Low | ✅ Yes |
-| LGPL | Weak Copyleft | Medium | ⚠️ Conditions apply |
-| GPL, AGPL | Strong Copyleft | High | ❌ Restricted |
-| Proprietary | Custom | Varies | 📝 Check terms |
+| MIT, Apache 2.0 | Permissive | Low | Yes |
+| LGPL | Weak Copyleft | Medium | Conditions apply |
+| GPL, AGPL | Strong Copyleft | High | Restricted |
+| Proprietary | Custom | Varies | Review terms |
 
 ## Xray License Scanning
 
@@ -1429,7 +1429,7 @@ Organizational Adoption and Continuous Improvement
 
 - **SonarQube Docs:** https://docs.sonarqube.org
 - **SonarCloud:** https://sonarcloud.io
-- **JFrog Xray Docs:** https://www.jfrog.com/confluence/display/JFROG/Xray
+- **JFrog Xray Docs:** https://jfrog.com/help/r/jfrog-security-documentation
 - **CVSS Calculator:** https://www.first.org/cvss/calculator
 
 ## Training Materials
