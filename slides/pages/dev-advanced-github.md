@@ -273,9 +273,10 @@ steps:
 - Use `if` conditions to skip unnecessary steps
 
 ```yaml
-- name: Build
-  if: github.event_name == 'push'
-  run: npm run build
+steps:
+  - name: Build
+    if: github.event_name == 'push'
+    run: npm run build
 ```
 
 **Result**: Faster feedback, lower costs
