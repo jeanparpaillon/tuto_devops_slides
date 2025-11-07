@@ -1,4 +1,6 @@
 ---
+layout: section
+---
 
 # GitHub — collaboration
 
