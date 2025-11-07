@@ -21,11 +21,14 @@ Today: **Enterprise artifact management with Artifactory**
 # From Day 2: Our Node.js App
 
 ```dockerfile
+# syntax=docker/dockerfile:1
+# Stage 1: Install dependencies
 FROM node:20-alpine AS deps
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci --only=production
 
+# Stage 2: Create production image
 FROM node:20-alpine AS runner
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
@@ -231,7 +234,7 @@ jobs:
         with:
           registry: artifactory.company.com
           username: ${{ secrets.ARTIFACTORY_USER }}
-          password: ${{ secrets.ARTIFACTORY_TOKEN }}
+          password: ${{ secrets.ARTIFACTORY_TOKEN }}  # Access token, not password
       
       - name: Build and push
         uses: docker/build-push-action@v5
@@ -287,6 +290,8 @@ registry=https://artifactory.company.com/artifactory/api/npm/npm-virtual/
 //artifactory.company.com/artifactory/api/npm/npm-virtual/:always-auth=true
 ```
 
+⚠️ **Security:** Never commit `.npmrc` with actual tokens! Use environment variables or CI secrets.
+
 **Benefits:**
 - All npm packages cached in Artifactory
 - Faster builds (no external calls after first download)
@@ -302,12 +307,10 @@ registry=https://artifactory.company.com/artifactory/api/npm/npm-virtual/
 FROM node:20-alpine AS deps
 WORKDIR /app
 
-# Copy npm config for Artifactory
-COPY .npmrc ./
-COPY package*.json ./
-
-# Install from Artifactory instead of npmjs.org
-RUN npm ci --only=production
+# Use build-time secret for Artifactory authentication (Docker BuildKit)
+# Pass token via: docker build --secret id=npmrc,src=.npmrc .
+RUN --mount=type=secret,id=npmrc,target=/root/.npmrc \
+    npm ci --only=production
 
 FROM node:20-alpine AS runner
 WORKDIR /app
@@ -317,7 +320,9 @@ EXPOSE 3000
 CMD ["node", "src/index.js"]
 ```
 
-**Key change:** Add `.npmrc` to use Artifactory as registry
+**Security:** Using `--mount=type=secret` prevents credentials from being stored in image layers
+
+**Alternative:** Configure Artifactory as npm proxy globally on build machine
 
 ---
 layout: section
