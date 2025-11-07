@@ -3,14 +3,19 @@
 * Novembre 2025
 * Alger
 
-```sh
-pnpm dev:dev
-pnpm dev:prod
-```
-
 Available online at:
 - Dev training : (HTML)[https://jeanparpaillon.github.io/tuto_devops_slides/formation-dev/], (PDF)[https://jeanparpaillon.github.io/tuto_devops_slides/formation-dev.pdf]
 - Prod training : (HTML)[https://jeanparpaillon.github.io/tuto_devops_slides/formation-prod/], (PDF)[https://jeanparpaillon.github.io/tuto_devops_slides/formation-prod.pdf]
+
+## GitHub Copilot Agent Architecture
+
+This project uses an AI-powered multi-agent system to manage slide development. See [.github/agents/README.md](.github/agents/README.md) for details.
+
+**Quick Start**: Simply create an issue describing what you need, and our specialized agents will handle it:
+- **Designer**: Diagrams, layouts, visual design
+- **Coder**: Code examples and implementations
+- **Project Manager**: Quality assurance and consistency
+- **Trainer**: Slide organization and pedagogical balance
 
 # DevOps for Developers
 

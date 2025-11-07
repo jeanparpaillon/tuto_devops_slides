@@ -1,0 +1,147 @@
+---
+# DevOps Training Program Configuration
+# This file provides structured configuration reference for all agents
+# NOTE: README.md in repository root is the authoritative source for training content
+
+training_program:
+  duration_days: 5
+  location: Alger
+  date: November 2025
+
+  # Related repositories for exercises and samples
+  companion_repositories:
+    - name: "tuto_devops_prod"
+      purpose: "Production-ready examples and advanced exercises"
+      url: "https://github.com/jeanparpaillon/tuto_devops_prod"
+    - name: "tuto_devops_github"
+      purpose: "GitHub-specific exercises and workflow examples"
+      url: "https://github.com/jeanparpaillon/tuto_devops_github"
+
+  tracks:
+    developers:
+      name: "DevOps for Developers"
+      duration: "5 Days"
+      curriculum:
+        day1:
+          topics:
+            - "DevOps basics"
+            - "Traditional approach vs DevOps approach (dev and prod)"
+            - "DevOps cycles: infinite loop diagram"
+            - "Example of a Node.js application"
+            - "git basics"
+            - "Working with branches (merge, rebase)"
+            - "Working with tags"
+            - "Other git commands: git log, git help"
+            - "GitHub (repo, issues, actions)"
+
+        day2:
+          topics:
+            - "CI/CD basics"
+            - "Node.js app containerization example"
+            - "GitHub Actions"
+
+        day3:
+          topics:
+            - "Artifact management"
+            - "GitHub repository"
+            - "Artifactory"
+            - "Repositories: cache, proxy, virtual"
+            - "Rules: blacklist, whitelist"
+            - "Integration with GitHub"
+            - "SonarQube / XRAY integration"
+
+        day4:
+          topics:
+            - "SonarQube"
+            - "XRAY"
+
+        day5:
+          topics:
+            - "Advanced GitHub Actions (triggers, on issue, etc)"
+            - "Project management with GitHub"
+
+    operators:
+      name: "DevOps for Operators"
+      duration: "5 Days"
+      curriculum:
+        day1:
+          topics:
+            - "DevOps basics"
+            - "Traditional approach vs DevOps approach (dev and prod)"
+            - "DevOps cycles: infinite loop diagram"
+            - "Example of a Node.js application"
+            - "git basics and exercises"
+            - "CI/CD basics"
+            - "Architecture (VMware/QEMU, Terraform, Ansible, k8s)"
+            - "Web application example (WordPress)"
+
+        day2:
+          topics:
+            - "Terraform basics (syntax, init, apply)"
+            - "Terraform exercises: libvirt infrastructure (1 master, 2 nodes)"
+
+        day3:
+          topics:
+            - "Ansible basics (playbooks, roles)"
+            - "Ansible simple playbook exercises"
+            - "Ansible Galaxy (basics, kubespray collection)"
+            - "Testing Ansible"
+
+        day4:
+          topics:
+            - "Kubernetes architecture"
+            - "Pods, containers, storage"
+            - "SDA, Flannel, Calico"
+            - "Deploy simple application (exercise)"
+            - "Deploy complex application (Web, DB - exercise)"
+
+        day5:
+          topics:
+            - "Choice of topics:"
+            - "Monitoring/Observability (Prometheus, Grafana, k8s metrics)"
+            - "High Availability (k8s exercises)"
+            - "Security (RBAC, ACL, vulnerability scanning)"
+
+  session_structure:
+    half_day_minutes: 160
+    recommended_split:
+      presentation_minutes: 80
+      exercises_minutes: 80
+      ratio: "50/50"
+
+    typical_flow:
+      - name: "Concept introduction"
+        duration_minutes: 45
+      - name: "Q&A and clarification"
+        duration_minutes: 15
+      - name: "Hands-on exercise"
+        duration_minutes: 60
+      - name: "Review and troubleshooting"
+        duration_minutes: 30
+      - name: "Summary and preview"
+        duration_minutes: 10
+
+  technical_stack:
+    - "Node.js"
+    - "Docker/Podman"
+    - "GitHub Actions"
+    - "Terraform (libvirt provider)"
+    - "Ansible"
+    - "Kubernetes"
+    - "Prometheus/Grafana"
+    - "SonarQube"
+    - "Artifactory/XRAY"
+
+  diagram_tools:
+    - name: "Mermaid"
+      version: "^11.12.1"
+      usage: "All diagrams (flows, architecture, loops)"
+      installed: true
+
+  presentation_tools:
+    - name: "Slidev"
+      version: "^52.4.0"
+      themes:
+        - "@slidev/theme-default"
+        - "@slidev/theme-seriph"
+        - "slidev-theme-the-unnamed"
