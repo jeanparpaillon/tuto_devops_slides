@@ -20,7 +20,7 @@ $(OUT_DIR)/%/index.html: slides/%.md
 pdf: $(PDF_OUT)
 
 $(OUT_DIR)/%.pdf: slides/%.md
-	pnpm slidev export --output $(OUT_DIR) $<
+	pnpm slidev export --output $@ $<
 
 clean:
 	rm -rf $(OUT_DIR)
