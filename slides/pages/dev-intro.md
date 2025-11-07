@@ -207,7 +207,7 @@ flowchart LR
 Presenter notes:
 - Screenshot suggestion: Actual GitHub repository page showing clone button, branches, and commit history
 - Illustration idea: Animated diagram showing the flow of commits from local to remote
-- Walk through the diagram: init local repo → push to GitHub → colleague clones → colleague pushes
+- Walk through the diagram: init local repo → push to GitHub → colleague clones → colleague push
 - Emphasize the bidirectional sync between local and remote
 -->
 
@@ -569,7 +569,7 @@ Presenter notes:
 - Screenshot suggestion: Output of 'git remote -v' showing origin and upstream
 - Illustration idea: Diagram showing original repo, fork, and upstream relationship
 - Explain the difference between origin (your fork) and upstream (original repo)
-- Demonstrate syncing fork with upstream using 'git pull upstream main'
+- Demonstrate syncing fork with upstream using 'git fetch upstream && git merge upstream/main'
 - Common gotcha: forgetting to add upstream remote
 -->
 
