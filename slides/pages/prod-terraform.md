@@ -17,25 +17,43 @@ layout: section
 
 ---
 
-# Prerequisites
+# Prerequisites & Setup
 
 **Required Software:**
-- Terraform ≥ 1.5.0
-- QEMU/KVM + libvirt
+- Terraform >= 1.5.0
+- QEMU/KVM (for libvirt provider)
+- libvirt daemon
 - SSH client
-- Git & text editor
+- Git
+- Text editor (VS Code, vim, etc.)
+
+**For Linux (Ubuntu/Debian):**
+```bash
+sudo apt-get update
+sudo apt-get install -y qemu-kvm libvirt-daemon-system \
+    libvirt-clients bridge-utils terraform
+```
+
+**For macOS:**
+```bash
+brew install qemu libvirt terraform
+```
 
 **System Requirements:**
 - 8 GB RAM minimum (16 GB recommended)
 - 20 GB free disk space
-- CPU virtualization support
+- CPU with virtualization support (Intel VT-x or AMD-V)
 
-**Verify Setup:**
-```sh
-terraform version    # ≥ 1.5.0
-virsh version       # libvirt daemon
-ssh -V              # SSH client
+**Verification:**
+```bash
+terraform version          # Should show >= 1.5.0
+virsh version             # Should show libvirt version
+ssh -V                    # Should show OpenSSH version
 ```
+
+**Access Requirements:**
+- GitHub account (for accessing exercise repos)
+- SSH key generated (for VM access)
 
 ---
 
