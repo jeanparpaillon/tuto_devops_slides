@@ -154,6 +154,13 @@ layout: section
 
 ## Understanding the Git ↔ GitHub relationship
 
+<!--
+Presenter notes:
+- Screenshot suggestion: GitHub homepage showing the social coding features
+- Illustration idea: Side-by-side comparison of Git logo and GitHub logo
+- Emphasize that this section will bridge local Git with cloud-based GitHub
+-->
+
 ---
 
 # Git vs GitHub
@@ -172,6 +179,14 @@ layout: section
 - Project management tools
 - CI/CD integration
 
+<!--
+Presenter notes:
+- Screenshot suggestion: Split screen showing Git terminal commands on left and GitHub web interface on right
+- Illustration idea: Icons representing offline (Git) vs online (GitHub) with connecting arrows
+- Key point: Git is the tool, GitHub is the platform that hosts Git repositories
+- Mention alternatives like GitLab, Bitbucket for context
+-->
+
 ---
 
 # The Git ↔ GitHub workflow
@@ -187,6 +202,14 @@ flowchart LR
   style B fill:#c8e6c9,stroke:#43a047,stroke-width:2px
   style C fill:#bbdefb,stroke:#1e88e5,stroke-width:2px
 ```
+
+<!--
+Presenter notes:
+- Screenshot suggestion: Actual GitHub repository page showing clone button, branches, and commit history
+- Illustration idea: Animated diagram showing the flow of commits from local to remote
+- Walk through the diagram: init local repo → push to GitHub → colleague clones → colleague pushes
+- Emphasize the bidirectional sync between local and remote
+-->
 
 ---
 
@@ -204,6 +227,14 @@ flowchart LR
 - Organization repositories
 - Forked repositories
 
+<!--
+Presenter notes:
+- Screenshot suggestion: GitHub repository page showing README, file tree, and repository settings
+- Show examples of: public repo (e.g., popular open source), private repo icon, and forked repo badge
+- Illustration idea: Three cards showing different repository types with their icons
+- Demonstrate creating a new repository live if time permits
+-->
+
 ---
 
 # GitHub core concepts
@@ -219,6 +250,14 @@ flowchart LR
 - Team management
 - Consistent permissions across repos
 - Shared resources and settings
+
+<!--
+Presenter notes:
+- Screenshot suggestion: GitHub organization page showing multiple repositories and team members
+- Screenshot suggestion: Organization settings page showing team management interface
+- Illustration idea: Organizational chart showing how teams fit under organizations
+- Real example: Show a well-known organization (e.g., microsoft, google, facebook on GitHub)
+-->
 
 ---
 
@@ -236,6 +275,14 @@ flowchart LR
 - Maintainers, Contributors
 - Department-based groups
 
+<!--
+Presenter notes:
+- Screenshot suggestion: Organization teams page showing team structure and members
+- Screenshot suggestion: Repository access settings showing team permissions (Read/Write/Admin)
+- Illustration idea: Hierarchical diagram showing parent team and nested teams
+- Explain permission inheritance from organization to team to individual
+-->
+
 ---
 
 # GitHub core concepts
@@ -251,6 +298,15 @@ flowchart LR
 - Board (Kanban)
 - Table (Spreadsheet)
 - Roadmap (Timeline)
+
+<!--
+Presenter notes:
+- Screenshot suggestion: GitHub Projects board view with columns (Todo, In Progress, Done)
+- Screenshot suggestion: Table view showing different metadata columns
+- Screenshot suggestion: Roadmap view with timeline visualization
+- Illustration idea: Side-by-side comparison of all three view types
+- Mention this is similar to Jira but integrated with GitHub
+-->
 
 ---
 layout: two-cols-header
@@ -278,6 +334,15 @@ layout: two-cols-header
 - **Milestone:** Group related issues
 - **Projects:** Track progress
 
+<!--
+Presenter notes:
+- Screenshot suggestion: GitHub issue page showing all components (title, description, labels, assignees, milestone)
+- Screenshot suggestion: Issue list with different colored labels
+- Illustration idea: Annotated issue showing each component with arrows
+- Demo creating a new issue live and show how labels work
+- Emphasize issue templates if time permits
+-->
+
 ---
 
 # Pull Requests (PRs)
@@ -297,6 +362,15 @@ layout: two-cols-header
 - Automated tests (CI)
 - Discussion and collaboration
 
+<!--
+Presenter notes:
+- Screenshot suggestion: Complete PR page showing conversation, commits, checks, and files changed tabs
+- Screenshot suggestion: PR workflow diagram from branch creation to merge
+- Illustration idea: Flow chart showing PR lifecycle with decision points
+- Show a real PR with review comments and CI checks
+- Explain the difference between Draft PR and Ready for Review
+-->
+
 ---
 
 # Code Review best practices
@@ -315,6 +389,15 @@ layout: two-cols-header
 ✅ Explain the "why" behind suggestions
 ✅ Approve when satisfied
 ❌ Avoid nitpicking minor style issues
+
+<!--
+Presenter notes:
+- Screenshot suggestion: PR review interface showing inline comments, suggestions, and approval buttons
+- Screenshot suggestion: Example of good review comment vs poor review comment (side by side)
+- Illustration idea: Do's and Don'ts of code review with emoji indicators
+- Share real examples of constructive comments
+- Mention GitHub's "suggestion" feature for proposing changes
+-->
 
 ---
 
@@ -337,6 +420,15 @@ layout: two-cols-header
 - No merge commit
 - Rewrites commit history
 
+<!--
+Presenter notes:
+- Screenshot suggestion: Git graph showing all three merge strategies side by side
+- Illustration idea: Before/after diagrams for each merge type showing commit history
+- Demo using git log --graph to show different outcomes
+- Explain when to use each strategy (feature branches vs hotfixes)
+- Show GitHub's merge button options
+-->
+
 ---
 
 # Branch protection rules
@@ -354,6 +446,15 @@ layout: two-cols-header
 - Prevent accidental deletions
 - Ensure code quality
 - Maintain stable main branch
+
+<!--
+Presenter notes:
+- Screenshot suggestion: GitHub branch protection settings page with all options visible
+- Screenshot suggestion: Example of blocked push due to protection rules
+- Illustration idea: Shield icon with checkmarks showing protected vs unprotected branch
+- Demo attempting to push directly to protected main (should fail)
+- Explain how to configure protection rules for main/production branches
+-->
 
 ---
 
@@ -376,6 +477,15 @@ Protected branch: main
 ✅ Include administrators
 ```
 
+<!--
+Presenter notes:
+- Screenshot suggestion: Actual GitHub branch protection configuration matching this example
+- Screenshot suggestion: PR that fails to merge due to protection rules not met
+- Illustration idea: Checklist visualization showing all requirements
+- Walk through each setting and explain its purpose
+- Explain "Include administrators" - why it's important even for admins to follow rules
+-->
+
 ---
 layout: section
 ---
@@ -387,6 +497,14 @@ layout: section
 **Note:** In the following exercises, replace:
 - `YOUR_USERNAME` with your GitHub username
 - `INSTRUCTOR_USERNAME` with the instructor's GitHub username
+
+<!--
+Presenter notes:
+- Before starting exercises, ensure all students have GitHub accounts
+- Walk around to help students who get stuck
+- Consider pairing students for collaborative exercises
+- Have backup exercises ready for faster students
+-->
 
 ---
 
@@ -411,6 +529,16 @@ layout: section
    git push origin main
    ```
 
+<!--
+Presenter notes:
+- Screenshot suggestion: Step-by-step screenshots of repository creation flow
+- Screenshot suggestion: GitHub clone button and clone URL options (HTTPS/SSH)
+- Illustration idea: Flow diagram from GitHub.com → create repo → clone → modify → push
+- Common issues: SSH vs HTTPS authentication, Git not installed
+- Show students where to find their repository URL
+- Verify students can see their commit on GitHub after pushing
+-->
+
 ---
 
 # Exercise 2: Fork and contribute
@@ -434,6 +562,17 @@ layout: section
    git fetch upstream
    ```
 
+<!--
+Presenter notes:
+- Screenshot suggestion: Fork button on GitHub and the forking process
+- Screenshot suggestion: Network graph showing fork relationship
+- Screenshot suggestion: Output of 'git remote -v' showing origin and upstream
+- Illustration idea: Diagram showing original repo, fork, and upstream relationship
+- Explain the difference between origin (your fork) and upstream (original repo)
+- Demonstrate syncing fork with upstream using 'git pull upstream main'
+- Common gotcha: forgetting to add upstream remote
+-->
+
 ---
 
 # Exercise 3: Issues and Pull Requests
@@ -456,6 +595,16 @@ layout: section
    git push origin feature/user-auth
    ```
 
+<!--
+Presenter notes:
+- Screenshot suggestion: Issue creation form with all fields filled
+- Screenshot suggestion: Issue number and how it links to commits (using #1)
+- Illustration idea: Timeline showing issue → branch → commits → PR → merge
+- Demonstrate how #1 in commit message creates automatic link to issue
+- Show students the difference between issue number and PR number
+- Common mistake: forgetting to create branch before making changes
+-->
+
 ---
 
 # Exercise 3: Issues and Pull Requests (cont.)
@@ -474,6 +623,17 @@ layout: section
    - Author: Address feedback, push updates
    - Reviewer: Approve the PR
    - Author: Merge the PR
+
+<!--
+Presenter notes:
+- Screenshot suggestion: PR creation page showing base and compare branches
+- Screenshot suggestion: "Closes #1" in PR description and how it auto-links
+- Screenshot suggestion: Review workflow showing requested changes, comments, and approval
+- Illustration idea: PR lifecycle diagram with all states (Open → Review → Changes Requested → Approved → Merged)
+- Demonstrate inline code comments and suggestions
+- Show how issue automatically closes when PR is merged
+- Pair students for this exercise so they can review each other's PRs
+-->
 
 ---
 
@@ -496,6 +656,17 @@ layout: section
    - Auto-move to "Done" when PR is merged
    - Filter by labels
 
+<!--
+Presenter notes:
+- Screenshot suggestion: New project creation screen with Board template selected
+- Screenshot suggestion: Project board with issues in different columns
+- Screenshot suggestion: Automation workflow configuration
+- Illustration idea: Before/after showing manual vs automated card movement
+- Demonstrate dragging cards between columns
+- Show how to add issues from different repositories to same project
+- Explain the difference between organization-level and repository-level projects
+-->
+
 ---
 
 # Exercise 4: Project board (cont.)
@@ -517,6 +688,17 @@ layout: section
 - Add issues to milestone
 - Track progress
 
+<!--
+Presenter notes:
+- Screenshot suggestion: Project with filters applied showing only high priority items
+- Screenshot suggestion: Project view showing issue linked to PR with status indicators
+- Screenshot suggestion: Milestone view showing progress bar
+- Illustration idea: Connected diagram showing issue ↔ PR ↔ project ↔ milestone relationships
+- Demonstrate custom fields in Projects (status, priority, etc.)
+- Show insights and charts if time permits
+- Encourage students to experiment with different views (Table, Roadmap)
+-->
+
 ---
 
 # Exercise 5: Branch protection
@@ -533,6 +715,18 @@ layout: section
    - Try to push directly to main (should fail)
    - Create a PR instead
    - Get approval and merge
+
+<!--
+Presenter notes:
+- Screenshot suggestion: Branch protection settings page with options checked
+- Screenshot suggestion: Error message when trying to push to protected branch
+- Screenshot suggestion: PR showing "1 approval required" status
+- Illustration idea: Shield protecting the main branch with red X on direct push
+- Live demo: attempt git push to main and show the rejection
+- Explain why even repository owners should follow protection rules
+- Show students how to override in emergencies (and why not to!)
+- Discuss naming patterns like `main`, `develop`, `release/*`
+-->
 
 ---
 
@@ -556,6 +750,15 @@ layout: section
 - Test the changes locally
 - Approve only when satisfied
 
+<!--
+Presenter notes:
+- Screenshot suggestion: Collage of well-written issues and PRs as examples
+- Illustration idea: Checklist infographic of all best practices
+- Emphasize "small PRs" - show example of 500 line PR vs 50 line PR
+- Mention resources: GitHub Docs, GitHub Skills learning paths
+- Encourage students to create templates in their repositories
+-->
+
 ---
 
 # GitHub best practices — summary (cont.)
@@ -577,3 +780,15 @@ layout: section
 - Document processes in CONTRIBUTING.md
 - Use templates for issues and PRs
 - Leverage GitHub Actions for automation
+
+<!--
+Presenter notes:
+- Screenshot suggestion: Example CONTRIBUTING.md file from popular open source project
+- Screenshot suggestion: Issue and PR templates in action
+- Illustration idea: GitHub collaboration workflow diagram showing full cycle
+- Recap key takeaways from the 2.5 hour session
+- Share resources for continued learning (GitHub Docs, GitHub Skills, GitHub Community)
+- Encourage students to practice on real projects
+- Q&A time - address any remaining questions
+- Remind about exercises and encourage completing them for practice
+-->
