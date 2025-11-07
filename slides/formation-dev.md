@@ -33,6 +33,10 @@ src: ./pages/dev-github-actions-exercises.md
 ---
 
 ---
+src: ./pages/dev-troubleshooting.md
+---
+
+---
 src: ./pages/dev-intro-artifactory.md
 ---
 
