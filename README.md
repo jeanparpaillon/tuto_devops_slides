@@ -52,9 +52,28 @@ Day 3
         - with GitHub
         - SonarQube / XRAY (see day 4)
 
-Day 4
-    - SonarQube
-    - XRAY
+Day 4 - Code Quality and Security Scanning
+    Morning
+        - Introduction to code quality and security
+        - SonarQube
+            - Architecture and concepts
+            - Quality profiles and gates
+            - Local setup and analysis
+            - Exercise: Local SonarQube setup
+            - Exercise: Quality gates configuration
+        - CI/CD integration
+            - GitHub Actions
+            - Exercise: SonarQube in CI/CD
+    Afternoon
+        - Xray
+            - Overview and architecture
+            - Vulnerability scanning (SCA, containers)
+            - Policies and watches
+            - Integration with Artifactory
+            - Exercise: Container scanning
+            - Exercise: Policy configuration
+        - Best practices and troubleshooting
+        - Wrap-up and Q&A
   
 Day 5
     - Advanced
