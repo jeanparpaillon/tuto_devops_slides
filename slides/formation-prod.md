@@ -13,7 +13,11 @@ src: ./pages/about-me.md
 ---
 
 ---
-src: ./pages/dev-intro.md
+src: ./pages/common-intro.md
+---
+
+---
+src: ./pages/prod-arch.md
 ---
 
 ---
