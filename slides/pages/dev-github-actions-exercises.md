@@ -436,7 +436,6 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm test
-      - run: npm run lint
 
   docker:
     needs: test
