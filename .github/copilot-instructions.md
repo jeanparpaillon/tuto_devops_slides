@@ -11,22 +11,23 @@ The slides cover topics including Git, GitHub, CI/CD, containerization, artifact
 
 ### Architecture
 - **Framework**: Slidev (Vue 3 + Markdown)
-- **Package Manager**: pnpm 10 (CI/CD uses major version 10, `.tool-versions` specifies 10.18.3)
-- **Node.js**: 22 (CI/CD uses version 22, `.tool-versions` specifies 24.10.0)
+- **Package Manager**: pnpm 10 (CI/CD uses major version 10 for stability, local dev may use 10.18.3 per `.tool-versions`)
+- **Node.js**: 22 (CI/CD uses LTS version 22, local dev may use 24.10.0 per `.tool-versions`)
 - **Deployment**: GitHub Pages (automated via GitHub Actions)
 - **Multi-Agent System**: This repository uses specialized AI agents for different tasks (see `.github/agents/README.md`)
 
 ## How to Build, Test, and Validate
 
 ### Prerequisites
-- Install Node.js 22+ and pnpm 10+ (local development uses versions from `.tool-versions`, CI uses versions from `.github/workflows/deploy.yml`)
+- **For local development**: Install versions specified in `.tool-versions` (Node.js 24.10.0, pnpm 10.18.3) or use asdf/mise
+- **For CI/CD compatibility**: Node.js 22+ and pnpm 10+ will work (see `.github/workflows/deploy.yml`)
 - Run `pnpm install` to install dependencies
 
 ### Development Commands
 - **Start dev server for developers track**: `pnpm dev:dev` or `make dev-dev`
 - **Start dev server for operators track**: `pnpm dev:prod` or `make dev-prod`
 - **Build all presentations**: `pnpm build` or `make build`
-- **Export to PDF**: `pnpm export:dev` or `pnpm export:prod` or `make pdf`
+- **Export to PDF**: `pnpm export:dev` or `pnpm export:prod` or `make pdf` (note: `pnpm export` shows usage)
 - **Clean build artifacts**: `make clean`
 
 ### Validation
