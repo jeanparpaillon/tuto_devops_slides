@@ -1,12 +1,13 @@
 # Production Program Improvements
 
-This document tracks suggested improvements for the production training program based on the 2-day infrastructure tutorial format.
+This document tracks suggested improvements for the production training program Days 3 and 4, focusing on better progression and integration of terraform, ansible, and kubernetes topics.
 
 ## Overview
 
-The production program has been restructured to support both:
-1. **Full 5-day program**: Comprehensive DevOps training for operators
-2. **2-day infrastructure tutorial**: Focused hands-on tutorial for terraform, ansible, and k8s
+The production program Day 3 and Day 4 have been reorganized to provide:
+1. **Better progression**: Clear flow from Terraform → Ansible → K8s → Apps → Scaling
+2. **Improved integration**: Topics connect logically (Terraform outputs → Ansible inventory → K8s deployment)
+3. **Hands-on focus**: More emphasis on exercises and practical implementation
 
 ## Issues to Create
 
@@ -212,39 +213,42 @@ The current `formation-prod.md` is organized for the 5-day format. Consider:
 - ⚠️ Gap: External app deployment lacks ingress controller details
 - ⚠️ Gap: Load balancing and DNS are mentioned but not detailed
 
-### Suggested Balance for 2-Day Format
+### New Day 3 and Day 4 Organization
 
-**Day 1 Focus**: End-to-end infrastructure (Terraform → Ansible → K8s)
-- Weight: 60% infrastructure, 40% concepts
-- Key deliverable: Working K8s cluster from scratch
+**Day 3 Focus**: Infrastructure and Kubernetes Deployment
+- Morning: Ansible basics with practical exercises
+- Afternoon: Terraform→Ansible integration and K8s deployment with Kubespray
+- Key deliverable: Working K8s cluster deployed via Ansible on Terraform infrastructure
 
-**Day 2 Focus**: Application deployment patterns
-- Weight: 40% simple apps, 60% external access patterns
-- Key deliverable: Web app accessible from outside cluster
+**Day 4 Focus**: Application Deployment and Scaling
+- Morning: Simple app deployment + external access with ingress
+- Afternoon: Load balancing, scaling (HPA), and DNS
+- Key deliverable: Externally accessible web app with scaling and load balancing
 
 ### Progression Strategy
 
-1. **Terraform** (Day 1 Morning): 
-   - Keep it simple - focus on creating VMs
-   - Output must feed into Ansible inventory
+1. **Day 3 Morning - Ansible Basics**: 
+   - Core concepts: inventory, playbooks, roles
+   - Simple exercises to understand idempotency
    - Time: ~3 hours
 
-2. **Ansible** (Day 1 Afternoon):
-   - Quick basics (1 hour)
-   - Jump to Kubespray (2 hours)
-   - Focus on getting K8s running, not Ansible mastery
+2. **Day 3 Afternoon - K8s Setup**:
+   - Terraform outputs → Ansible inventory integration
+   - Kubespray collection usage
+   - Deploy K8s cluster
+   - Time: ~3 hours
 
-3. **Simple Apps** (Day 2 Morning):
-   - Very basic deployment (nginx)
-   - Service creation
-   - Internal access only
-   - Time: ~2 hours
+3. **Day 4 Morning - Application Deployment**:
+   - Simple deployment (nginx/nodejs)
+   - Service creation and types
+   - Ingress controller setup
+   - External access configuration
+   - Time: ~3 hours
 
-4. **External Apps** (Day 2 Afternoon):
-   - Ingress controller
-   - External service
-   - Scaling and load balancing
-   - DNS basics
+4. **Day 4 Afternoon - Scaling and Advanced Topics**:
+   - Load balancing verification
+   - Manual and automatic scaling (HPA)
+   - DNS and service discovery
    - Time: ~3 hours
 
 ## Implementation Notes

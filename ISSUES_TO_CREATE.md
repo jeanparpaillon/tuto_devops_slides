@@ -1,6 +1,6 @@
 # GitHub Issues to Create
 
-This file contains templates for the GitHub issues that should be created based on the production program review.
+This file contains templates for the GitHub issues that should be created based on the Day 3 and Day 4 reorganization of the production program.
 
 ---
 
@@ -70,15 +70,15 @@ The slide file should cover:
 
 ## Issue 2: Enhance Day 3 slides for Ansible and K8s integration
 
-**Title**: Improve Ansible slides for 2-day tutorial integration
+**Title**: Enhance Day 3 slides for Ansible and K8s integration
 
-**Labels**: `slides`, `ansible`, `enhancement`, `2-day-tutorial`
+**Labels**: `slides`, `ansible`, `enhancement`, `day3`
 
 **Body**:
 ```markdown
 ## Description
 
-Update the Ansible slides (`prod-ansible-basics.md` and `prod-ansible-intra.md`) to better support the 2-day infrastructure tutorial format with clearer progression from Terraform to Kubernetes deployment.
+Update the Ansible slides (`prod-ansible-basics.md` and related files) to support the reorganized Day 3 content with better progression from Ansible basics to Kubernetes deployment.
 
 ## Current Gaps
 
@@ -89,55 +89,51 @@ Update the Ansible slides (`prod-ansible-basics.md` and `prod-ansible-intra.md`)
 
 ## Proposed Improvements
 
-### prod-ansible-basics.md
+### Day 3 Content Updates
 
-1. **Add Terraform Integration Section**
+1. **Morning: Ansible Basics Section**
+   - Core concepts: inventory, playbooks, roles
+   - Idempotency and modules
+   - Exercise: simple playbook (ensure packages, write a file)
+
+2. **Terraform Integration Section**
    - How to consume Terraform inventory outputs
+   - Dynamic inventory management
    - Example inventory file structure from Terraform
    - Variables and group_vars setup
 
-2. **Enhanced Kubespray Coverage**
+3. **Afternoon: Kubernetes Setup with Ansible**
    - Step-by-step Kubespray installation
    - Requirements.yml configuration
    - Running the cluster.yml playbook
-   - Common configuration options
+   - Cluster verification (kubectl get nodes, CNI installation)
 
-3. **Exercise Enhancements**
+4. **Exercise Enhancements**
    - Add expected output examples
    - Include timing estimates (~15-30 minutes per exercise)
    - Add troubleshooting section for common errors
    - Success criteria for each exercise
 
-### prod-ansible-intra.md
-
-1. **Clearer Application Examples**
-   - Replace abstract "wiki or HR portal" with concrete example
-   - Use simple, reproducible application (e.g., Guestbook app)
-   - Include manifest files in snippets
-
-2. **Deployment Verification**
-   - kubectl commands to verify deployment
-   - How to access the application
-   - Log checking and debugging
-
 ## Acceptance Criteria
 
+- [ ] Day 3 morning covers Ansible basics with practical exercises
 - [ ] Terraform-to-Ansible inventory integration is documented
-- [ ] Kubespray setup has step-by-step guide
+- [ ] Day 3 afternoon focuses on K8s deployment with Kubespray
 - [ ] All exercises have expected outcomes
 - [ ] Troubleshooting section added for common issues
 - [ ] Timing estimates included for exercises
-- [ ] Content aligns with Day 1 afternoon of 2-day tutorial
+- [ ] Content aligns with reorganized Day 3 structure
 - [ ] Slides build successfully
 
 ## Files to Update
 
 - `slides/pages/prod-ansible-basics.md`
-- `slides/pages/prod-ansible-intra.md`
+- Consider creating `slides/pages/prod-terraform-ansible-integration.md`
+- Consider creating `slides/pages/prod-k8s-kubespray.md`
 
 ## Reference
 
-- See `README.md` Day 1 Afternoon section for context
+- See `README.md` Day 3 section for updated structure
 - See `PRODUCTION_IMPROVEMENTS.md` for detailed recommendations
 ```
 
