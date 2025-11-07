@@ -76,10 +76,12 @@ layoutClass: devops-bg
 - Issues
 - Pull-Requests
 
-## Tools
+<div style="height:6rem"></div>
 
-- GitHub
-- Jira
+<div class="icon-row bg-black" >
+  <img src="/github_black.png" alt="GitHub" />
+  <img src="/jira.png" alt="Jira" />
+</div>
 
 ---
 layout: two-cols-header
@@ -98,10 +100,12 @@ layoutClass: devops-bg
 - Edit
 - Commit
 
-## Tools
+<div style="height:6rem"></div>
 
-- git
-- GitHub
+<div class="icon-row bg-black">
+  <img src="/git_color.png" alt="Git" />
+  <img src="/github_black.png" alt="GitHub" />
+</div>
 
 ---
 layout: two-cols-header
