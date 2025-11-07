@@ -384,6 +384,10 @@ layout: section
 
 ## Let's practice GitHub collaboration!
 
+**Note:** In the following exercises, replace:
+- `YOUR_USERNAME` with your GitHub username
+- `INSTRUCTOR_USERNAME` with the instructor's GitHub username
+
 ---
 
 # Exercise 1: Create and link repository
@@ -392,14 +396,14 @@ layout: section
 
 1. **Create a new repository on GitHub**
    - Go to github.com → New repository
-   - Name: `devops-training-YOURNAME`
+   - Name: `devops-training-YOUR_USERNAME`
    - Add README.md
    - Choose .gitignore (Node)
 
 2. **Link to local repository**
    ```sh
-   git clone https://github.com/YOUR_USERNAME/devops-training-YOURNAME.git
-   cd devops-training-YOURNAME
+   git clone https://github.com/YOUR_USERNAME/devops-training-YOUR_USERNAME.git
+   cd devops-training-YOUR_USERNAME
    echo "# My DevOps Project" >> README.md
    git add README.md
    git commit -m "Update README"
