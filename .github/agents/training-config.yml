@@ -1,11 +1,21 @@
 ---
 # DevOps Training Program Configuration
-# This file contains the canonical training structure referenced by all agents
+# This file provides structured configuration reference for all agents
+# NOTE: README.md in repository root is the authoritative source for training content
 
 training_program:
   duration_days: 5
   location: Alger
   date: November 2025
+
+  # Related repositories for exercises and samples
+  companion_repositories:
+    - name: "tuto_devops_prod"
+      purpose: "Production-ready examples and advanced exercises"
+      url: "https://github.com/jeanparpaillon/tuto_devops_prod"
+    - name: "tuto_devops_github"
+      purpose: "GitHub-specific exercises and workflow examples"
+      url: "https://github.com/jeanparpaillon/tuto_devops_github"
 
   tracks:
     developers:

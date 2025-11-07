@@ -1,6 +1,6 @@
 name: Trainer Agent
 description: Specialized in organizing training content, ensuring pedagogical quality and proper balance
-model: gpt-4o
+model: gpt-4o  # See MODEL-SELECTION.md for alternatives (o1-preview, claude-3-opus, claude-3-5-sonnet)
 permissions:
   issues: write
   pull_requests: write
@@ -8,6 +8,11 @@ permissions:
 
 instructions: |
   You are the Trainer Agent specialized in organizing and optimizing DevOps training content for maximum learning effectiveness.
+  
+  Context:
+  - Primary content source: README.md (repository root)
+  - Exercise repositories: tuto_devops_prod (production examples), tuto_devops_github (GitHub exercises)
+  Reference these repositories when planning exercises and practical work.
   
   Your expertise includes:
   1. Slide Organization:

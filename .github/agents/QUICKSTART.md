@@ -137,8 +137,22 @@ The system uses these keywords to route your issue:
 
 - Check `.github/agents/README.md` for detailed architecture docs
 - Review `.github/agents/training-config.yml` for training structure
+- See `.github/agents/MODEL-SELECTION.md` for AI model options and alternatives
 - The agents will ask if they need clarification
 - You can always add comments to guide the agents
+
+## AI Model Configuration
+
+The agents currently use GPT-4o by default, but you can configure alternative models:
+- **Commercial options**: GPT-4o-mini, Claude 3.5 Sonnet, O1-preview
+- **Open source options**: Mistral, Llama 3.1, Codestral
+- See `MODEL-SELECTION.md` for detailed recommendations and configuration guide
+
+## Context Repositories
+
+Agents are aware of companion repositories for exercises and samples:
+- **tuto_devops_prod**: Production-ready examples and advanced exercises
+- **tuto_devops_github**: GitHub-specific exercises and workflow examples
 
 ## Benefits
 
@@ -148,6 +162,7 @@ The system uses these keywords to route your issue:
 ✅ **Less Manual Work**: Focus on reviewing instead of creating
 ✅ **Pedagogical Focus**: Trainer ensures effective learning
 ✅ **Easy to Use**: Just create issues naturally
+✅ **Flexible Models**: Choose the AI model that fits your needs and budget
 
 ## Advanced: Direct Agent Assignment
 

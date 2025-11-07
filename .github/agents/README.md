@@ -93,6 +93,17 @@ Key training tracks:
 - **DevOps for Developers**: Focus on git, GitHub, CI/CD, containerization, quality tools
 - **DevOps for Operators**: Focus on infrastructure (Terraform, Ansible, Kubernetes)
 
+**Note**: The authoritative source for all training content is the main `README.md` file in the repository root.
+
+### Related Repositories for Exercises and Samples
+
+Agents should be aware of and reference these companion repositories:
+
+- **tuto_devops_prod**: Contains production-ready examples and advanced exercises
+- **tuto_devops_github**: Contains GitHub-specific exercises and workflow examples
+
+These repositories provide practical, hands-on materials that complement the slide content.
+
 This centralized configuration ensures consistency across all agents and makes curriculum updates easy.
 
 ## Usage

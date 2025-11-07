@@ -131,7 +131,9 @@ All agents reference centralized training configuration and use GPT-4o model.
 ## Configuration Flow
 
 ```
-training-config.yml (Single Source of Truth)
+README.md (Single Source of Truth for Training Content)
+         ↓
+training-config.yml (Structured Configuration Reference)
          ↓
     ┌────┴────┬────────┬────────┐
     ↓         ↓        ↓        ↓
@@ -140,6 +142,8 @@ Designer   Coder    PM      Trainer
 All reference the same curriculum,
 technical stack, and session structure
 ```
+
+**Note**: README.md is the authoritative source for training content. The training-config.yml provides a structured reference for agents.
 
 ## Benefits
 
