@@ -8,6 +8,10 @@ pnpm dev:dev
 pnpm dev:prod
 ```
 
+Available online at:
+- Dev training : (HTML)[https://jeanparpaillon.github.io/tuto_devops_slides/formation-dev/], (PDF)[https://jeanparpaillon.github.io/tuto_devops_slides/formation-dev.pdf]
+- Prod training : (HTML)[https://jeanparpaillon.github.io/tuto_devops_slides/formation-prod/], (PDF)[https://jeanparpaillon.github.io/tuto_devops_slides/formation-prod.pdf]
+
 # DevOps for Developers
 
 Duration : 5 Days
