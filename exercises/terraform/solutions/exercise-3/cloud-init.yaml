@@ -1,0 +1,35 @@
+#cloud-config
+# Exercise 3 Solution: Cloud-init Configuration
+
+users:
+  - name: devops
+    groups: sudo
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ${ssh_public_key}
+
+hostname: ${hostname}
+fqdn: ${hostname}.local
+
+package_update: true
+package_upgrade: true
+
+packages:
+  - curl
+  - wget
+  - vim
+  - git
+  - net-tools
+
+ssh_pwauth: true
+
+chpasswd:
+  list: |
+    devops:devops123
+  expire: false
+
+runcmd:
+  - echo "VM initialized at $(date)" > /var/log/cloud-init-complete.log
+  - systemctl enable ssh
+  - systemctl start ssh

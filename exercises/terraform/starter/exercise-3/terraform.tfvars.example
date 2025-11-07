@@ -1,0 +1,8 @@
+# terraform.tfvars.example - Example variable values
+# Copy this file to terraform.tfvars and update with your values
+
+masters = 1
+workers = 2
+
+# TODO: Replace with your actual SSH public key
+ssh_public_key = "ssh-ed25519 AAAAC3Nza... your-email@example.com"

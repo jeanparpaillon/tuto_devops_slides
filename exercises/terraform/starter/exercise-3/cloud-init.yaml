@@ -1,0 +1,42 @@
+#cloud-config
+# Exercise 3: Cloud-init Configuration Template
+
+# TODO: Configure users
+# - name: devops
+# - groups: sudo
+# - sudo: ALL=(ALL) NOPASSWD:ALL
+# - shell: /bin/bash
+# - ssh_authorized_keys: use ${ssh_public_key} variable
+
+
+# TODO: Set hostname using ${hostname} variable
+
+
+# TODO: Enable package updates
+# package_update: true
+# package_upgrade: true
+
+
+# TODO: Install packages
+# packages:
+#   - curl
+#   - wget
+#   - vim
+#   - git
+#   - net-tools
+
+
+# TODO: Configure SSH
+# ssh_pwauth: true
+
+
+# TODO: Set password for devops user
+# chpasswd:
+#   list: |
+#     devops:devops123
+#   expire: false
+
+
+# TODO: Add runcmd to log initialization
+# runcmd:
+#   - echo "VM initialized at $(date)" > /var/log/cloud-init-complete.log
