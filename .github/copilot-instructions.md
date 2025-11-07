@@ -11,15 +11,15 @@ The slides cover topics including Git, GitHub, CI/CD, containerization, artifact
 
 ### Architecture
 - **Framework**: Slidev (Vue 3 + Markdown)
-- **Package Manager**: pnpm 10.18.3
-- **Node.js**: 24.10.0
+- **Package Manager**: pnpm 10 (CI/CD uses major version 10, `.tool-versions` specifies 10.18.3)
+- **Node.js**: 22 (CI/CD uses version 22, `.tool-versions` specifies 24.10.0)
 - **Deployment**: GitHub Pages (automated via GitHub Actions)
 - **Multi-Agent System**: This repository uses specialized AI agents for different tasks (see `.github/agents/README.md`)
 
 ## How to Build, Test, and Validate
 
 ### Prerequisites
-- Install Node.js 24.10.0 and pnpm 10.18.3 (see `.tool-versions`)
+- Install Node.js 22+ and pnpm 10+ (local development uses versions from `.tool-versions`, CI uses versions from `.github/workflows/deploy.yml`)
 - Run `pnpm install` to install dependencies
 
 ### Development Commands
@@ -85,9 +85,10 @@ When creating issues, consider tagging the appropriate specialized agent. See `.
 
 ## Testing and CI/CD
 
-- **Automated Deployment**: Every push triggers a build and deployment to GitHub Pages via `.github/workflows/deploy.yml`
+- **Automated Deployment**: Pushes to the repository trigger a build via `.github/workflows/deploy.yml`, which builds and deploys to GitHub Pages
 - **Build Process**: Runs `make clean && make` which builds HTML and PDF outputs
 - **Deployment Target**: `gh-pages` branch serves the static site
+- **Node.js & pnpm versions**: CI/CD uses Node.js 22 and pnpm 10 (see workflow file for exact versions)
 - **ALWAYS** ensure builds succeed before merging to main branch
 
 ## Additional Resources
