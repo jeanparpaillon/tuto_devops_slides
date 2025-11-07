@@ -1,6 +1,6 @@
 # Review of Production Day 2 Program - Terraform
 
-**Date:** November 7, 2025  
+**Date:** November 2025  
 **Reviewer:** GitHub Copilot  
 **Scope:** Day 2 program for DevOps Production training
 
@@ -285,7 +285,7 @@ Based on this review, here are recommended issues for improvements:
 
 ### Issue 2: Clarify provider strategy (libvirt vs vSphere)
 **Priority**: High  
-**Effort**: 1 hour  
+**Effort**: 1-2 hours  
 **Description**: Decide on primary provider and update all documentation to be consistent. Consider libvirt for local labs with vSphere as production alternative.
 
 ### Issue 3: Remove K8s installation from Day 2 scope
