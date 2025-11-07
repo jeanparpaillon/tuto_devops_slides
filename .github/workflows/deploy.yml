@@ -25,11 +25,14 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
 
       - name: Build
-        run: make
+        run: | 
+          make clean && make
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          publish_branch: gh-pages
+          force_orphan: true
     

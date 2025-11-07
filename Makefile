@@ -1,8 +1,9 @@
 BASE := /tuto_devops_slides/
-OUT_DIR := $(PWD)/dist
-SLIDES_IN := slides/formation-dev.md slides/formation-prod.md
-SLIDES_OUT := $(patsubst slides/%.md,$(OUT_DIR)/%/index.html,$(SLIDES_IN))
-PDF_OUT := $(OUT_DIR)/formation-dev.pdf $(OUT_DIR)/formation-prod.pdf
+
+DECKS := formation-dev formation-prod
+
+SLIDES := $(patsubst %,$(OUT_DIR)/%/index.html,$(DECKS))
+PDFS := $(patsubst %,$(OUT_DIR)/%.pdf,$(DECKS))
 
 all: build pdf
 
@@ -12,17 +13,17 @@ dev-dev:
 dev-prod:
 	pnpm dev:prod
 
-build: $(SLIDES_OUT)
+build: $(SLIDES)
 
-$(OUT_DIR)/%/index.html: slides/%.md
-	pnpm slidev build --base $(BASE) --out $(@D) $<
+dist/%/index.html: slides/%.md
+	cd slides && pnpm slidev build --base $(BASE) --out ../dist/$* $<
 
-pdf: $(PDF_OUT)
+pdf: $(PDFS)
 
-$(OUT_DIR)/%.pdf: slides/%.md
+dist/%.pdf: slides/%.md
 	pnpm slidev export --output $@ $<
 
 clean:
-	rm -rf $(OUT_DIR)
+	rm -rf dist
 
 .PHONY: all dev build pdf clean
