@@ -84,11 +84,182 @@ jobs:
 
 ---
 
-# Environments and approvals
+# Environment Protection
 
-- Protected environments (dev, staging, prod)
-- Required reviewers and wait timers
+```yaml
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://example.com
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./deploy.sh
+```
+
+**Configuration** (in repository settings):
+
+- Required reviewers (individuals, teams)
+- Wait timers (delays before deployment)
+- Deployment branches (restrict to main, release/*)
 - Environment secrets and variables
+
+---
+
+# Approval Workflow
+
+```mermaid
+graph TB
+    A[PR Merged] --> B[Build & Test]
+    B --> C[Deploy Staging]
+    C --> D{Manual Approval}
+    D -->|Approved| E[Deploy Production]
+    D -->|Rejected| F[Stop]
+    
+    style A fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style B fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style C fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style D fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style E fill:#c8e6c9,stroke:#388e3c,stroke-width:2px
+    style F fill:#ffcdd2,stroke:#c62828,stroke-width:2px
+```
+
+---
+
+# OIDC Authentication
+
+**Traditional**: Long-lived credentials in secrets
+
+**OIDC**: Short-lived tokens, no stored credentials
+
+**Benefits**:
+
+- Better security posture
+- Automatic token rotation
+- Comprehensive audit trail
+- Eliminates credential management
+
+**Supports**: AWS, Azure, GCP, HashiCorp Vault
+
+---
+
+# OIDC with AWS
+
+```yaml
+jobs:
+  deploy-aws:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::123456789:role/GitHubActions
+          aws-region: us-east-1
+      
+      - run: aws s3 sync ./dist s3://my-bucket
+```
+
+**Setup**:
+
+- Configure OIDC provider in AWS IAM
+- Create IAM role with trust policy for GitHub
+- Grant role permissions for required AWS services
+
+---
+
+# Secrets Management
+
+**Best Practices**:
+
+- ❌ Never hardcode secrets in code
+- ✅ Use repository/environment/organization secrets
+- ✅ Apply principle of least privilege
+- ✅ Implement secret rotation policies
+- ⚠️ Secrets disabled in PRs from forks (security feature)
+
+**Secret Scopes**:
+
+- **Repository**: Available to all workflows
+- **Environment**: Only for specific environment
+- **Organization**: Shared across repositories
+
+**Access Control**: Secrets never appear in logs
+
+---
+
+# Dependabot Configuration
+
+```yaml
+# .github/dependabot.yml
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+```
+
+**Features**:
+
+- Automated dependency updates
+- Security vulnerability alerts
+- Version compatibility checks
+- Dependency review action for PRs
+
+---
+
+# CodeQL Security Scanning
+
+```yaml
+name: "CodeQL"
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '0 6 * * 1'
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+      - uses: github/codeql-action/analyze@v3
+```
+
+**Supported Languages**: JavaScript, TypeScript, Python, Java, C/C++, C#, Go, Ruby
+
+---
+
+# Workflow Security
+
+**Limit Permissions**:
+
+```yaml
+permissions:
+  contents: read      # Minimal by default
+  pull-requests: write  # Only what's needed
+```
+
+**Prevent Injection Attacks**:
+
+- ❌ Avoid `${{ github.event.pull_request.title }}` in commands
+- ✅ Use environment variables: `env: TITLE: ${{ ... }}`
+
+**Safe PR Handling**:
+
+- Use `pull_request_target` carefully
+- Validate inputs from untrusted sources
+- Review third-party actions before use
 
 ---
 
