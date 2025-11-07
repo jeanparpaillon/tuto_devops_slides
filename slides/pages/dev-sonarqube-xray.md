@@ -115,6 +115,140 @@ jobs:
 ```
 
 ---
+layout: section
+---
+
+# Artifactory + Xray Integration
+
+---
+
+# Artifactory + Xray Architecture
+
+```mermaid
+flowchart TB
+    Dev[Developer]
+    GHA[GitHub Actions]
+    Arti[Artifactory<br/>Repositories]
+    Xray[Xray<br/>Scanner]
+    DB[(Vulnerabilities<br/>Database)]
+    
+    Dev -->|Push Code| GHA
+    GHA -->|Build & Push<br/>Artifacts/Images| Arti
+    Arti -->|Automatic<br/>Indexing| Xray
+    DB -->|CVE Data| Xray
+    Xray -->|Scan Results| Arti
+    Xray -->|Policy Violations| GHA
+    Arti -->|Block Download<br/>if Policy Fails| Dev
+    
+    style Dev fill:#e8f5e9
+    style GHA fill:#e3f2fd
+    style Arti fill:#fff3e0
+    style Xray fill:#fce4ec
+    style DB fill:#f3e5f5
+```
+
+- Xray continuously scans all artifacts stored in Artifactory
+- Integration is seamless and automatic
+
+---
+
+# Scanning Artifacts in Artifactory
+
+## Automatic Scanning
+
+- Xray indexes all repositories configured in watches
+- Scans happen automatically when artifacts are uploaded
+- Results are available in both Xray and Artifactory UIs
+
+## What Gets Scanned
+
+- **Dependencies**: npm packages, Maven JARs, Python wheels, etc.
+- **Container Images**: Docker layers, base images, application layers
+- **Build Artifacts**: Generated during CI/CD pipelines
+
+## Scan Results Include
+
+- CVE vulnerabilities with severity scores
+- License compliance issues
+- Software Bill of Materials (SBOM)
+- Component dependency graph
+
+---
+
+# Policy Enforcement in Artifactory
+
+## Watch Configuration
+
+- Define **which** repositories to monitor
+- Filter by name patterns (e.g., `*-prod`, `docker-release-*`)
+
+## Policy Rules
+
+```yaml
+Policy: Production Security
+Rules:
+  - Block: Critical vulnerabilities (CVSS ≥ 9.0)
+  - Warn: High vulnerabilities (CVSS ≥ 7.0)
+  - Block: GPL licenses
+  - Warn: Unapproved licenses
+```
+
+## Enforcement Actions
+
+- **Block**: Prevent download/deployment of violating artifacts
+- **Warn**: Allow but notify team of issues
+- **Notify**: Send alerts to Slack, email, webhooks
+
+---
+layout: section
+---
+
+# Hands-on Exercises
+
+---
+
+# Exercise 4: Container Scanning with Artifactory
+
+**Duration**: 30 minutes
+
+**Objective**: Scan a Docker container for vulnerabilities using Xray + Artifactory
+
+## Steps
+
+1. Build Docker image from `exercises/nodejs_server`
+2. Tag image for Artifactory registry
+3. Push to Artifactory docker repository
+4. Configure Xray watch for the repository
+5. View scan results in Xray UI
+6. Identify top 3 vulnerabilities
+7. Review SBOM (Software Bill of Materials)
+
+**Deliverables**: Scanned image with vulnerability report
+
+---
+
+# Exercise 5: Policy Configuration with Artifactory
+
+**Duration**: 30 minutes
+
+**Objective**: Configure Xray policies to enforce security rules
+
+## Steps
+
+1. Create new Xray Watch for `docker-local` repository
+2. Create Policy "Production Security" with rules:
+   - Block critical vulnerabilities (CVSS ≥ 9.0)
+   - Warn on high vulnerabilities (CVSS ≥ 7.0)
+   - Block GPL licenses
+3. Assign policy to watch
+4. Push image with known vulnerabilities
+5. Observe policy violation and blocked download
+6. Review violation report
+7. Create remediation plan
+
+**Deliverables**: Working policy with enforcement
+
+---
 
 # Best practices
 
@@ -122,3 +256,6 @@ jobs:
 - Keep rulesets lean and team-agreed
 - Triage vulnerabilities; fix or suppress with justification
 - Automate reports in PRs and releases
+- Configure Xray watches for production repositories
+- Enforce policies at artifact upload time
+- Regular review and update of security policies
