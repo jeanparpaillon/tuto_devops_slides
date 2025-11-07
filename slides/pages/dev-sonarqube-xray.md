@@ -134,27 +134,59 @@ layout: center
 
 ```mermaid
 flowchart TB
-    Scanner[Scanner<br/>sonar-scanner, Maven, Gradle]
-    Server[SonarQube Server<br/>Web + Compute Engine]
-    DB[(Database<br/>PostgreSQL)]
-    Browser[Web Browser]
+    subgraph Client["Client Tools"]
+        Scanner[Scanner<br/>sonar-scanner CLI]
+        Maven[Maven Plugin<br/>mvn sonar:sonar]
+        Gradle[Gradle Plugin<br/>gradle sonarqube]
+        IDE[IDE Plugins<br/>SonarLint]
+    end
     
-    Scanner -->|Analysis Results| Server
-    Server -->|Store| DB
-    DB -->|Read| Server
-    Browser -->|Access UI| Server
+    subgraph Server["SonarQube Server"]
+        WebServer[Web Server<br/>UI & REST API<br/>Port 9000]
+        CE[Compute Engine<br/>Background Analysis<br/>Report Processing]
+        ES[Search Engine<br/>Elasticsearch]
+    end
+    
+    subgraph Storage["Data Storage"]
+        DB[(PostgreSQL Database<br/>Projects, Issues,<br/>Quality Gates, Users)]
+    end
+    
+    Browser[Web Browser<br/>Dashboard & Reports]
+    CI[CI/CD Systems<br/>GitHub Actions, Jenkins]
+    
+    Scanner -->|Analysis Data| WebServer
+    Maven -->|Analysis Data| WebServer
+    Gradle -->|Analysis Data| WebServer
+    IDE -.->|Live Feedback| WebServer
+    CI -->|Trigger Scan| Scanner
+    
+    WebServer -->|Queue Tasks| CE
+    CE -->|Process Reports| ES
+    CE <-->|Read/Write| DB
+    WebServer <-->|Query| DB
+    ES <-->|Index/Search| DB
+    
+    Browser -->|HTTPS| WebServer
+    WebServer -->|Quality Gate Status| CI
     
     style Scanner fill:#e1f5ff
-    style Server fill:#fff3e0
+    style Maven fill:#e1f5ff
+    style Gradle fill:#e1f5ff
+    style IDE fill:#e1f5ff
+    style WebServer fill:#fff3e0
+    style CE fill:#fff3e0
+    style ES fill:#fff3e0
     style DB fill:#f3e5f5
     style Browser fill:#e8f5e9
+    style CI fill:#e8f5e9
 ```
 
 **Components:**
-- **Scanner:** Analyzes code and sends results
-- **Server:** Processes and stores data (Compute Engine + Web Server)
-- **Database:** Persists all information (PostgreSQL recommended)
-- **Web UI:** Visualization and configuration
+- **Scanners:** Analyze source code and send results (CLI, Maven, Gradle, IDE plugins)
+- **Web Server:** REST API and web UI on port 9000
+- **Compute Engine:** Background processing of analysis reports
+- **Search Engine:** Elasticsearch for fast querying
+- **Database:** PostgreSQL stores projects, issues, metrics, users, configurations
 
 ---
 
@@ -474,27 +506,76 @@ npx sonar-scanner \
 ## Workflow
 
 ```mermaid
-flowchart LR
-    Push[Code Push] --> CI[CI Pipeline]
-    CI --> Test[Run Tests]
-    Test --> Coverage[Generate Coverage]
-    Coverage --> Sonar[SonarQube Scan]
-    Sonar --> Gate{Quality Gate}
-    Gate -->|Pass| Deploy[Deploy]
-    Gate -->|Fail| Block[Block Deployment]
-    Block --> Notify[Notify Team]
+flowchart TB
+    subgraph Developer["Developer Workflow"]
+        Code[Write Code]
+        Commit[Git Commit]
+        PR[Create Pull Request]
+    end
     
-    style Sonar fill:#e1f5ff
-    style Gate fill:#fff3e0
+    subgraph CI["CI/CD Pipeline"]
+        Trigger[Pipeline Trigger]
+        Checkout[Checkout Code]
+        Build[Build Application]
+        UnitTest[Run Unit Tests]
+        Coverage[Generate Coverage<br/>JaCoCo/Istanbul/pytest-cov]
+        SonarScan[SonarQube Scan<br/>sonar-scanner]
+    end
+    
+    subgraph Quality["Quality Analysis"]
+        SonarServer[SonarQube Server<br/>Process Results]
+        QualityGate{Quality Gate<br/>Evaluation}
+        PRDecorate[PR Decoration<br/>GitHub Comment]
+    end
+    
+    subgraph Deployment["Deployment Stage"]
+        Deploy[Deploy to Environment]
+        Monitor[Monitor Metrics]
+    end
+    
+    subgraph Feedback["Feedback Loop"]
+        BlockPR[❌ Block PR Merge]
+        Notify[📧 Notify Team]
+        Improve[Fix Quality Issues]
+    end
+    
+    Code --> Commit
+    Commit --> PR
+    PR --> Trigger
+    Commit --> Trigger
+    
+    Trigger --> Checkout
+    Checkout --> Build
+    Build --> UnitTest
+    UnitTest --> Coverage
+    Coverage --> SonarScan
+    
+    SonarScan -->|Upload Results| SonarServer
+    SonarServer --> QualityGate
+    QualityGate -->|PR Context| PRDecorate
+    
+    QualityGate -->|✅ Pass| Deploy
+    Deploy --> Monitor
+    
+    QualityGate -->|❌ Fail| BlockPR
+    BlockPR --> Notify
+    Notify --> Improve
+    Improve -.->|Re-commit| Code
+    
+    style SonarScan fill:#e1f5ff
+    style SonarServer fill:#e1f5ff
+    style QualityGate fill:#fff3e0
     style Deploy fill:#e8f5e9
-    style Block fill:#ffebee
+    style BlockPR fill:#ffebee
+    style PRDecorate fill:#fff9c4
 ```
 
 ## Best Practices
 
-- **Fail fast:** Make quality gate blocking
-- **Fast feedback:** Run in parallel with other checks
-- **Comprehensive:** Include coverage reports
+- **Fail fast:** Make quality gate blocking to prevent bad code from merging
+- **Fast feedback:** Run scans in parallel with other CI checks
+- **Comprehensive:** Include coverage reports for accurate quality metrics
+- **PR Decoration:** Show quality status directly in pull requests
 
 ---
 
@@ -769,31 +850,74 @@ layout: center
 
 ```mermaid
 flowchart TB
-    Artifactory[(Artifactory<br/>Repositories)]
-    Xray[Xray Server<br/>Scanner + Policy Engine]
-    DB[(Database)]
-    Watches[Watches<br/>What to scan]
-    Policies[Policies<br/>Rules & Actions]
+    subgraph Sources["Artifact Sources"]
+        ArtifRepo[(Artifactory<br/>Repositories)]
+        DockerReg[Docker Registry<br/>Container Images]
+        BuildSys[Build System<br/>CI/CD Artifacts]
+    end
     
-    Artifactory -->|Artifacts| Xray
-    Xray -->|Index & Scan| DB
-    DB -->|Results| Xray
-    Watches -.->|Configure| Xray
-    Policies -.->|Enforce| Xray
-    Xray -->|Violations| Notify[Notifications]
+    subgraph XrayCore["Xray Server"]
+        Indexer[Indexer<br/>Artifact Analysis]
+        Scanner[Scanner<br/>Vulnerability Detection]
+        PolicyEngine[Policy Engine<br/>Rules Evaluation]
+        ImpactGraph[Impact Analysis<br/>Dependency Graph]
+    end
     
-    style Artifactory fill:#e1f5ff
-    style Xray fill:#fff3e0
+    subgraph Data["Data & Intelligence"]
+        DB[(PostgreSQL<br/>Scan Results<br/>Artifacts Metadata)]
+        VulnDB[(Vulnerability DB<br/>CVE, NVD, VulnDB<br/>JFrog Research)]
+    end
+    
+    subgraph Config["Configuration"]
+        Watches[Watches<br/>Scope Definition]
+        Policies[Policies<br/>Rules & Actions]
+    end
+    
+    subgraph Output["Outputs & Actions"]
+        Reports[Reports<br/>Dashboard & API]
+        Webhooks[Webhooks<br/>Notifications]
+        BlockDL[Block Download<br/>Policy Enforcement]
+    end
+    
+    ArtifRepo -->|Upload Event| Indexer
+    DockerReg -->|Image Push| Indexer
+    BuildSys -->|Build Artifact| Indexer
+    
+    Indexer -->|Extract Metadata| Scanner
+    Scanner <-->|Query CVEs| VulnDB
+    Scanner -->|Store Results| DB
+    Scanner -->|Analyze Dependencies| ImpactGraph
+    
+    Watches -.->|Define Scope| Scanner
+    Policies -.->|Evaluate| PolicyEngine
+    DB -->|Violations| PolicyEngine
+    
+    PolicyEngine -->|Generate| Reports
+    PolicyEngine -->|Trigger| Webhooks
+    PolicyEngine -->|Enforce| BlockDL
+    BlockDL -.->|403 Forbidden| ArtifRepo
+    
+    style ArtifRepo fill:#e1f5ff
+    style DockerReg fill:#e1f5ff
+    style BuildSys fill:#e1f5ff
+    style Indexer fill:#fff3e0
+    style Scanner fill:#fff3e0
+    style PolicyEngine fill:#fff3e0
+    style ImpactGraph fill:#fff3e0
     style Watches fill:#e8f5e9
-    style Policies fill:#f3e5f5
+    style Policies fill:#e8f5e9
+    style DB fill:#f3e5f5
+    style VulnDB fill:#f3e5f5
 ```
 
 **Components:**
-- **Artifactory:** Source of artifacts to scan
-- **Xray:** Scanning engine and policy enforcement
-- **Watches:** Define what to scan
-- **Policies:** Define rules and actions
-- **Database:** Store vulnerability data and scan results
+- **Indexer:** Analyzes artifacts and extracts metadata (dependencies, licenses)
+- **Scanner:** Matches components against vulnerability databases
+- **Policy Engine:** Evaluates violations and triggers actions
+- **Impact Analysis:** Builds dependency graphs to show vulnerability reach
+- **Vulnerability DB:** CVE, NVD, VulnDB, and JFrog Security Research data
+- **Watches:** Define which artifacts/repositories to monitor
+- **Policies:** Define security/license rules and enforcement actions
 
 ---
 
@@ -967,40 +1091,101 @@ Policies:
 ## Policy Structure
 
 ```mermaid
-flowchart LR
-    P[Policy:<br/>Security Policy]
-    R1[Rule 1:<br/>Critical CVE]
-    R2[Rule 2:<br/>High CVE]
-    A1[Action:<br/>Block Download]
-    A2[Action:<br/>Warn]
+flowchart TB
+    subgraph WatchDef["Watch Definition"]
+        Watch[Watch: Production Artifacts]
+        WatchRepo1[Repository: docker-prod-local]
+        WatchRepo2[Repository: npm-prod-local]
+        WatchFilter[Filters:<br/>path: myorg/**<br/>tag: v*.*.*]
+    end
     
-    P -->|contains| R1
-    P -->|contains| R2
-    R1 -->|triggers| A1
-    R2 -->|triggers| A2
+    subgraph PolicyDef["Policy Definition"]
+        Policy[Policy: Security Policy]
+        Rule1[Rule: Critical CVE]
+        Rule2[Rule: High CVE]
+        Rule3[Rule: License Compliance]
+        
+        Cond1[Condition:<br/>CVSS ≥ 9.0<br/>Type: Security]
+        Cond2[Condition:<br/>CVSS ≥ 7.0<br/>Type: Security]
+        Cond3[Condition:<br/>License: GPL, AGPL]
+        
+        Action1[Action:<br/>❌ Block Download<br/>📧 Email<br/>🎫 Create Jira]
+        Action2[Action:<br/>⚠️ Generate Warning<br/>📧 Email]
+        Action3[Action:<br/>❌ Block Download<br/>⚡ Notify Legal]
+    end
     
-    style P fill:#fff3e0
-    style R1 fill:#ffebee
-    style R2 fill:#fff9c4
+    subgraph Execution["Policy Execution"]
+        Artifact[Artifact Upload/Scan]
+        Evaluate{Evaluate<br/>Against Policy}
+        Violation[Policy Violation<br/>Detected]
+        Enforce[Enforce Actions]
+    end
+    
+    Watch --> WatchRepo1
+    Watch --> WatchRepo2
+    Watch --> WatchFilter
+    Watch -.->|Assigned| Policy
+    
+    Policy --> Rule1
+    Policy --> Rule2
+    Policy --> Rule3
+    
+    Rule1 --> Cond1
+    Rule1 --> Action1
+    Rule2 --> Cond2
+    Rule2 --> Action2
+    Rule3 --> Cond3
+    Rule3 --> Action3
+    
+    WatchRepo1 --> Artifact
+    WatchRepo2 --> Artifact
+    Artifact --> Evaluate
+    Policy -.->|Rules| Evaluate
+    Evaluate -->|Violation Found| Violation
+    Violation --> Enforce
+    Action1 -.-> Enforce
+    Action2 -.-> Enforce
+    Action3 -.-> Enforce
+    
+    style Watch fill:#e8f5e9
+    style Policy fill:#fff3e0
+    style Rule1 fill:#ffebee
+    style Rule2 fill:#fff9c4
+    style Rule3 fill:#e1f5ff
+    style Action1 fill:#ffebee
+    style Action2 fill:#fff9c4
+    style Enforce fill:#f3e5f5
 ```
+
+## How It Works
+
+**1. Watch** → Defines WHAT to monitor (repositories, paths, tags)
+**2. Policy** → Defines RULES for security and compliance
+**3. Rules** → Combine CONDITIONS with ACTIONS
+**4. Conditions** → What to check (CVSS score, license type, CVE age)
+**5. Actions** → What to do when violated (block, warn, notify)
 
 ## Rule Components
 
-1. **Condition:** What to check (CVE score, license type)
-2. **Action:** What to do (block, warn, notify)
-3. **Grace Period:** Time before enforcement (optional)
+1. **Condition:** What to check (CVE score, license type, malicious packages)
+2. **Action:** What to do (block, warn, create ticket, notify)
+3. **Grace Period:** Optional time before enforcement (e.g., 7 days)
+4. **Exemptions:** Ignore specific CVEs with justification
 
 ## Example Rule
 
 ```yaml
-Rule: "Block Critical Vulnerabilities"
+Rule: "Block Critical Vulnerabilities in Production"
 Conditions:
   - CVSS Score ≥ 9.0
-  - Security Issue
+  - Issue Type: Security
+  - Applies to: All packages
 Actions:
-  - Block Download
-  - Send Notification
-  - Create Jira Ticket
+  - Block Download (HTTP 403)
+  - Send Email to: security@company.com
+  - Create Jira Ticket in: SEC project
+  - Webhook: Slack #security-alerts
+Grace Period: None (immediate enforcement)
 ```
 
 ---
@@ -1048,34 +1233,84 @@ Actions:
 ## Automatic Scanning
 
 ```mermaid
-flowchart LR
-    Build[Build Artifact] --> Upload[Upload to<br/>Artifactory]
-    Upload --> Index[Xray Index]
-    Index --> Scan[Scan]
-    Scan --> Policy{Policy<br/>Check}
-    Policy -->|Pass| Available[Artifact<br/>Available]
-    Policy -->|Fail| Block[Block<br/>Download]
-    Block --> Alert[Alert Team]
+flowchart TB
+    subgraph Build["Build Process"]
+        BuildApp[Build Application<br/>Compile, Package]
+        RunTests[Run Tests<br/>Unit & Integration]
+        CreateArtifact[Create Artifact<br/>JAR, NPM, Docker Image]
+    end
+    
+    subgraph Artifactory["Artifactory Repository"]
+        Upload[Upload Artifact<br/>POST /api/docker/...]
+        Store[(Artifact Storage<br/>Binary Repository)]
+        Metadata[Artifact Properties<br/>buildInfo, metadata]
+    end
+    
+    subgraph Xray["Xray Analysis"]
+        Watch{Watch<br/>Triggered?}
+        Index[Index Artifact<br/>Extract Dependencies]
+        Scan[Vulnerability Scan<br/>CVE Matching]
+        PolicyCheck{Policy<br/>Evaluation}
+    end
+    
+    subgraph Actions["Enforcement Actions"]
+        Pass[✅ Artifact Available<br/>Download Permitted]
+        Block[❌ Block Download<br/>HTTP 403]
+        Warn[⚠️ Warning<br/>Allow with Alert]
+    end
+    
+    subgraph Notifications["Notifications"]
+        Email[📧 Email Alert]
+        Webhook[🔔 Webhook<br/>Slack, Teams, Jira]
+        Dashboard[📊 Dashboard Update]
+    end
+    
+    BuildApp --> RunTests
+    RunTests --> CreateArtifact
+    CreateArtifact --> Upload
+    Upload --> Store
+    Upload --> Metadata
+    
+    Store -->|Upload Event| Watch
+    Watch -->|Yes| Index
+    Index --> Scan
+    Scan --> PolicyCheck
+    
+    PolicyCheck -->|No Violations| Pass
+    PolicyCheck -->|Critical/High| Block
+    PolicyCheck -->|Warning Level| Warn
+    
+    Pass --> Store
+    Block -.->|Reject Download| Store
+    Warn --> Store
+    
+    Block --> Email
+    Block --> Webhook
+    Warn --> Dashboard
+    Pass --> Dashboard
     
     style Upload fill:#e1f5ff
     style Scan fill:#fff3e0
     style Block fill:#ffebee
-    style Available fill:#e8f5e9
+    style Pass fill:#e8f5e9
+    style Warn fill:#fff9c4
+    style Index fill:#e1f5ff
 ```
 
 ## Repository Configuration
 
-1. **Enable Xray Indexing** on repository
-2. **Create Watch** for the repository
-3. **Assign Policies** to the watch
-4. Artifacts automatically scanned on upload
+1. **Enable Xray Indexing** on Artifactory repository
+2. **Create Watch** to monitor the repository
+3. **Assign Policies** to define rules and actions
+4. **Automatic Scanning:** Artifacts scanned immediately on upload
 
 ## Download Blocking
 
-When policy violation detected:
-- **Blocking Policy:** Downloads return HTTP 403
-- **Warning Policy:** Downloads allowed with warning
-- **Notification:** Team alerted via email, Slack, Jira
+When policy violation is detected:
+- **Blocking Policy:** Downloads return HTTP 403 Forbidden
+- **Warning Policy:** Downloads allowed with warning message
+- **Notification:** Team alerted via email, Slack, Jira, or webhooks
+- **Grace Period:** Optional delay before enforcement (e.g., 7 days to remediate)
 
 ---
 
