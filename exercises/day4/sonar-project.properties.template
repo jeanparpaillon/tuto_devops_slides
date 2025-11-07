@@ -1,0 +1,30 @@
+# SonarQube Project Configuration Template
+# Copy this file to your project root as sonar-project.properties
+# Replace placeholder values with your actual configuration
+
+# Project identification
+sonar.projectKey=nodejs-server
+sonar.projectName=Node.js Server
+sonar.projectVersion=1.0.0
+
+# Source code location
+sonar.sources=.
+sonar.exclusions=node_modules/**,coverage/**,dist/**,build/**
+
+# Test configuration
+sonar.tests=server.test.js
+sonar.test.inclusions=**/*.test.js,**/*.spec.js
+
+# Code coverage (if running tests with coverage)
+sonar.javascript.lcov.reportPaths=coverage/lcov.info
+
+# Source encoding
+sonar.sourceEncoding=UTF-8
+
+# Language
+sonar.language=js
+
+# Additional settings (uncomment and configure as needed)
+# sonar.exclusions=**/vendor/**,**/node_modules/**
+# sonar.coverage.exclusions=**/*.test.js,**/*.spec.js
+# sonar.cpd.exclusions=**/*.test.js
