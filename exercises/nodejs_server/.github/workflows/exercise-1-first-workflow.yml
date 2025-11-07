@@ -5,19 +5,19 @@ name: Exercise 1 - First Workflow
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   check:
     runs-on: ubuntu-latest
-    
+
     steps:
       # Checkout the repository code
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       # Verify required files exist
       - name: Verify files exist
         run: |
