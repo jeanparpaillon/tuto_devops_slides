@@ -203,7 +203,8 @@ steps:
 **Steps context** (`${{ steps }}`): Access outputs from previous steps
 
 ```yaml
-- id: build
+- name: Build
+  id: build
   run: echo "version=1.2.3" >> $GITHUB_OUTPUT
 - run: echo "Built version ${{ steps.build.outputs.version }}"
 ```
