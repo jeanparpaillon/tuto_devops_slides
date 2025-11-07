@@ -33,6 +33,9 @@ src: ./pages/dev-github-actions-exercises.md
 ---
 
 ---
+src: ./pages/dev-best-practices.md
+
+---
 src: ./pages/dev-troubleshooting.md
 ---
 
