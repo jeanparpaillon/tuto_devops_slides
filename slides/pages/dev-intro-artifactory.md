@@ -81,25 +81,16 @@ layout: section
 
 # Installation
 
-## Docker-based Setup (Recommended for Training)
+## Using JFrog Cloud Trial Instance
 
-```bash
-# Pull Artifactory OSS image
-docker pull releases-docker.jfrog.io/jfrog/artifactory-oss:latest
+For this training, we will use the JFrog cloud trial instance:
 
-# Run Artifactory
-docker run -d --name artifactory \
-  -p 8081:8081 \
-  -p 8082:8082 \
-  -v artifactory_data:/var/opt/jfrog/artifactory \
-  releases-docker.jfrog.io/jfrog/artifactory-oss:latest
-```
+**URL:** https://trialsga2025.jfrog.io
 
-## Access
-
-- Wait 1-2 minutes for startup
-- Navigate to http://localhost:8081
-- Default credentials: admin / password
+**Access:**
+- Navigate to https://trialsga2025.jfrog.io
+- Use the credentials provided by your instructor
+- No local installation required
 
 ---
 
@@ -107,17 +98,16 @@ docker run -d --name artifactory \
 
 ## First Login Steps
 
-1. **Change admin password** (required)
-2. **Set base URL** to http://localhost:8081
-3. **Configure proxy settings** (if behind corporate proxy)
-4. **Skip or configure repositories** (we'll do this manually)
+1. **Change password** (required on first login)
+2. **Set base URL** (already configured: https://trialsga2025.jfrog.io)
+3. **Skip repository wizard** (we'll create repositories manually)
 
-## Essential Settings
+## Dashboard Overview
 
-- **Security**: Create additional users for team
-- **Backups**: Configure backup schedule
-- **Storage**: Check available disk space
-- **License**: OSS version or upload Pro license
+- **Artifacts**: Browse and manage artifacts
+- **Builds**: View build information
+- **Search**: Find artifacts quickly
+- **Admin**: Configuration (if you have permissions)
 
 ---
 layout: section
@@ -395,15 +385,15 @@ layout: section
 
 **Project-level** (`.npmrc` in project root):
 ```ini
-registry=http://localhost:8081/artifactory/api/npm/npm-virtual/
-//localhost:8081/artifactory/api/npm/npm-virtual/:_auth=${ARTIFACTORY_AUTH}
-//localhost:8081/artifactory/api/npm/npm-virtual/:always-auth=true
+registry=https://trialsga2025.jfrog.io/artifactory/api/npm/npm-virtual/
+//trialsga2025.jfrog.io/artifactory/api/npm/npm-virtual/:_auth=${ARTIFACTORY_AUTH}
+//trialsga2025.jfrog.io/artifactory/api/npm/npm-virtual/:always-auth=true
 ```
 
 **User-level** (`~/.npmrc`):
 ```bash
-npm config set registry http://localhost:8081/artifactory/api/npm/npm-virtual/
-npm login --registry=http://localhost:8081/artifactory/api/npm/npm-virtual/
+npm config set registry https://trialsga2025.jfrog.io/artifactory/api/npm/npm-virtual/
+npm login --registry=https://trialsga2025.jfrog.io/artifactory/api/npm/npm-virtual/
 ```
 
 ## Authentication
@@ -425,7 +415,7 @@ npm login --registry=http://localhost:8081/artifactory/api/npm/npm-virtual/
   "name": "@yourorg/your-package",
   "version": "1.0.0",
   "publishConfig": {
-    "registry": "http://localhost:8081/artifactory/api/npm/npm-local/"
+    "registry": "https://trialsga2025.jfrog.io/artifactory/api/npm/npm-local/"
   }
 }
 ```
@@ -509,30 +499,17 @@ layout: section
 ## Docker Login
 
 ```bash
-# Login to Artifactory
-docker login localhost:8082
-# Username: admin
-# Password: your-password
+# Login to Artifactory Docker registry
+docker login trialsga2025-docker.jfrog.io
+# Username: your-username
+# Password: your-password (or API token)
 ```
 
-## Port Configuration
+## Registry URL
 
-- Port 8081: Artifactory UI and API
-- Port 8082: Docker registry (configured in Artifactory)
-- Ensure port is open and accessible
-
-## Insecure Registry (Local Testing Only)
-
-For localhost testing, configure Docker:
-
-**Linux:** `/etc/docker/daemon.json`
-```json
-{
-  "insecure-registries": ["localhost:8082"]
-}
-```
-
-Restart Docker daemon after changes.
+- **Docker registry URL**: `trialsga2025-docker.jfrog.io`
+- Uses HTTPS by default (secure)
+- Port 443 (standard HTTPS port)
 
 ---
 
@@ -548,12 +525,12 @@ docker build -t nodejs-app:1.0.0 .
 
 **Tag for Artifactory:**
 ```bash
-docker tag nodejs-app:1.0.0 localhost:8082/docker-local/nodejs-app:1.0.0
+docker tag nodejs-app:1.0.0 trialsga2025-docker.jfrog.io/docker-local/nodejs-app:1.0.0
 ```
 
 **Push to Artifactory:**
 ```bash
-docker push localhost:8082/docker-local/nodejs-app:1.0.0
+docker push trialsga2025-docker.jfrog.io/docker-local/nodejs-app:1.0.0
 ```
 
 **Verify in UI:**
@@ -568,12 +545,12 @@ docker push localhost:8082/docker-local/nodejs-app:1.0.0
 
 **Pull your image:**
 ```bash
-docker pull localhost:8082/docker-local/nodejs-app:1.0.0
+docker pull trialsga2025-docker.jfrog.io/docker-local/nodejs-app:1.0.0
 ```
 
 **Pull from Docker Hub via cache:**
 ```bash
-docker pull localhost:8082/docker/node:20-alpine
+docker pull trialsga2025-docker.jfrog.io/docker/node:20-alpine
 ```
 
 **What happens:**
@@ -625,8 +602,6 @@ layout: section
 
 ## Using Artifactory for Dependencies
 
-**Note:** Use `localhost:8081` for local testing. In production/CI, replace with your Artifactory server hostname (e.g., `artifactory.yourcompany.com`).
-
 **.github/workflows/ci.yml:**
 ```yaml
 name: CI with Artifactory
@@ -645,8 +620,8 @@ jobs:
       
       - name: Configure npm for Artifactory
         run: |
-          npm config set registry http://localhost:8081/artifactory/api/npm/npm-virtual/
-          echo "//localhost:8081/artifactory/api/npm/npm-virtual/:_auth=${{ secrets.ARTIFACTORY_AUTH }}" >> ~/.npmrc
+          npm config set registry https://trialsga2025.jfrog.io/artifactory/api/npm/npm-virtual/
+          echo "//trialsga2025.jfrog.io/artifactory/api/npm/npm-virtual/:_auth=${{ secrets.ARTIFACTORY_AUTH }}" >> ~/.npmrc
       
       - name: Install dependencies
         run: npm ci
@@ -702,17 +677,17 @@ jobs:
       - name: Login to Artifactory
         run: |
           echo "${{ secrets.ARTIFACTORY_PASSWORD }}" | \
-          docker login localhost:8082 -u ${{ secrets.ARTIFACTORY_USER }} --password-stdin
+          docker login trialsga2025-docker.jfrog.io -u ${{ secrets.ARTIFACTORY_USER }} --password-stdin
       
       - name: Build Docker image
         run: |
-          docker build -t localhost:8082/docker-local/nodejs-app:${{ github.sha }} .
-          docker build -t localhost:8082/docker-local/nodejs-app:latest .
+          docker build -t trialsga2025-docker.jfrog.io/docker-local/nodejs-app:${{ github.sha }} .
+          docker build -t trialsga2025-docker.jfrog.io/docker-local/nodejs-app:latest .
       
       - name: Push to Artifactory
         run: |
-          docker push localhost:8082/docker-local/nodejs-app:${{ github.sha }}
-          docker push localhost:8082/docker-local/nodejs-app:latest
+          docker push trialsga2025-docker.jfrog.io/docker-local/nodejs-app:${{ github.sha }}
+          docker push trialsga2025-docker.jfrog.io/docker-local/nodejs-app:latest
 ```
 
 ---
