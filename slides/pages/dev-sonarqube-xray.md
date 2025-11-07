@@ -15,19 +15,62 @@ layout: section
 
 # Prerequisites
 
-## Required Knowledge
-- Basic understanding of CI/CD pipelines (Day 3)
+## Required Knowledge from Previous Days
+- **Day 1:** Git basics and versioning
+- **Day 2:** Basic understanding of CI/CD pipelines
+- **Day 3:** Artifact management and Artifactory access
 - Familiarity with GitHub Actions
 - Docker basics
 - Understanding of software development lifecycle
 
 ## Tools Needed
-- Docker installed and running
-- GitHub account with repository access
-- Access to Artifactory/Xray (for exercises)
-- sonar-scanner CLI (or use npx)
+
+### Essential Setup
+- **Git** configured with user name and email
+- **Docker** installed and running
+- **Node.js** environment (from Day 1)
+- **GitHub account** with repository access
+- **Artifactory access** (configured in Day 3)
+- **sonar-scanner** CLI (or use npx)
+
+### Quick Verification Commands
+
+```bash
+# Verify Git
+git --version
+git config user.name
+git config user.email
+
+# Verify Docker
+docker --version
+docker ps
+
+# Verify Node.js
+node --version
+npm --version
+
+# Verify GitHub CLI (optional but helpful)
+gh --version
+gh auth status
+```
+
+## Setup Resources
+
+If any tools are missing, refer to:
+- **Git:** [https://git-scm.com/downloads](https://git-scm.com/downloads)
+- **Docker:** [https://docs.docker.com/get-docker/](https://docs.docker.com/get-docker/)
+- **Node.js:** [https://nodejs.org/](https://nodejs.org/)
+- **GitHub Account:** [https://github.com/signup](https://github.com/signup)
+- **GitHub CLI:** [https://cli.github.com/](https://cli.github.com/)
 
 ## Time Allocation
+
+### Prerequisites Setup
+- **If all tools ready:** 0 minutes
+- **If minor setup needed:** 15-30 minutes
+- **If major setup needed:** 1-2 hours (complete before Day 4)
+
+### Day 4 Activities
 - **Morning:** SonarQube (3-4 hours)
 - **Afternoon:** Xray (3-4 hours)
 
