@@ -5,17 +5,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
         with:
-          node-version: '22'
+          version: 10
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
       - name: Install dependencies
-        run: npm install
-      - name: Install slidev
-        run:  npm i -g @slidev/cli
-      - name: Install for PDF
-        run: npm i -D playwright-chromium
+        run: pnpm install
+
+      - name: Install playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+
       - name: Build
-        run: slidev build --base /tuto_devops_sga/
+        run: make
+
       - name: Deploy pages
         uses: crazy-max/ghaction-github-pages@v2
         with:

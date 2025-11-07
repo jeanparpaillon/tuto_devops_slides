@@ -6,3 +6,22 @@
     background-color: rgba(22, 28, 44, 0.8);
     background-blend-mode: overlay;
 }
+
+.icon-row {
+  display: flex;
+  justify-content: center;   /* center horizontally */
+  align-items: center;       /* vertically align */
+  gap: 1.5rem;               /* space between icons */
+  margin-top: 1.5rem;
+}
+
+.icon-row img {
+  height: 60px;              /* adjust size */
+  width: auto;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
+  transition: transform 0.2s;
+}
+
+.icon-row img:hover {
+  transform: scale(1.1);
+}
