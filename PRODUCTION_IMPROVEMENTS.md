@@ -48,6 +48,7 @@ Update the Ansible slides to better support the 2-day tutorial format with focus
 5. Add timing estimates for exercises
 
 **Files to Update**:
+
 - `slides/pages/prod-ansible-basics.md`
 - `slides/pages/prod-ansible-intra.md`
 

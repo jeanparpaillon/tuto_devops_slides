@@ -88,13 +88,4 @@ spec:
 - Load balancing
 - Scaling applications
 
-<!-- 
-  TODO: This is a placeholder file created to prevent build failures.
-  See ISSUES_TO_CREATE.md Issue #1 for complete content requirements.
-  This file needs substantial expansion with:
-  - Detailed deployment examples
-  - Service type explanations
-  - Ingress configuration
-  - Hands-on exercises with solutions
-  - Troubleshooting guidance
--->
+<!-- TODO: This is a placeholder file created to prevent build failures. See ISSUES_TO_CREATE.md Issue #1 for complete content requirements. This file needs substantial expansion with: detailed deployment examples, service type explanations, ingress configuration, hands-on exercises with solutions, and troubleshooting guidance. -->
