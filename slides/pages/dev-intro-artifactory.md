@@ -396,7 +396,7 @@ layout: section
 **Project-level** (`.npmrc` in project root):
 ```ini
 registry=http://localhost:8081/artifactory/api/npm/npm-virtual/
-//localhost:8081/artifactory/api/npm/npm-virtual/:_auth=YWRtaW46cGFzc3dvcmQ=
+//localhost:8081/artifactory/api/npm/npm-virtual/:_auth=${ARTIFACTORY_AUTH}
 //localhost:8081/artifactory/api/npm/npm-virtual/:always-auth=true
 ```
 
@@ -410,7 +410,8 @@ npm login --registry=http://localhost:8081/artifactory/api/npm/npm-virtual/
 
 - Use Artifactory credentials
 - Or generate API token (recommended)
-- Base64 encode for `_auth`: `echo -n "user:password" | base64`
+- Base64 encode for `_auth`: `echo -n "username:password" | base64`
+- Store in environment variable: `export ARTIFACTORY_AUTH=$(echo -n "username:password" | base64)`
 
 ---
 
@@ -624,6 +625,8 @@ layout: section
 
 ## Using Artifactory for Dependencies
 
+**Note:** Use `localhost:8081` for local testing. In production/CI, replace with your Artifactory server hostname (e.g., `artifactory.yourcompany.com`).
+
 **.github/workflows/ci.yml:**
 ```yaml
 name: CI with Artifactory
@@ -642,8 +645,8 @@ jobs:
       
       - name: Configure npm for Artifactory
         run: |
-          npm config set registry http://artifactory:8081/artifactory/api/npm/npm-virtual/
-          echo "//artifactory:8081/artifactory/api/npm/npm-virtual/:_auth=${{ secrets.ARTIFACTORY_AUTH }}" >> ~/.npmrc
+          npm config set registry http://localhost:8081/artifactory/api/npm/npm-virtual/
+          echo "//localhost:8081/artifactory/api/npm/npm-virtual/:_auth=${{ secrets.ARTIFACTORY_AUTH }}" >> ~/.npmrc
       
       - name: Install dependencies
         run: npm ci
@@ -699,17 +702,17 @@ jobs:
       - name: Login to Artifactory
         run: |
           echo "${{ secrets.ARTIFACTORY_PASSWORD }}" | \
-          docker login artifactory:8082 -u ${{ secrets.ARTIFACTORY_USER }} --password-stdin
+          docker login localhost:8082 -u ${{ secrets.ARTIFACTORY_USER }} --password-stdin
       
       - name: Build Docker image
         run: |
-          docker build -t artifactory:8082/docker-local/nodejs-app:${{ github.sha }} .
-          docker build -t artifactory:8082/docker-local/nodejs-app:latest .
+          docker build -t localhost:8082/docker-local/nodejs-app:${{ github.sha }} .
+          docker build -t localhost:8082/docker-local/nodejs-app:latest .
       
       - name: Push to Artifactory
         run: |
-          docker push artifactory:8082/docker-local/nodejs-app:${{ github.sha }}
-          docker push artifactory:8082/docker-local/nodejs-app:latest
+          docker push localhost:8082/docker-local/nodejs-app:${{ github.sha }}
+          docker push localhost:8082/docker-local/nodejs-app:latest
 ```
 
 ---
