@@ -1231,8 +1231,6 @@ docker build -t nodejs-server:1.0.0 .
 
 **4. Tag for Artifactory (instead of GHCR):**
 
-**4. Tag for Artifactory (instead of GHCR):**
-
 ```bash
 # On Day 2, we tagged for GHCR like this:
 # docker tag nodejs-server:1.0.0 ghcr.io/org/nodejs-server:1.0.0
