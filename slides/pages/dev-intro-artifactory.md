@@ -233,7 +233,7 @@ graph TB
 **Developer Experience:**
 ```bash
 # One .npmrc configuration works for everything
-npm config set registry http://artifactory:8081/artifactory/api/npm/npm-virtual/
+npm config set registry https://trialsga2025.jfrog.io/artifactory/api/npm/npm-virtual/
 ```
 
 ---
