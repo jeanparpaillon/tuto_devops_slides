@@ -215,13 +215,15 @@ layout: section
 
 ## Steps
 
-1. Build Docker image from `exercises/nodejs_server`
+1. Build Docker image from `exercises/nodejs_server` directory
 2. Tag image for Artifactory registry
-3. Push to Artifactory docker repository
+3. Push to Artifactory docker repository (e.g., `docker-local`)
 4. Configure Xray watch for the repository
 5. View scan results in Xray UI
-6. Identify top 3 vulnerabilities
+6. Identify top 3 vulnerabilities by severity
 7. Review SBOM (Software Bill of Materials)
+
+**Note**: Ensure the `exercises/nodejs_server` directory contains a Dockerfile
 
 **Deliverables**: Scanned image with vulnerability report
 
@@ -235,16 +237,18 @@ layout: section
 
 ## Steps
 
-1. Create new Xray Watch for `docker-local` repository
+1. Create new Xray Watch for your docker repository (e.g., `docker-local`)
 2. Create Policy "Production Security" with rules:
    - Block critical vulnerabilities (CVSS ≥ 9.0)
    - Warn on high vulnerabilities (CVSS ≥ 7.0)
    - Block GPL licenses
 3. Assign policy to watch
-4. Push image with known vulnerabilities
+4. Push image with vulnerabilities (use older Node base image like `node:14`)
 5. Observe policy violation and blocked download
-6. Review violation report
+6. Review violation report in Xray UI
 7. Create remediation plan
+
+**Note**: Repository name may vary based on your Artifactory setup
 
 **Deliverables**: Working policy with enforcement
 
