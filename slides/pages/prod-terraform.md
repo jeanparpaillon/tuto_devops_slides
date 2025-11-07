@@ -37,10 +37,6 @@ virsh version       # libvirt daemon
 ssh -V              # SSH client
 ```
 
-**Documentation:**
-- [Terraform Docs](https://www.terraform.io/docs)
-- [Libvirt Provider](https://registry.terraform.io/providers/dmacvicar/libvirt/)
-
 ---
 
 # Hands-on — libvirt-based lab
@@ -71,12 +67,13 @@ terraform apply
 # Documentation & Resources
 
 **Official Documentation:**
-- 📘 [Terraform Docs](https://www.terraform.io/docs) — Core concepts & CLI
+- 📘 [Terraform Docs](https://developer.hashicorp.com/terraform) — Core concepts & CLI
 - 📗 [Provider Registry](https://registry.terraform.io/) — All providers & modules
-- 📙 [HCL Reference](https://www.terraform.io/language/syntax) — Language syntax
+- 📙 [HCL Reference](https://developer.hashicorp.com/terraform/language) — Language syntax
+- 🔧 [Libvirt Provider](https://registry.terraform.io/providers/dmacvicar/libvirt/)
 
 **Learning:**
-- [HashiCorp Tutorials](https://learn.hashicorp.com/terraform)
+- [HashiCorp Tutorials](https://developer.hashicorp.com/terraform/tutorials)
 - [Terraform Best Practices](https://www.terraform-best-practices.com/)
 
 **Community:**

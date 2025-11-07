@@ -1,6 +1,6 @@
 # Review of Production Day 2 Program - Terraform
 
-**Review Date:** December 2024  
+**Review Date:** December 2024 (in preparation for training)  
 **Training Date:** November 2025 (Alger)  
 **Reviewer:** GitHub Copilot  
 **Scope:** Day 2 program for DevOps Production training
