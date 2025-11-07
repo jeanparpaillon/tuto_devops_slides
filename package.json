@@ -11,7 +11,7 @@
     "export:dev": "slidev export slides/formation-dev.md --output pdf/formation-dev.pdf",
     "export:prod": "slidev export slides/formation-prod.md --output pdf/formation-prod.pdf",
     "dev": "echo 'Usage: pnpm dev:{ dev | prod }'",
-    "build": "echo 'Usage: pnpm build:{ dev | prod }'",
+    "build": "pnpm build:dev && pnpm build:prod",
     "export": "echo 'Usage: pnpm export:{ dev | prod }'"
   },
   "dependencies": {
@@ -23,6 +23,7 @@
     "mermaid": "^11.12.1"
   },
   "devDependencies": {
-    "mermaid": "^11.12.1"
+    "mermaid": "^11.12.1",
+    "playwright-chromium": "^1.42.0"
   }
 }
