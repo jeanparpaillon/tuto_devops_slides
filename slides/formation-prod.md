@@ -13,6 +13,14 @@ src: ./pages/about-me.md
 ---
 
 ---
+src: ./pages/common-intro.md
+---
+
+---
+src: ./pages/prod-arch.md
+---
+
+---
 src: ./pages/prod-objectifs.md
 ---
 
