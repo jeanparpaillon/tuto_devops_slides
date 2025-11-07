@@ -52,9 +52,45 @@ Day 3
         - with GitHub
         - SonarQube / XRAY (see day 4)
 
-Day 4
-    - SonarQube
-    - XRAY
+Day 4 - Code Quality and Security Scanning
+    Morning (3-4 hours)
+        - Introduction to code quality and security (30 min)
+            - Why quality and security matter
+            - DevSecOps approach
+            - Tools landscape overview
+        - SonarQube deep dive (90 min)
+            - Architecture and concepts
+            - Quality metrics and profiles
+            - Quality gates configuration
+            - Local setup and analysis
+            - Technical debt management
+            - Branch analysis
+            - UI navigation
+        - Exercise 1: Local SonarQube setup (45 min)
+        - Exercise 2: Quality gates configuration (45 min)
+        - Break suggestion: 10-15 minutes before afternoon session
+    
+    Afternoon (3-4 hours)
+        - SonarQube CI/CD integration (45 min)
+            - Integration concepts and workflow
+            - GitHub Actions setup
+            - Pull request decoration
+        - Exercise 3: GitHub Actions integration (45 min)
+        - Artifactory + SonarQube integration (15 min)
+        - Xray deep dive (60 min)
+            - Architecture and SCA overview
+            - Container image scanning
+            - CVE severity and remediation
+            - Watches and policies
+            - License compliance
+            - Artifactory integration
+            - CI/CD integration
+            - Scan results interpretation
+        - Exercise 4: Container image scanning (30 min)
+        - Exercise 5: Xray policy configuration (30 min)
+        - Break suggestion: 10-15 minutes before wrap-up
+        - Best practices and troubleshooting (15 min)
+        - Organizational adoption and wrap-up (15 min)
   
 Day 5
     - Advanced

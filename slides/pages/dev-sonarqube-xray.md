@@ -28,12 +28,26 @@ layout: section
 - sonar-scanner CLI (or use npx)
 
 ## Time Allocation
-- **Morning:** SonarQube (3-4 hours)
-- **Afternoon:** Xray (3-4 hours)
+
+### Morning Session (3-4 hours)
+- Introduction and prerequisites: 30 min
+- SonarQube deep dive: 90 min
+- Exercise 1: Local setup: 45 min
+- Exercise 2: Quality gates: 45 min
+- **Break suggestion:** 10-15 min mid-morning
+
+### Afternoon Session (3-4 hours)
+- SonarQube CI/CD + Exercise 3: 90 min
+- Xray deep dive: 60 min
+- Exercise 4 & 5: Xray: 75 min
+- Best practices and wrap-up: 30 min
+- **Break suggestion:** 10-15 min mid-afternoon
 
 ---
 
 # Why Code Quality and Security Matter
+
+<!-- Introduction Section: ~30 minutes total (slides 4-6) -->
 
 ## The Challenge
 
@@ -106,6 +120,9 @@ layout: center
 ---
 
 # Morning Session: SonarQube
+
+<!-- Morning Session Start: 3-4 hours total -->
+<!-- SonarQube Deep Dive: ~90 minutes (slides 7-27) -->
 
 Code Quality and Static Analysis
 
@@ -572,6 +589,8 @@ Quality gate status and metrics displayed directly in GitHub PR
 
 # Exercise 1: Local SonarQube Setup
 
+<!-- Exercise 1: ~45 minutes -->
+
 ## Duration: 45 minutes
 
 ## Objective
@@ -598,6 +617,9 @@ Get hands-on experience with local SonarQube installation and first scan
 ---
 
 # Exercise 2: Quality Gates Configuration
+
+<!-- Exercise 2: ~45 minutes -->
+<!-- BREAK SUGGESTION: 10-15 min break after Exercise 2 before afternoon session -->
 
 ## Duration: 45 minutes
 
@@ -627,6 +649,9 @@ Configure custom quality gates and see build pass/fail based on code quality
 
 # Exercise 3: GitHub Actions Integration
 
+<!-- Afternoon Session Start: 3-4 hours total -->
+<!-- Exercise 3: ~45 minutes (part of SonarQube CI/CD section: 90 min total) -->
+
 ## Duration: 45 minutes
 
 ## Objective
@@ -654,6 +679,8 @@ layout: center
 ---
 
 # Artifactory Integration
+
+<!-- Artifactory Integration: ~15 minutes (transitional topic) -->
 
 Connecting SonarQube with Artifact Management
 
@@ -737,6 +764,8 @@ layout: center
 ---
 
 # Afternoon Session: Xray
+
+<!-- Xray Deep Dive: ~60 minutes (slides 44-56) -->
 
 Dependency and Container Security Scanning
 
@@ -1166,6 +1195,8 @@ Xray shows full dependency path to help understand impact
 
 # Exercise 4: Container Image Scanning
 
+<!-- Exercise 4: ~30 minutes -->
+
 ## Duration: 30 minutes
 
 ## Objective
@@ -1200,6 +1231,9 @@ Scan a Docker container image for vulnerabilities using Xray
 
 # Exercise 5: Xray Policy Configuration
 
+<!-- Exercise 5: ~30 minutes -->
+<!-- BREAK SUGGESTION: 10-15 min break after exercises before wrap-up -->
+
 ## Duration: 30 minutes
 
 ## Objective
@@ -1231,6 +1265,8 @@ layout: center
 ---
 
 # Best Practices and Wrap-up
+
+<!-- Best Practices & Wrap-up: ~30 minutes (slides 62-66) -->
 
 Organizational Adoption and Continuous Improvement
 
