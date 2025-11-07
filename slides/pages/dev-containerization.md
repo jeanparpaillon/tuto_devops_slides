@@ -174,7 +174,7 @@ Run the container locally and verify functionality
 1. Run the container with proper port mapping (in detached mode)
 
    ```sh
-   docker run -d --name my-app -p 3000:3000 my-node-app:optimized
+   docker run -d --name my-node-app -p 3000:3000 my-node-app:optimized
    ```
 
 2. Test the application endpoint
@@ -186,14 +186,14 @@ Run the container locally and verify functionality
 3. View container logs
 
    ```sh
-   docker logs my-app
+   docker logs my-node-app
    ```
 
 4. Stop and remove the container
 
    ```sh
-   docker stop my-app
-   docker rm my-app
+   docker stop my-node-app
+   docker rm my-node-app
    ```
 
 ---
@@ -209,7 +209,7 @@ Run the container locally and verify functionality
 ## Bonus
 - Try running with `--rm` flag to auto-remove container on stop
 - List running containers with `docker ps`
-- Run in foreground mode (without `-d`) and use Ctrl+C to stop
+- Check container resource usage with `docker stats my-node-app`
 
 ## Time: 10 minutes
 
