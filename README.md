@@ -25,6 +25,7 @@ Day 1
     - DevOps basics
         - Traditional approach vs DevOps approach (dev and prod)
         - DevOps cycles : infinite loop diagram
+        - Software versioning
     - Example of an nodejs application
     - git
         - basics

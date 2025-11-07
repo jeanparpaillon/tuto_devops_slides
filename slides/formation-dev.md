@@ -17,10 +17,6 @@ src: ./pages/dev-intro.md
 ---
 
 ---
-src: ./pages/dev-versioning.md
----
-
----
 src: ./pages/dev-ci.md
 ---
 

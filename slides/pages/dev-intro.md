@@ -97,6 +97,7 @@ layoutClass: devops-bg
 ## Actions
 
 - Link branch to issue
+- Pull request
 - Edit
 - Commit
 
