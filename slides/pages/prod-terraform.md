@@ -67,10 +67,10 @@ terraform apply
 # Documentation & Resources
 
 **Official Documentation:**
-- 📘 [Terraform Docs](https://developer.hashicorp.com/terraform) — Core concepts & CLI
-- 📗 [Provider Registry](https://registry.terraform.io/) — All providers & modules
-- 📙 [HCL Reference](https://developer.hashicorp.com/terraform/language) — Language syntax
-- 🔧 [Libvirt Provider](https://registry.terraform.io/providers/dmacvicar/libvirt/)
+- 📘 [Terraform Docs](https://developer.hashicorp.com/terraform) - Core concepts & CLI
+- 📗 [Provider Registry](https://registry.terraform.io/) - All providers & modules
+- 📙 [HCL Reference](https://developer.hashicorp.com/terraform/language) - Language syntax
+- 🔧 [Libvirt Provider](https://registry.terraform.io/providers/dmacvicar/libvirt/) - Provider docs
 
 **Learning:**
 - [HashiCorp Tutorials](https://developer.hashicorp.com/terraform/tutorials)
