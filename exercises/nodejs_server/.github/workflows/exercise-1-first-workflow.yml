@@ -1,0 +1,28 @@
+name: Exercise 1 - First Workflow
+
+# This is a basic workflow to help you get started with GitHub Actions
+# It runs on every push to main or develop branches
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Verify required files exist
+      - name: Verify files exist
+        run: |
+          test -f package.json
+          echo "✅ package.json found"
+          test -f server.js
+          echo "✅ server.js found"
+          echo "All required files are present!"
