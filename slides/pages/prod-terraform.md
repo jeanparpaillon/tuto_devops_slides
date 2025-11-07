@@ -17,6 +17,28 @@ layout: section
 
 ---
 
+# Prerequisites
+
+**Required Software:**
+- Terraform ≥ 1.5.0
+- QEMU/KVM + libvirt
+- SSH client
+- Git & text editor
+
+**System Requirements:**
+- 8 GB RAM minimum (16 GB recommended)
+- 20 GB free disk space
+- CPU virtualization support
+
+**Verify Setup:**
+```sh
+terraform version    # ≥ 1.5.0
+virsh version       # libvirt daemon
+ssh -V              # SSH client
+```
+
+---
+
 # Hands-on — libvirt-based lab
 
 - Set up local lab with qemu/libvirt
@@ -39,6 +61,29 @@ terraform apply
 - Map resources: datacenter, cluster, datastore, network
 - Templates and customization specs
 - Tagging and naming conventions
+
+---
+
+# Documentation & Resources
+
+**Official Documentation:**
+- 📘 [Terraform Docs](https://developer.hashicorp.com/terraform) - Core concepts & CLI
+- 📗 [Provider Registry](https://registry.terraform.io/) - All providers & modules
+- 📙 [HCL Reference](https://developer.hashicorp.com/terraform/language) - Language syntax
+- 🔧 [Libvirt Provider](https://registry.terraform.io/providers/dmacvicar/libvirt/) - Provider docs
+
+**Learning:**
+- [HashiCorp Tutorials](https://developer.hashicorp.com/terraform/tutorials)
+- [Terraform Best Practices](https://www.terraform-best-practices.com/)
+
+**Community:**
+- [Terraform Discuss](https://discuss.hashicorp.com/c/terraform-core)
+- [GitHub Issues](https://github.com/hashicorp/terraform)
+
+**Quick Tips:**
+- Use `terraform --help` and `terraform <command> --help`
+- Try `terraform console` for testing expressions
+- Enable debug logs: `export TF_LOG=DEBUG`
 
 ---
 

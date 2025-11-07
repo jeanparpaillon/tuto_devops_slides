@@ -90,7 +90,7 @@ Day 2
         - init, apply, etc
         - Exercise
     - Terraform
-        - Exercises: libvirt based infrastructure, 1 master, 2 nodes
+        - Exercises: libvirt based infrastructure, 3 nodes (1 master, 2 workers)
 
 Day 3
     - Ansible basics
