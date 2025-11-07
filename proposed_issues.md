@@ -1,6 +1,6 @@
-# Proposed GitHub Issues for Day 2 Improvements
+# Proposed GitHub Issues for Day 2 Program Improvement
 
-This document contains detailed issue descriptions to be created for Day 2 program improvements. Each issue should be reviewed and validated before implementation.
+This document contains detailed issue descriptions to be created for Day 2 program improvement. Each issue should be reviewed and validated before implementation.
 
 ---
 
@@ -501,11 +501,18 @@ Current content teaches Docker and GitHub Actions separately but doesn't show a 
 - MEDIUM: 5 (Issues 5-8, 10: Best practices, reorganization, integration)
 - LOW: 1 (Issue 9: Advanced Docker topics)
 
-**Estimated Effort**:
-- CRITICAL issues: 15-20 slides
-- HIGH issues: 10-15 slides
-- MEDIUM issues: 15-20 slides
-- LOW issues: 5-8 slides
-- **Total additional content**: 45-63 slides
+**Estimated Effort** (by issue):
+1. Hands-on Docker exercises: ~8 slides (4 exercises × 2 slides each)
+2. Hands-on GitHub Actions exercises: ~8 slides (4 exercises × 2 slides each)
+3. docker-compose section: ~8 slides
+4. Troubleshooting section: ~7 slides (5 Docker + 2 CI)
+5. Best practices: ~7 slides (4 Docker + 3 CI)
+6. Reorganize flow: ~3 slides (transitions/recaps)
+7. nodejs_server integration: ~4 slides
+8. Expand GitHub Actions: ~10 slides
+9. Advanced containerization: ~6 slides
+10. CI/CD integration example: ~6 slides
 
-This would bring Day 2 from ~30 slides to ~75-93 slides, which is appropriate for a full day with hands-on exercises.
+**Total additional content**: ~67 slides (would bring total to ~97 slides)
+
+This would bring Day 2 from ~30 slides to ~97 slides, which is appropriate for a full day with hands-on exercises (allowing for 5-7 minutes per slide plus exercise time).

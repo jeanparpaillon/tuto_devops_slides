@@ -18,7 +18,7 @@ Day 2 content currently consists of ~30 slides, which is insufficient for a full
 - **dev-containerization.md**: 7 slides
   - Morning (d2am): Docker fundamentals, Dockerfile example, local workflow, registry push
 
-**Total**: 30 slides (Expected: 50-70 for full day with exercises)
+**Total**: 30 slides (Expected: 50-70 for full day with exercises, based on typical 8-hour training sessions with 5-7 min per slide plus hands-on time)
 
 ## Key Findings
 
@@ -82,7 +82,10 @@ Day 2 content currently consists of ~30 slides, which is insufficient for a full
    - Build and run locally
    - Debug common issues
    
-4. **Break + Buffer** (1 hour)
+4. **Break + Q&A + Buffer** (1 hour)
+   - Coffee break (15 min)
+   - Questions and troubleshooting (30 min)
+   - Buffer for slower pace/issues (15 min)
 
 ### Afternoon (d2pm) - 3.5 hours
 1. **GitHub Actions Deep Dive** (1 hour)
