@@ -470,8 +470,8 @@ Students need to know where to find help when they encounter issues or want to l
 #### Slide: Where to Find Help
 
 **Official Documentation:**
-- 📘 [Terraform Docs](https://www.terraform.io/docs) - Core concepts, CLI reference
-- 📙 [HCL Syntax](https://www.terraform.io/language/syntax) - Language reference
+- 📘 [Terraform Docs](https://developer.hashicorp.com/terraform) - Core concepts, CLI reference
+- 📙 [HCL Syntax](https://developer.hashicorp.com/terraform/language) - Language reference
 - 📗 [Provider Registry](https://registry.terraform.io/) - All providers and modules
 
 **Libvirt Provider:**
@@ -482,7 +482,7 @@ Students need to know where to find help when they encounter issues or want to l
 - [vSphere Provider Docs](https://registry.terraform.io/providers/hashicorp/vsphere/)
 
 **Learning Resources:**
-- [Terraform Tutorials](https://learn.hashicorp.com/terraform) - Official tutorials
+- [Terraform Tutorials](https://developer.hashicorp.com/terraform/tutorials) - Official tutorials
 - [Terraform Best Practices](https://www.terraform-best-practices.com/)
 
 **Community:**
