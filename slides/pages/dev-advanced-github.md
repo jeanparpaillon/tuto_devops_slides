@@ -209,6 +209,295 @@ jobs:
 
 ---
 
+# Troubleshooting and Debugging
+
+Students will encounter errors in GitHub Actions
+
+**This section covers**:
+- Debug logging techniques
+- Interactive debugging tools
+- Common error patterns
+- How to read logs effectively
+
+---
+
+# Debug Logging
+
+Enable detailed output to see what's happening:
+
+**Set repository secrets** (Settings → Secrets → Actions):
+```yaml
+ACTIONS_STEP_DEBUG = true
+ACTIONS_RUNNER_DEBUG = true
+```
+
+**Or in workflow file**:
+```yaml
+env:
+  ACTIONS_STEP_DEBUG: true
+```
+
+This shows internal step execution and debug messages
+
+---
+
+# Interactive Debugging
+
+**SSH Debugging with tmate**:
+
+```yaml
+steps:
+  - uses: actions/checkout@v4
+  - name: Setup tmate session
+    uses: mxschmitt/action-tmate@v3
+    if: failure()  # Only on failure
+```
+
+**Alternative**: Print context for debugging
+```yaml
+- name: Dump GitHub context
+  run: echo '${{ toJSON(github) }}'
+- name: Dump job context
+  run: echo '${{ toJSON(job) }}'
+```
+
+---
+
+# Common Errors — Syntax
+
+**Invalid YAML**:
+```yaml
+# Wrong indentation
+jobs:
+build:  # Missing spaces
+  runs-on: ubuntu-latest
+```
+
+**Wrong event names**:
+```yaml
+on: pull-request  # ❌ Wrong
+on: pull_request  # ✅ Correct
+```
+
+**Missing required fields**:
+```yaml
+jobs:
+  test:
+    # Missing runs-on
+    steps: [...]
+```
+
+---
+
+# Common Errors — Permissions
+
+```yaml
+Error: Resource not accessible by integration
+```
+
+**Solution**: Add explicit permissions
+```yaml
+permissions:
+  contents: write
+  pull-requests: write
+```
+
+**Default permissions** are often read-only
+
+**Principle of least privilege**: Only grant what's needed
+
+---
+
+# Common Errors — Runtime
+
+**Command not found**:
+```bash
+Error: python: command not found
+```
+→ Add setup step: `actions/setup-python@v5`
+
+**File not found**:
+```bash
+Error: package.json: No such file
+```
+→ Add checkout: `actions/checkout@v4`
+
+**Exit code 1**:
+→ Review logs for the actual error message
+
+---
+
+# Reading Logs Effectively
+
+**Step-by-step approach**:
+1. Find failed step (red X icon)
+2. Expand to see full output
+3. Scroll to bottom (error usually at end)
+4. Look for "Error:" or "FAILED" messages
+5. Check exit codes
+
+**Tip**: Errors often appear in the last 10-20 lines
+
+**Use search** (Ctrl+F) to find "error" or "failed"
+
+---
+
+# Best Practices Summary
+
+Consolidating what we've learned throughout the week
+
+**This section covers**:
+- Workflow organization
+- Security best practices
+- Performance optimization
+- Team collaboration
+
+---
+
+# Workflow Organization
+
+**DRY Principle** (Don't Repeat Yourself):
+- Use reusable workflows (`workflow_call`)
+- Extract common steps into composite actions
+- Avoid duplication across workflows
+
+**Naming Conventions**:
+- Workflows: `ci-build-test.yml`, `deploy-production.yml`
+- Jobs: `build`, `test`, `deploy`
+- Secrets: `AWS_ACCESS_KEY`, `NPM_TOKEN`
+
+Clear names help team understanding
+
+---
+
+# Security — Secrets Management
+
+**Never hardcode sensitive data**:
+```yaml
+# ❌ Bad
+- run: aws configure --access-key AKIAIOSFODNN7EXAMPLE
+
+# ✅ Good
+- run: aws configure --access-key ${{ secrets.AWS_ACCESS_KEY }}
+```
+
+**Best practices**:
+- Use environment-specific secrets (`DEV_DB_PASSWORD`, `PROD_DB_PASSWORD`)
+- Rotate secrets regularly
+- Apply principle of least privilege
+- Review secret access in audit logs
+
+---
+
+# Security — Permissions
+
+**Minimal permissions** by default:
+```yaml
+permissions:
+  contents: read  # Minimal access
+```
+
+**Grant only what's needed**:
+```yaml
+permissions:
+  contents: write      # To push changes
+  pull-requests: write # To comment on PRs
+  issues: read         # To read issues
+```
+
+**Avoid `permissions: write-all`** unless absolutely necessary
+
+---
+
+# Performance — Caching
+
+**Cache dependencies** to speed up builds:
+```yaml
+- uses: actions/cache@v4
+  with:
+    path: ~/.npm
+    key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+    restore-keys: |
+      ${{ runner.os }}-npm-
+```
+
+**Use built-in caching** when available:
+```yaml
+- uses: actions/setup-node@v4
+  with:
+    node-version: '20'
+    cache: 'npm'  # Built-in caching
+```
+
+---
+
+# Performance — Parallelization
+
+**Run independent jobs in parallel**:
+```yaml
+jobs:
+  test-unit:
+    runs-on: ubuntu-latest
+  test-integration:
+    runs-on: ubuntu-latest
+  lint:
+    runs-on: ubuntu-latest
+```
+
+**Use matrix for testing multiple versions**:
+```yaml
+strategy:
+  matrix:
+    node-version: [18, 20, 22]
+    os: [ubuntu-latest, windows-latest]
+```
+
+---
+
+# Team Collaboration — Code Review
+
+**Branch protection rules**:
+- Require pull request reviews (1-2 reviewers)
+- Require status checks to pass
+- Dismiss stale approvals on new commits
+- Require signed commits
+
+**Code owners** (CODEOWNERS file):
+```
+# Require review from team leads
+*.yml @devops-team
+src/security/* @security-team
+```
+
+---
+
+# Team Collaboration — Branch Strategy
+
+**Protect critical branches**:
+- `main` / `production` branches
+- Require status checks before merge
+- Prevent force push
+- Prevent deletion
+
+**Recommended workflow**:
+```mermaid
+graph LR
+    A[Feature Branch] --> B[Pull Request]
+    B --> C[Code Review]
+    C --> D[CI Checks]
+    D --> E[Merge to Main]
+    E --> F[Deploy]
+    
+    style A fill:#e3f2fd
+    style B fill:#f3e5f5
+    style C fill:#e8f5e9
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#ffebee
+```
+
+---
+
 # Practical exercises
 
 - Add scheduled maintenance workflow
