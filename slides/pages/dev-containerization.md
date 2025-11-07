@@ -29,7 +29,7 @@ epoch: d2am
 FROM node:20-alpine AS deps
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm ci --omit=dev
 
 FROM node:20-alpine AS runner
 WORKDIR /app
@@ -97,12 +97,13 @@ layout: section
 Containerize the nodejs_server application
 
 ## Steps
+
 1. Navigate to `exercises/nodejs_server` directory
 2. Create a `Dockerfile` in the project root
 3. Choose the appropriate base image: `node:20-alpine`
 4. Set up the working directory to `/app`
 5. Copy `package*.json` files
-6. Install dependencies with `npm ci --only=production`
+6. Install dependencies with `npm ci --omit=dev`
 7. Copy the application source code
 8. Expose port 3000
 9. Define the startup command: `node server.js`
@@ -170,10 +171,10 @@ Run the container locally and verify functionality
 
 ## Steps
 
-1. Run the container with proper port mapping
+1. Run the container with proper port mapping (in detached mode)
 
    ```sh
-   docker run --rm -p 3000:3000 my-node-app:optimized
+   docker run -d --name my-app -p 3000:3000 my-node-app:optimized
    ```
 
 2. Test the application endpoint
@@ -185,10 +186,15 @@ Run the container locally and verify functionality
 3. View container logs
 
    ```sh
-   docker logs <container-id>
+   docker logs my-app
    ```
 
-4. Stop the container (Ctrl+C if running in foreground)
+4. Stop and remove the container
+
+   ```sh
+   docker stop my-app
+   docker rm my-app
+   ```
 
 ---
 
@@ -201,9 +207,9 @@ Run the container locally and verify functionality
 - ✅ Logs show "Server is running on http://localhost:3000"
 
 ## Bonus
-- Try running in detached mode with `-d` flag
+- Try running with `--rm` flag to auto-remove container on stop
 - List running containers with `docker ps`
-- Stop container with `docker stop <container-id>`
+- Run in foreground mode (without `-d`) and use Ctrl+C to stop
 
 ## Time: 10 minutes
 
