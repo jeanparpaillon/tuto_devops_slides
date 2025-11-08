@@ -2,6 +2,7 @@ BASE := /tuto_devops_slides/
 
 DECKS := formation-dev formation-prod
 OUT := dist/
+INDEX := $(OUT)/index.html
 
 SLIDES := $(patsubst %,$(OUT)/%/index.html,$(DECKS))
 PDFS := $(patsubst %,$(OUT)/%.pdf,$(DECKS))
@@ -14,7 +15,10 @@ dev-dev:
 dev-prod:
 	pnpm dev:prod
 
-build: $(SLIDES)
+build: $(SLIDES) $(INDEX)
+
+$(INDEX):
+	cp static/index.html $@
 
 $(OUT)/%/index.html: slides/%.md
 	cd slides && pnpm slidev build --base $(BASE)/$*/ --out ../$(OUT)/$* $<
