@@ -19,11 +19,7 @@ Duration: ~7 hours
 -->
 
 ---
-src: ./pages/dev-versioning.md
----
-
----
-src: ./pages/dev-intro.md
+src: ./pages/dev-day1.md
 ---
 
 <!--
@@ -33,27 +29,7 @@ Duration: ~7 hours
 -->
 
 ---
-src: ./pages/dev-day2-recap.md
----
-
----
-src: ./pages/dev-ci.md
----
-
----
-src: ./pages/dev-containerization.md
----
-
----
-src: ./pages/dev-github-actions-exercises.md
----
-
----
-src: ./pages/dev-best-practices.md
----
-
----
-src: ./pages/dev-troubleshooting.md
+src: ./pages/dev-day2.md
 ---
 
 <!--
@@ -63,7 +39,7 @@ Duration: ~7 hours
 -->
 
 ---
-src: ./pages/dev-intro-artifactory.md
+src: ./pages/dev-day3.md
 ---
 
 <!--
@@ -73,7 +49,7 @@ Duration: ~7 hours
 -->
 
 ---
-src: ./pages/dev-sonarqube-xray.md
+src: ./pages/dev-day4.md
 ---
 
 <!--
@@ -83,9 +59,5 @@ Duration: ~7 hours
 -->
 
 ---
-src: ./pages/dev-day5-recap.md
----
-
----
-src: ./pages/dev-advanced-github.md
+src: ./pages/dev-day5.md
 ---

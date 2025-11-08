@@ -29,4 +29,6 @@ layout: section
 - Leverage GitHub for comprehensive project management
 - Integrate all week's learnings into a cohesive workflow
 
-**Duration**: ~7 hours
+---
+src: ./section-advanced-github.md
+---

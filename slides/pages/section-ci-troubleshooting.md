@@ -5,7 +5,7 @@ epoch: d2pm
 
 # Troubleshooting and Debugging
 
-## Day 2 — Essential debugging skills
+## Essential debugging skills
 
 - Docker troubleshooting
 - GitHub Actions debugging

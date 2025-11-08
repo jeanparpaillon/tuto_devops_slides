@@ -3,7 +3,7 @@ layout: section
 epoch: d2pm
 ---
 
-# Day 2 — Best Practices
+# Best Practices
 
 ## Docker & GitHub Actions
 

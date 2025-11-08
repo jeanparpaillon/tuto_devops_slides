@@ -39,4 +39,22 @@ layout: section
 - Learn Docker and CI/CD best practices
 - Debug common issues
 
-**Duration**: ~7 hours (including exercises)
+---
+src: ./section-ci.md
+---
+
+---
+src: ./section-containerization.md
+---
+
+---
+src: ./section-github-actions-exercises.md
+---
+
+---
+src: ./section-ci-best-practices.md
+---
+
+---
+src: ./section-ci-troubleshooting.md
+---
