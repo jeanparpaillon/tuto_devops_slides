@@ -1,0 +1,30 @@
+import{_ as p}from"./slidev/CodeBlockWrapper.vue_vue_type_script_setup_true_lang-DPN-3ftV.js";import{b as y,o as i,w as a,g as s,e,m as t,D as l,v as E,x as m,z as r}from"./modules/vue-Cho9hMGZ.js";import{_ as A}from"./default.vue_vue_type_script_setup_true_lang-jH2WIlFr.js";import{u as d,f}from"./slidev/context-C-ExvZmy.js";import"./modules/unplugin-icons-481F6Nil.js";import"./index-Diq4705d.js";import"./modules/shiki-DolGubX0.js";import"./layoutHelper-DYp61_9N.js";const R={__name:"dev-intro-artifactory.md__slidev_208",setup(D){const{$clicksContext:F,$frontmatter:c}=d();return F.setup(),(_,o)=>{const n=p;return i(),y(A,E(m(r(f)(r(c),207))),{default:a(()=>[o[2]||(o[2]=s("h1",null,"Installation with Docker Compose",-1)),o[3]||(o[3]=s("h2",null,"Production-ready Setup",-1)),e(n,t({},{title:"",ranges:[]}),{default:a(()=>[...o[0]||(o[0]=[s("pre",{class:"shiki the-unnamed slidev-code",style:{"background-color":"#0E131F",color:"#F3EFF5"}},[s("code",{class:"language-yaml"},[s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5B8","font-style":"italic"}},"# docker-compose.yml")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"version"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#2AFFCC"}},"'"),s("span",{style:{color:"#44FFD2"}},"3.8"),s("span",{style:{color:"#2AFFCC"}},"'")]),l(`
+`),s("span",{class:"line"}),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"services"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"  artifactory"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    image"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"releases-docker.jfrog.io/jfrog/artifactory-oss:latest")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    container_name"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"artifactory")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    restart"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"unless-stopped")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    ports"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      - "),s("span",{style:{color:"#2AFFCC"}},'"'),s("span",{style:{color:"#44FFD2"}},"8081:8081"),s("span",{style:{color:"#2AFFCC"}},'"'),s("span",{style:{color:"#F3EFF5B8","font-style":"italic"}},"  # Web UI")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      - "),s("span",{style:{color:"#2AFFCC"}},'"'),s("span",{style:{color:"#44FFD2"}},"8082:8082"),s("span",{style:{color:"#2AFFCC"}},'"'),s("span",{style:{color:"#F3EFF5B8","font-style":"italic"}},"  # Artifactory access")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    volumes"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      - "),s("span",{style:{color:"#44FFD2"}},"./data:/var/opt/jfrog/artifactory")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    environment"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      - "),s("span",{style:{color:"#44FFD2"}},"JF_SHARED_DATABASE_TYPE=postgresql")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      - "),s("span",{style:{color:"#44FFD2"}},"JF_SHARED_DATABASE_USERNAME=artifactory")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      - "),s("span",{style:{color:"#44FFD2"}},"JF_SHARED_DATABASE_PASSWORD=password")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    depends_on"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      - "),s("span",{style:{color:"#44FFD2"}},"postgres")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      ")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"  postgres"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    image"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"postgres:15")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    container_name"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"artifactory-postgres")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    restart"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"unless-stopped")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    environment"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      - "),s("span",{style:{color:"#44FFD2"}},"POSTGRES_DB=artifactory")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      - "),s("span",{style:{color:"#44FFD2"}},"POSTGRES_USER=artifactory")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      - "),s("span",{style:{color:"#44FFD2"}},"POSTGRES_PASSWORD=password")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    volumes"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      - "),s("span",{style:{color:"#44FFD2"}},"./postgres:/var/lib/postgresql/data")])])],-1)])]),_:1},16),e(n,t({},{title:"",ranges:[]}),{default:a(()=>[...o[1]||(o[1]=[s("pre",{class:"shiki the-unnamed slidev-code",style:{"background-color":"#0E131F",color:"#F3EFF5"}},[s("code",{class:"language-bash"},[s("span",{class:"line"},[s("span",{style:{color:"#15C2CB","font-style":"italic"}},"docker-compose"),s("span",{style:{color:"#44FFD2"}}," up"),s("span",{style:{color:"#11FFC6"}}," -d")])])],-1)])]),_:1},16)]),_:1},16)}}};export{R as default};

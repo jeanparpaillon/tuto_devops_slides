@@ -1,0 +1,20 @@
+import{_ as p}from"./slidev/CodeBlockWrapper.vue_vue_type_script_setup_true_lang-DPN-3ftV.js";import{b as y,o as F,w as e,g as s,e as t,D as l,m as a,v as d,x as f,z as i}from"./modules/vue-Cho9hMGZ.js";import{_ as m}from"./default.vue_vue_type_script_setup_true_lang-jH2WIlFr.js";import{u,f as g}from"./slidev/context-C-ExvZmy.js";import"./modules/unplugin-icons-481F6Nil.js";import"./index-Diq4705d.js";import"./modules/shiki-DolGubX0.js";import"./layoutHelper-DYp61_9N.js";const R={__name:"dev-troubleshooting.md__slidev_180",setup(k){const{$clicksContext:r,$frontmatter:c}=u();return r.setup(),(D,n)=>{const o=p;return F(),y(m,d(f(i(g)(i(c),179))),{default:e(()=>[n[2]||(n[2]=s("h1",null,"Dockerfile issues (3)",-1)),n[3]||(n[3]=s("h2",null,"3. Slow builds",-1)),n[4]||(n[4]=s("p",null,[s("strong",null,"Problem:"),l(" Builds take too long, rebuild everything")],-1)),n[5]||(n[5]=s("p",null,[s("strong",null,"Solution:"),l(" Optimize layer caching")],-1)),t(o,a({},{title:"",ranges:[]}),{default:e(()=>[...n[0]||(n[0]=[s("pre",{class:"shiki the-unnamed slidev-code",style:{"background-color":"#0E131F",color:"#F3EFF5"}},[s("code",{class:"language-dockerfile"},[s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5B8","font-style":"italic"}},"# ❌ Bad: Breaks cache on any code change")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F141A8","font-style":"italic"}},"COPY"),s("span",{style:{color:"#99D0F7"}}," . .")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F141A8","font-style":"italic"}},"RUN"),s("span",{style:{color:"#99D0F7"}}," npm install")]),l(`
+`),s("span",{class:"line"}),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5B8","font-style":"italic"}},"# ✅ Good: Cache dependencies separately")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F141A8","font-style":"italic"}},"COPY"),s("span",{style:{color:"#99D0F7"}}," package*.json ./")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F141A8","font-style":"italic"}},"RUN"),s("span",{style:{color:"#99D0F7"}}," npm install")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F141A8","font-style":"italic"}},"COPY"),s("span",{style:{color:"#99D0F7"}}," . .")])])],-1)])]),_:1},16),n[6]||(n[6]=s("p",null,[s("strong",null,"More optimization tips:")],-1)),t(o,a({},{title:"",ranges:[]}),{default:e(()=>[...n[1]||(n[1]=[s("pre",{class:"shiki the-unnamed slidev-code",style:{"background-color":"#0E131F",color:"#F3EFF5"}},[s("code",{class:"language-dockerfile"},[s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5B8","font-style":"italic"}},"# Order commands from least to most frequently changing")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F141A8","font-style":"italic"}},"FROM"),s("span",{style:{color:"#99D0F7"}}," node:20-alpine")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F141A8","font-style":"italic"}},"WORKDIR"),s("span",{style:{color:"#99D0F7"}}," /app")]),l(`
+`),s("span",{class:"line"}),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5B8","font-style":"italic"}},"# 1. Dependencies (rarely change)")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F141A8","font-style":"italic"}},"COPY"),s("span",{style:{color:"#99D0F7"}}," package*.json ./")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F141A8","font-style":"italic"}},"RUN"),s("span",{style:{color:"#99D0F7"}}," npm ci --omit=dev")]),l(`
+`),s("span",{class:"line"}),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5B8","font-style":"italic"}},"# 2. Source code (changes often)")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F141A8","font-style":"italic"}},"COPY"),s("span",{style:{color:"#99D0F7"}}," . .")]),l(`
+`),s("span",{class:"line"}),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5B8","font-style":"italic"}},"# 3. Build (changes with code)")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F141A8","font-style":"italic"}},"RUN"),s("span",{style:{color:"#99D0F7"}}," npm run build")])])],-1)])]),_:1},16)]),_:1},16)}}};export{R as default};

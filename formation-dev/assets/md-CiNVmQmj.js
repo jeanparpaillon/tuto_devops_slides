@@ -1,0 +1,13 @@
+import{_ as r}from"./slidev/CodeBlockWrapper.vue_vue_type_script_setup_true_lang-DPN-3ftV.js";import{b as c,o as p,w as n,g as s,e as f,m,D as l,v as y,x as d,z as e}from"./modules/vue-Cho9hMGZ.js";import{_ as u}from"./default.vue_vue_type_script_setup_true_lang-jH2WIlFr.js";import{u as C,f as g}from"./slidev/context-C-ExvZmy.js";import"./modules/unplugin-icons-481F6Nil.js";import"./index-Diq4705d.js";import"./modules/shiki-DolGubX0.js";import"./layoutHelper-DYp61_9N.js";const P={__name:"dev-best-practices.md__slidev_147",setup(B){const{$clicksContext:o,$frontmatter:a}=C();return o.setup(),(F,t)=>{const i=r;return p(),c(u,y(d(e(g)(e(a),146))),{default:n(()=>[t[1]||(t[1]=s("h1",null,"Image Optimization: .dockerignore",-1)),t[2]||(t[2]=s("p",null,[s("strong",null,"Exclude unnecessary files from build context")],-1)),f(i,m({},{title:"",ranges:[]}),{default:n(()=>[...t[0]||(t[0]=[s("pre",{class:"shiki the-unnamed slidev-code",style:{"background-color":"#0E131F",color:"#F3EFF5"}},[s("code",{class:"language-bash"},[s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5B8","font-style":"italic"}},"# .dockerignore file")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#15C2CB","font-style":"italic"}},"node_modules")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#15C2CB","font-style":"italic"}},"npm-debug.log")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#15C2CB","font-style":"italic"}},".git")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#15C2CB","font-style":"italic"}},".gitignore")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#15C2CB","font-style":"italic"}},"README.md")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#15C2CB","font-style":"italic"}},".env")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#15C2CB","font-style":"italic"}},".env.local")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#15C2CB","font-style":"italic"}},"dist")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#15C2CB","font-style":"italic"}},"coverage")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#15C2CB","font-style":"italic"}},".DS_Store")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F141A8","font-style":"italic"}},"*"),s("span",{style:{color:"#F3EFF5"}},".md")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F141A8","font-style":"italic"}},"!"),s("span",{style:{color:"#15C2CB","font-style":"italic"}},"README.md")])])],-1)])]),_:1},16),t[3]||(t[3]=s("p",null,[s("strong",null,"Benefits:")],-1)),t[4]||(t[4]=s("ul",null,[s("li",null,"Faster build context transfer"),s("li",null,"Smaller images"),s("li",null,"Avoid accidentally copying sensitive files")],-1))]),_:1},16)}}};export{P as default};

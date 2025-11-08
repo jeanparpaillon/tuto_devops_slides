@@ -1,0 +1,37 @@
+import{_ as F}from"./slidev/CodeBlockWrapper.vue_vue_type_script_setup_true_lang-DPN-3ftV.js";import{b as c,o as p,w as n,g as s,e as i,m as y,D as l,v as u,x as A,z as e}from"./modules/vue-Cho9hMGZ.js";import{_ as E}from"./default.vue_vue_type_script_setup_true_lang-jH2WIlFr.js";import{u as d,f as g}from"./slidev/context-C-ExvZmy.js";import"./modules/unplugin-icons-481F6Nil.js";import"./index-Diq4705d.js";import"./modules/shiki-DolGubX0.js";import"./layoutHelper-DYp61_9N.js";const T={__name:"dev-intro-artifactory.md__slidev_243",setup(m){const{$clicksContext:a,$frontmatter:t}=d();return a.setup(),(D,o)=>{const r=F;return p(),c(E,u(A(e(g)(e(t),242))),{default:n(()=>[o[1]||(o[1]=s("h1",null,"Exercise 6: Docker Build with Dual Registry Push",-1)),o[2]||(o[2]=s("h2",null,"Push to both GHCR (public) and Artifactory (internal)",-1)),i(r,y({},{title:"",ranges:[]}),{default:n(()=>[...o[0]||(o[0]=[s("pre",{class:"shiki the-unnamed slidev-code",style:{"background-color":"#0E131F",color:"#F3EFF5"}},[s("code",{class:"language-yaml"},[s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"  docker"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    needs"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"test")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    if"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"github.ref == 'refs/heads/main'")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    runs-on"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"ubuntu-latest")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    permissions"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"      contents"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"read")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"      packages"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"write")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    steps"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      - "),s("span",{style:{color:"#46A1F0"}},"uses"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"actions/checkout@v4")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      ")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5B8","font-style":"italic"}},"      # Login to GHCR (keep this from Day 2 for public images)")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      - "),s("span",{style:{color:"#46A1F0"}},"name"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"Login to GitHub Container Registry")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"        uses"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"docker/login-action@v3")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"        with"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"          registry"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"ghcr.io")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"          username"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"${{ github.actor }}")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"          password"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"${{ secrets.GITHUB_TOKEN }}")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      ")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5B8","font-style":"italic"}},"      # NEW: Also login to Artifactory")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      - "),s("span",{style:{color:"#46A1F0"}},"name"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"Login to Artifactory Docker")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"        uses"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"docker/login-action@v3")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"        with"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"          registry"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"${{ secrets.ARTIFACTORY_URL }}")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"          username"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"${{ secrets.ARTIFACTORY_USER }}")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"          password"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"${{ secrets.ARTIFACTORY_PASSWORD }}")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      ")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5B8","font-style":"italic"}},"      # Build once, push to both registries")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      - "),s("span",{style:{color:"#46A1F0"}},"name"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"Build and push to both registries")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"        uses"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"docker/build-push-action@v5")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"        with"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"          context"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#0ACCD6"}},".")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"          push"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#0ACCD6"}},"true")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"          tags"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#F141A8","font-style":"italic"}},"|")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#44FFD2"}},"            ghcr.io/${{ github.repository }}:${{ github.sha }}")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#44FFD2"}},"            ghcr.io/${{ github.repository }}:latest")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#44FFD2"}},"            ${{ secrets.ARTIFACTORY_URL }}/docker-local/nodejs-server:${{ github.sha }}")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#44FFD2"}},"            ${{ secrets.ARTIFACTORY_URL }}/docker-local/nodejs-server:latest")])])],-1)])]),_:1},16),o[3]||(o[3]=s("p",null,[s("strong",null,"💡 Why push to both?")],-1)),o[4]||(o[4]=s("ul",null,[s("li",null,[s("strong",null,"GHCR"),l(": Free, public access, great for open source")]),s("li",null,[s("strong",null,"Artifactory"),l(": Internal use, security scanning, production deployment")])],-1))]),_:1},16)}}};export{T as default};

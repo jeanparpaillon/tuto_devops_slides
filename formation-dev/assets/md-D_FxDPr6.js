@@ -1,0 +1,30 @@
+import{_ as r}from"./slidev/CodeBlockWrapper.vue_vue_type_script_setup_true_lang-DPN-3ftV.js";import{b as c,o as p,w as o,g as s,e as y,m as i,D as l,v as u,x as E,z as e}from"./modules/vue-Cho9hMGZ.js";import{_ as m}from"./default.vue_vue_type_script_setup_true_lang-jH2WIlFr.js";import{u as A,f as d}from"./slidev/context-C-ExvZmy.js";import"./modules/unplugin-icons-481F6Nil.js";import"./index-Diq4705d.js";import"./modules/shiki-DolGubX0.js";import"./layoutHelper-DYp61_9N.js";const C={__name:"dev-sonarqube-xray.md__slidev_268",setup(_){const{$clicksContext:a,$frontmatter:F}=A();return a.setup(),(S,n)=>{const t=r;return p(),c(m,u(E(e(d)(e(F),267))),{default:o(()=>[n[1]||(n[1]=s("h1",null,"SonarQube — GitHub Actions integration",-1)),n[2]||(n[2]=s("h2",null,"Basic Configuration",-1)),y(t,i({},{title:"",ranges:[]}),{default:o(()=>[...n[0]||(n[0]=[s("pre",{class:"shiki the-unnamed slidev-code",style:{"background-color":"#0E131F",color:"#F3EFF5"}},[s("code",{class:"language-yaml"},[s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"name"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"SonarQube Scan")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#0ACCD6"}},"on"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"  push"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    branches"),s("span",{style:{color:"#F3EFF5"}},": ["),s("span",{style:{color:"#44FFD2"}},"main"),s("span",{style:{color:"#F3EFF5"}},"]")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"  pull_request"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    branches"),s("span",{style:{color:"#F3EFF5"}},": ["),s("span",{style:{color:"#44FFD2"}},"main"),s("span",{style:{color:"#F3EFF5"}},"]")]),l(`
+`),s("span",{class:"line"}),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"jobs"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"  sonar"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    runs-on"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"ubuntu-latest")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    steps"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      - "),s("span",{style:{color:"#46A1F0"}},"uses"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"actions/checkout@v4")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"        with"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"          fetch-depth"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#0ACCD6"}},"0"),s("span",{style:{color:"#F3EFF5B8","font-style":"italic"}},"  # Full history for better analysis")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      ")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      - "),s("span",{style:{color:"#46A1F0"}},"uses"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"actions/setup-node@v4")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"        with"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"          node-version"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#0ACCD6"}},"20")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      ")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      - "),s("span",{style:{color:"#46A1F0"}},"name"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"Install dependencies")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"        run"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"npm ci")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      ")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      - "),s("span",{style:{color:"#46A1F0"}},"name"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"Run tests with coverage")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"        run"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"npm test -- --coverage")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      ")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      - "),s("span",{style:{color:"#46A1F0"}},"name"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"SonarQube Scan")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"        uses"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"SonarSource/sonarqube-scan-action@v2")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"        env"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"          SONAR_TOKEN"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"${{ secrets.SONAR_TOKEN }}")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"          SONAR_HOST_URL"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"${{ secrets.SONAR_HOST_URL }}")])])],-1)])]),_:1},16),n[3]||(n[3]=s("h2",null,"Required Secrets",-1)),n[4]||(n[4]=s("ul",null,[s("li",null,[s("code",null,"SONAR_TOKEN"),l(": Generated from SonarQube")]),s("li",null,[s("code",null,"SONAR_HOST_URL"),l(": SonarQube server URL")])],-1))]),_:1},16)}}};export{C as default};

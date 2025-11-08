@@ -1,0 +1,19 @@
+import{_ as r}from"./slidev/CodeBlockWrapper.vue_vue_type_script_setup_true_lang-CXer7gCR.js";import{b as F,o as c,w as a,g as s,e as i,m as y,D as l,v as m,x as E,z as n}from"./modules/vue-Cho9hMGZ.js";import{_ as d}from"./default.vue_vue_type_script_setup_true_lang-Br_Pfovw.js";import{u as A,f as u}from"./slidev/context-UXFQ3H71.js";import"./modules/unplugin-icons-481F6Nil.js";import"./index-DcLS51Nz.js";import"./modules/shiki-DolGubX0.js";import"./layoutHelper-DYp61_9N.js";const B={__name:"prod-k8s-apps.md__slidev_47",setup(f){const{$clicksContext:e,$frontmatter:p}=A();return e.setup(),(_,o)=>{const t=r;return c(),F(d,m(E(n(u)(n(p),46))),{default:a(()=>[o[1]||(o[1]=s("h1",null,"Deploy a simple web application",-1)),o[2]||(o[2]=s("h2",null,"Goal: Get a web app running in the cluster",-1)),o[3]||(o[3]=s("h3",null,"Basic deployment",-1)),i(t,y({},{title:"",ranges:[]}),{default:a(()=>[...o[0]||(o[0]=[s("pre",{class:"shiki the-unnamed slidev-code",style:{"background-color":"#0E131F",color:"#F3EFF5"}},[s("code",{class:"language-yaml"},[s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"apiVersion"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"apps/v1")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"kind"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"Deployment")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"metadata"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"  name"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"webapp")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"spec"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"  replicas"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#0ACCD6"}},"1")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"  selector"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    matchLabels"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"      app"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"webapp")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"  template"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    metadata"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"      labels"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"        app"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"webapp")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"    spec"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"      containers"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"      - "),s("span",{style:{color:"#46A1F0"}},"name"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"nginx")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"        image"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#44FFD2"}},"nginx:latest")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#46A1F0"}},"        ports"),s("span",{style:{color:"#F3EFF5"}},":")]),l(`
+`),s("span",{class:"line"},[s("span",{style:{color:"#F3EFF5"}},"        - "),s("span",{style:{color:"#46A1F0"}},"containerPort"),s("span",{style:{color:"#F3EFF5"}},": "),s("span",{style:{color:"#0ACCD6"}},"80")])])],-1)])]),_:1},16)]),_:1},16)}}};export{B as default};
