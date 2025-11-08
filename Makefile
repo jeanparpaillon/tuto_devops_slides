@@ -16,12 +16,12 @@ dev-prod:
 
 build: $(SLIDES)
 
-dist/%/index.html: slides/%.md
+$(OUT)/%/index.html: slides/%.md
 	cd slides && pnpm slidev build --base $(BASE) --out ../$(OUT)/$* $<
 
 pdf: $(PDFS)
 
-dist/%.pdf: slides/%.md
+$(OUT)/%.pdf: slides/%.md
 	pnpm slidev export --output $@ $<
 
 clean:
