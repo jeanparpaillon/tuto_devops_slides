@@ -4,8 +4,8 @@
 * Alger
 
 Available online at:
-- Dev training : [HTML](https://jeanparpaillon.github.io/tuto_devops_slides/formation-dev/), [PDF](https://jeanparpaillon.github.io/tuto_devops_slides/formation-dev.pdf)
-- Prod training : [HTML](https://jeanparpaillon.github.io/tuto_devops_slides/formation-prod/), [PDF](https://jeanparpaillon.github.io/tuto_devops_slides/formation-prod.pdf)
+- Dev training : [HTML](https://jeanparpaillon.github.io/training/formation-dev/), [PDF](https://jeanparpaillon.github.io/training/formation-dev.pdf)
+- Prod training : [HTML](https://jeanparpaillon.github.io/training/formation-prod/), [PDF](https://jeanparpaillon.github.io/training/formation-prod.pdf)
 
 ## GitHub Copilot Agent Architecture
 
