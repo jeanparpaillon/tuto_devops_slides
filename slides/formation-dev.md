@@ -4,7 +4,7 @@ title: DevOps for Developers
 mdc: true
 ---
 
-# DevOps Training
+# DevOps for Developpers
 
 ## Société Générale Algérie - November 2025 - Algiers
 
