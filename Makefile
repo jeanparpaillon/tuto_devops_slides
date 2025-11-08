@@ -1,4 +1,4 @@
-BASE := /training
+BASE := /tuto_devops_slides/
 
 DECKS := formation-dev formation-prod
 OUT := dist/training
