@@ -1,4 +1,4 @@
-BASE := /tuto_devops_slides/
+BASE := /training
 
 DECKS := formation-dev formation-prod
 OUT := dist/training
@@ -17,7 +17,7 @@ dev-prod:
 build: $(SLIDES)
 
 $(OUT)/%/index.html: slides/%.md
-	cd slides && pnpm slidev build --base $(BASE) --out ../$(OUT)/$* $<
+	cd slides && pnpm slidev build --base $(BASE)/$*/ --out ../$(OUT)/$* $<
 
 pdf: $(PDFS)
 
