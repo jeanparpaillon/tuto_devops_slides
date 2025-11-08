@@ -1,7 +1,7 @@
 BASE := /tuto_devops_slides
 
 DECKS := formation-dev formation-prod
-OUT := dist
+OUT := $(PWD)/dist
 INDEX := $(OUT)/index.html
 
 SLIDES := $(patsubst %,$(OUT)/%/index.html,$(DECKS))
