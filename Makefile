@@ -2,8 +2,8 @@ BASE := /tuto_devops_slides/
 
 DECKS := formation-dev formation-prod
 
-SLIDES := $(patsubst %,$(OUT_DIR)/%/index.html,$(DECKS))
-PDFS := $(patsubst %,$(OUT_DIR)/%.pdf,$(DECKS))
+SLIDES := $(patsubst %,dist/%/index.html,$(DECKS))
+PDFS := $(patsubst %,dist/%.pdf,$(DECKS))
 
 all: build pdf
 
