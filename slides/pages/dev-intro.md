@@ -211,16 +211,18 @@ layout: section
 
 # Git Exercises
 
+
 **Duration**: Approximately 2.5 hours
 
-**Objectives**: 
-- Understand basic Git commands
-- Learn the differences between merge and rebase
-- Build practical skills with hands-on exercises
+**Objectives**:
+1. Understand basic Git commands
+2. Learn the differences between merge and rebase
+3. Build practical skills with hands-on exercises
 
 ---
 
 # Exercise 1: Initialize a Repository
+
 
 ## Objective
 Create a new Git repository and understand its structure
@@ -245,6 +247,7 @@ git init
 ---
 
 # Exercise 2: Stage Changes
+
 
 ## Objective
 Learn how to add files to the staging area
@@ -274,6 +277,7 @@ git status
 ---
 
 # Exercise 3: Create Commits
+
 
 ## Objective
 Save changes to the repository history
@@ -306,6 +310,7 @@ git log --oneline
 
 # Exercise 4: View History
 
+
 ## Objective
 Navigate and understand repository history
 
@@ -334,6 +339,7 @@ git diff HEAD~1 HEAD
 ---
 
 # Exercise 5: Work with Branches
+
 
 ## Objective
 Create and manage branches
@@ -366,6 +372,7 @@ git checkout -b feature/add-footer
 ---
 
 # Exercise 6: Switch Branches
+
 
 ## Objective
 Navigate between branches and understand working directory changes
@@ -401,6 +408,7 @@ ls -la
 
 # Exercise 7: Merge Branches
 
+
 ## Objective
 Integrate changes from one branch into another
 
@@ -429,6 +437,7 @@ git branch -d feature/add-footer
 ---
 
 # Exercise 8: Rebase Branches
+
 
 ## Objective
 Understand rebasing and compare it with merging
@@ -469,6 +478,7 @@ git rebase main
 
 # Exercise 9: Merge vs Rebase Comparison
 
+
 ## Objective
 Understand when to use merge vs rebase
 
@@ -499,6 +509,7 @@ git log --oneline --graph feature/rebase-example main
 ---
 
 # Exercise 10: Get Help
+
 
 ## Objective
 Learn how to get help with Git commands
@@ -891,7 +902,7 @@ layout: section
 
 # Hands-on exercises
 
-## Let's practice GitHub collaboration!
+## Let's practice GitHub collaboration
 
 **Note:** In the following exercises, replace:
 - `YOUR_USERNAME` with your GitHub username
@@ -918,6 +929,7 @@ Presenter notes:
    - Choose .gitignore (Node)
 
 2. **Clone and make changes**
+
    ```sh
    git clone https://github.com/YOUR_USERNAME/devops-training-YOUR_USERNAME.git
    cd devops-training-YOUR_USERNAME
@@ -950,12 +962,14 @@ Presenter notes:
    - Fork to your account
 
 2. **Clone your fork**
+
    ```sh
    git clone https://github.com/YOUR_USERNAME/tuto_devops_github.git
    cd tuto_devops_github
    ```
 
 3. **Add upstream remote**
+
    ```sh
    git remote add upstream https://github.com/INSTRUCTOR_USERNAME/tuto_devops_github.git
    git fetch upstream
@@ -986,6 +1000,7 @@ Presenter notes:
    - Assign to yourself
 
 2. **Create a branch for the issue**
+
    ```sh
    git checkout -b feature/user-auth
    # Make changes to your code
@@ -1010,14 +1025,16 @@ Presenter notes:
 
 ## Steps (continued)
 
-3. **Create a Pull Request**
+1. **Create a Pull Request**
+
    - Go to GitHub → Pull requests → New pull request
    - Base: main, Compare: feature/user-auth
    - Title: "Implement user authentication"
    - Link to issue: "Closes #1"
    - Request review from a team member
 
-4. **Review process**
+2. **Review process**
+
    - Reviewer: Add comments, request changes
    - Author: Address feedback, push updates
    - Reviewer: Approve the PR

@@ -1173,18 +1173,24 @@ Scan a Docker container image for vulnerabilities using Xray
 
 ## Steps
 1. Build Docker image from nodejs_server
+
    ```bash
    docker build -t myapp:latest .
    ```
+
 2. Tag for Artifactory registry
+
    ```bash
    docker tag myapp:latest <artifactory-url>/docker-local/myapp:1.0.0
    ```
+
 3. Login and push to Artifactory
+
    ```bash
    docker login <artifactory-url>
    docker push <artifactory-url>/docker-local/myapp:1.0.0
    ```
+
 4. Configure Xray to scan docker-local repository
 5. Trigger scan (or wait for automatic scan)
 6. View scan results in Xray

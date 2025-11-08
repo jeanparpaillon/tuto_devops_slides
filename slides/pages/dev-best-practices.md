@@ -226,6 +226,7 @@ RUN echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc && \
 ```
 
 **At runtime:**
+
 ```sh
 # Pass secrets as environment variables
 docker run -e DATABASE_PASSWORD="$DB_PASS" my-app
@@ -475,6 +476,7 @@ jobs:
 **Create reusable workflows for common tasks**
 
 `.github/workflows/reusable-test.yml`:
+
 ```yaml
 name: Reusable test workflow
 
@@ -498,6 +500,7 @@ jobs:
 ```
 
 **Usage in another workflow:**
+
 ```yaml
 jobs:
   test:
@@ -587,6 +590,7 @@ jobs:
 - Ensures reproducible builds
 
 **Maintain with Dependabot:**
+
 ```yaml
 # .github/dependabot.yml
 version: 2

@@ -31,6 +31,7 @@ layout: section
 - CPU virtualization support
 
 **Verify Setup:**
+
 ```sh
 terraform version    # ≥ 1.5.0
 virsh version       # libvirt daemon
