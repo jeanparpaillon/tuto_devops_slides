@@ -45,6 +45,7 @@ layout: section
 ## 1. Cannot connect to Docker daemon
 
 **Error message:**
+
 ```
 Cannot connect to the Docker daemon at unix:///var/run/docker.sock.
 Is the docker daemon running?
@@ -56,6 +57,7 @@ Is the docker daemon running?
 - Docker Desktop not running (Windows/Mac)
 
 **Solutions:**
+
 ```sh
 # Linux: Start Docker service
 sudo systemctl start docker
@@ -73,6 +75,7 @@ sudo usermod -aG docker $USER
 ## 2. Port already in use
 
 **Error message:**
+
 ```
 Error starting userland proxy: listen tcp4 0.0.0.0:3000:
 bind: address already in use
@@ -81,6 +84,7 @@ bind: address already in use
 **Cause:** Another process is using the port
 
 **Solutions:**
+
 ```sh
 # Find what's using the port
 sudo lsof -i :3000
@@ -102,6 +106,7 @@ docker stop <container-id>
 ## 3. No space left on device
 
 **Error message:**
+
 ```
 Error processing tar file: write /path/to/file: no space left on device
 ```
@@ -109,6 +114,7 @@ Error processing tar file: write /path/to/file: no space left on device
 **Cause:** Disk full from images, containers, or volumes
 
 **Solutions:**
+
 ```sh
 # Check disk usage
 docker system df
@@ -132,6 +138,7 @@ docker volume prune     # Remove unused volumes
 ## 4. Permission denied
 
 **Error message:**
+
 ```
 Got permission denied while trying to connect to the Docker daemon socket
 ```
@@ -139,6 +146,7 @@ Got permission denied while trying to connect to the Docker daemon socket
 **Cause:** User doesn't have permissions to access Docker
 
 **Solution (Linux):**
+
 ```sh
 # Add user to docker group
 sudo usermod -aG docker $USER
@@ -151,6 +159,7 @@ docker ps
 ```
 
 **Temporary workaround (not recommended for regular use):**
+
 ```sh
 sudo docker ps
 ```
@@ -162,6 +171,7 @@ sudo docker ps
 ## 5. Image not found / Pull access denied
 
 **Error messages:**
+
 ```
 Error response from daemon: pull access denied for myimage, 
 repository does not exist or may require 'docker login'
@@ -170,6 +180,7 @@ manifest for node:99 not found
 ```
 
 **Solutions:**
+
 ```sh
 # Check image name and tag are correct
 docker pull node:20-alpine  # ✅ Correct
@@ -204,6 +215,7 @@ docker logs --tail 100 <container-name>
 ```
 
 **Pro tip:** Combine flags for better debugging
+
 ```sh
 docker logs --tail 50 --timestamps -f my-container
 ```
@@ -291,6 +303,7 @@ docker history --no-trunc my-image
 **Problem:** Build is slow, uploads many files
 
 **Symptom:**
+
 ```
 Sending build context to Docker daemon  2.5GB
 ```
@@ -320,6 +333,7 @@ tmp
 **Common causes and solutions:**
 
 ### Missing base image or wrong tag
+
 ```dockerfile
 # ❌ Wrong
 FROM node:latest-alpine
@@ -329,6 +343,7 @@ FROM node:20-alpine
 ```
 
 ### Commands failing
+
 ```dockerfile
 # ❌ May fail in Alpine (missing bash)
 RUN npm install && bash setup.sh
@@ -338,6 +353,7 @@ RUN npm install && sh setup.sh
 ```
 
 ### File not found
+
 ```dockerfile
 # ❌ Files not copied yet
 RUN npm install
@@ -370,6 +386,7 @@ COPY . .
 ```
 
 **More optimization tips:**
+
 ```dockerfile
 # Order commands from least to most frequently changing
 FROM node:20-alpine
@@ -465,12 +482,14 @@ layout: section
 ## 1. YAML syntax errors
 
 **Error message:**
+
 ```
 Invalid workflow file: .github/workflows/ci.yml
 Error parsing workflow: mapping values are not allowed here
 ```
 
 **Common causes:**
+
 ```yaml
 # ❌ Wrong indentation
 jobs:
@@ -486,7 +505,7 @@ jobs
 # ❌ Inconsistent indentation (mixing tabs/spaces)
 jobs:
   test:
-	runs-on: ubuntu-latest  # Tab here
+ runs-on: ubuntu-latest  # Tab here
     steps:                   # Spaces here
 ```
 
@@ -499,6 +518,7 @@ jobs:
 ## 2. Missing permissions
 
 **Error message:**
+
 ```
 Resource not accessible by integration
 refusing to allow a GitHub App to create or update workflow
@@ -537,6 +557,7 @@ jobs:
 ## 3. Secret not found
 
 **Error message:**
+
 ```
 Error: Input required and not supplied: password
 Warning: Skip output 'digest' since it may contain secret.
@@ -548,6 +569,7 @@ Warning: Skip output 'digest' since it may contain secret.
 - Using wrong secret context
 
 **Solutions:**
+
 ```yaml
 # ❌ Wrong: Using environment variable syntax
 password: $MY_SECRET
@@ -568,6 +590,7 @@ password: ${{ secrets.MY_SECRET }}
 ## 4. Timeout errors
 
 **Error message:**
+
 ```
 The job running on runner github-hosted-runner has exceeded
 the maximum execution time of 360 minutes.
@@ -579,6 +602,7 @@ the maximum execution time of 360 minutes.
 - Waiting for external service
 
 **Solutions:**
+
 ```yaml
 jobs:
   test:
@@ -602,6 +626,7 @@ jobs:
 ## 5. Failed steps
 
 **Error messages vary:**
+
 ```
 Error: Process completed with exit code 1.
 npm error Missing script: "test"
@@ -617,6 +642,7 @@ Error: Docker login failed
 5. **Review environment** - Using correct Node version, env vars?
 
 **Common fixes:**
+
 ```yaml
 # Missing script
 # Add to package.json: "scripts": { "test": "..." }

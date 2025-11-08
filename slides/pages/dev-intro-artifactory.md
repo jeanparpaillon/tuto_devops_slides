@@ -923,12 +923,14 @@ env:
 **⚠️ Never commit credentials to code!**
 
 **npm authentication:**
+
 ```bash
 # .npmrc with environment variable
 //artifactory:8082/artifactory/api/npm/npm/:_authToken=${ARTIFACTORY_TOKEN}
 ```
 
 **Docker authentication:**
+
 ```bash
 echo "${ARTIFACTORY_PASSWORD}" | docker login \
   -u "${ARTIFACTORY_USER}" \
@@ -1150,6 +1152,7 @@ For **Linux**, edit `/etc/docker/daemon.json`:
 ```
 
 Then restart Docker:
+
 ```bash
 sudo systemctl restart docker
 ```
@@ -1505,6 +1508,7 @@ git push
 **Problem**: `npm install` fails with 401 Unauthorized
 
 **Solution:**
+
 ```bash
 # Regenerate API token in Artifactory
 # Update .npmrc with new token
@@ -1527,6 +1531,7 @@ npm login --registry=http://localhost:8082/artifactory/api/npm/npm/
 **Problem**: `unauthorized: authentication required`
 
 **Solution:**
+
 ```bash
 # Ensure you're logged in
 docker login localhost:8082
@@ -1537,6 +1542,7 @@ docker login localhost:8082
 **Problem**: `x509: certificate signed by unknown authority`
 
 **Solution:**
+
 ```bash
 # Add to insecure registries in Docker daemon config
 # Or configure proper SSL certificates for Artifactory
