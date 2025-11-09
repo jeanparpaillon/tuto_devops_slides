@@ -9,23 +9,7 @@ mdc: true
 ## Société Générale Algérie - November 2025 - Algiers
 
 ---
-src: ./pages/about-me.md
----
-
----
-src: ./pages/common-intro.md
----
-
----
-src: ./pages/prod-arch.md
----
-
----
-src: ./pages/prod-objectifs.md
----
-
----
-src: ./pages/prod-concepts.md
+src: ./pages/prod-day1.md
 ---
 
 ---
