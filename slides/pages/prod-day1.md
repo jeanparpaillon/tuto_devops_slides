@@ -1,9 +1,5 @@
 
 ---
-src: ./about-me.md
----
-
----
 src: ./section-prod-objectifs.md
 ---
 

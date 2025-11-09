@@ -9,6 +9,10 @@ mdc: true
 ## Société Générale Algérie - November 2025 - Algiers
 
 ---
+src: ./pages/about-me.md
+---
+
+---
 src: ./pages/prod-day1.md
 ---
 
