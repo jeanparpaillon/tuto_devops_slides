@@ -2,6 +2,12 @@
 layout: section
 ---
 
+# Day 2 - Terraform
+
+---
+layout: section
+---
+
 # Day 1 Recap — DevOps for Operators
 
 - Compared traditional vs DevOps approaches

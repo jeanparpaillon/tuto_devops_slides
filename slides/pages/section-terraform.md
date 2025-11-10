@@ -101,69 +101,139 @@ layout: section
 
 ---
 
-# 1. Environment Setup
 
-- Install prerequisites:
-  - Terraform
-  - libvirt, qemu, virt-manager
-  - Download cloud images (e.g., Ubuntu)
-- Validate virtualization works locally
+## Step 1: Environment Setup
+
+**Objectives**
+- Prepare local virtualization environment for Terraform and libvirt
+
+**Do**
+- Install Terraform, libvirt, qemu, virt-manager
+- Download cloud images
+    - Download Ubuntu latest LTS cloud image:
+        ```sh
+        wget https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img
+        ```
+        - For other versions, see [Ubuntu Cloud Images](https://cloud-images.ubuntu.com/)
+- Validate virtualization works locally:
+    ```sh
+    virsh list --all
+    ```
+
+**Observe**
+- Confirm all tools are installed (`terraform -v`, `virsh --version`)
+- Cloud images are available
+- `virsh` command works
 
 ---
 
-# 2. Project Initialization
+## Step 2: Project Initialization
 
-- Create and structure your Terraform project directory
-- Initialize Terraform:
-  ```sh
-  terraform init
-  ```
-- Configure the libvirt provider in main.tf
+**Objectives**
+- Set up a new Terraform project
+
+**Do**
+- Create project directory and files (`main.tf`, etc.)
+- Run `terraform init` to initialize
+
+**Observe**
+- Terraform downloads provider plugins
+- `.terraform` directory is created
 
 ---
 
-# 3. Define a Base VM Resource
+## Step 3: Configure the libvirt Provider
 
-- Write a minimal resource block for a single VM
-- Set VM parameters: name, image, CPU, RAM
+**Objectives**
+- Connect Terraform to local libvirt
+
+**Do**
+- Add libvirt provider block to `main.tf`
+  - Tip: [libvirt provider doc](https://registry.terraform.io/providers/dmacvicar/libvirt/latest/docs)
+- Set up connection parameters
+
+**Observe**
+- No errors on `terraform init`
+- Provider is listed in output
+
+---
+
+## Step 4: Define a Base VM Resource
+
+**Objectives**
+- Provision a single VM with Terraform
+
+**Do**
+- Write resource block for one VM (name, image, CPU, RAM)
 - Add cloud-init for SSH key/user setup
-- Apply and verify VM creation
+  - Tip: [libvirt provider cloud-init example](https://registry.terraform.io/providers/dmacvicar/libvirt/latest/docs/resources/domain#cloudinit)
+- Run `terraform apply`
+
+**Observe**
+- VM appears in virt-manager
+- SSH access is possible with configured key
 
 ---
 
-# 4. Parameterize and Scale to Multiple VMs
+## Step 5: Parameterize and Scale to Multiple VMs
 
-- Use variables for VM count, names, resources
-- Refactor code to create 3 VMs (1 master, 2 workers)
+**Objectives**
+- Create 3 VMs (1 master, 2 workers) using variables
+
+**Do**
+- Refactor code to use variables for count, names, resources
 - Output IP addresses and SSH details
-- Validate connectivity to all VMs
+
+**Observe**
+- All VMs are created and accessible
+- Output shows IPs and hostnames
 
 ---
 
-# 5. Networking & Storage
+## Step 6: Networking & Storage
 
-- Define and attach a virtual network (NAT/bridge)
+**Objectives**
+- Ensure VMs are networked and have storage
+
+**Do**
+- Define and attach virtual network (NAT/bridge)
 - Configure storage volumes if needed
-- Ensure VMs are networked for future cluster use
+
+**Observe**
+- VMs can ping each other
+- Storage is correctly attached
 
 ---
 
-# 6. Cloud-Init Customization
+## Step 7: Cloud-Init Customization
 
-- Customize user-data for users, SSH keys, hostnames
-- Automate initial configuration for all VMs
-- Validate user access and VM identity
+**Objectives**
+- Automate initial VM configuration
+
+**Do**
+- Customize cloud-init user-data for users, SSH keys, hostnames
+- Apply changes and verify
+
+**Observe**
+- Each VM has correct hostname and user access
+- SSH login works as expected
 
 ---
 
-# 7. Outputs & Documentation
+## Step 8: Outputs & Documentation
 
+**Objectives**
+- Document and clean up the project
+
+**Do**
 - Use Terraform outputs for IPs, hostnames, SSH info
 - Document project structure and usage
-- Clean up resources:
-    ```sh
-    terraform destroy
-    ```
+- Run `terraform destroy` to clean up
+
+**Observe**
+- Outputs are clear and useful
+- All resources are destroyed successfully
+
 ---
 
 # 8. Troubleshooting & Q&A
