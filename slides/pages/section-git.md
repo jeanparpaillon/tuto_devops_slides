@@ -77,9 +77,12 @@ layout: section
 3. Build practical skills with hands-on exercises
 
 ---
+layout: two-cols-header
+---
 
 # Exercise 1: Initialize a Repository
 
+::left::
 
 ## Objective
 Create a new Git repository and understand its structure
@@ -95,16 +98,21 @@ cd my-git-project
 git init
 ```
 
+::right::
+
 ## Observations
 
 - What files/directories were created?
 - Use `ls -la` to see the `.git` directory
-- Explore `.git` contents with `ls -la .git`
+- Explore `.git` contents with `find .git`
 
+---
+layout: two-cols-header
 ---
 
 # Exercise 2: Stage Changes
 
+::left::
 
 ## Objective
 Learn how to add files to the staging area
@@ -125,6 +133,8 @@ git add README.md
 git status
 ```
 
+::right::
+
 ## Observations
 
 - What does "untracked files" mean?
@@ -132,9 +142,12 @@ git status
 - Try creating another file and use `git add .` to add all files
 
 ---
+layout: two-cols-header
+---
 
 # Exercise 3: Create Commits
 
+::left::
 
 ## Objective
 Save changes to the repository history
@@ -157,6 +170,8 @@ git commit -m "Add description section"
 git log --oneline
 ```
 
+::right::
+
 ## Observations
 
 - What information does `git log` show?
@@ -164,9 +179,12 @@ git log --oneline
 - Who is the author? How is the timestamp formatted?
 
 ---
+layout: two-cols-header
+---
 
 # Exercise 4: View History
 
+::left::
 
 ## Objective
 Navigate and understand repository history
@@ -187,6 +205,8 @@ git log README.md
 git diff HEAD~1 HEAD
 ```
 
+::right::
+
 ## Observations
 
 - What does the `--graph` option show?
@@ -194,9 +214,12 @@ git diff HEAD~1 HEAD
 - How can you see what changed in each commit?
 
 ---
+layout: two-cols-header
+---
 
 # Exercise 5: Work with Branches
 
+::left::
 
 ## Objective
 Create and manage branches
@@ -220,6 +243,8 @@ git checkout feature/add-content
 git checkout -b feature/add-footer
 ```
 
+::right::
+
 ## Observations
 
 - Which branch are you currently on? (Look for `*`)
@@ -227,9 +252,12 @@ git checkout -b feature/add-footer
 - Create a file on this branch and commit it
 
 ---
+layout: two-cols-header
+---
 
 # Exercise 6: Switch Branches
 
+::left::
 
 ## Objective
 Navigate between branches and understand working directory changes
@@ -241,19 +269,17 @@ Navigate between branches and understand working directory changes
 echo "Footer content" > footer.txt
 git add footer.txt
 git commit -m "Add footer"
-
 # Switch back to main
 git checkout main
-
 # Check if footer.txt exists
 ls -la
-
 # Switch back to feature branch
 git checkout feature/add-footer
-
 # Check again
 ls -la
 ```
+
+::right::
 
 ## Observations
 
@@ -262,9 +288,12 @@ ls -la
 - Try editing a file without committing, then switch branches. What happens?
 
 ---
+layout: two-cols-header
+---
 
 # Exercise 7: Merge Branches
 
+::left::
 
 ## Objective
 Integrate changes from one branch into another
@@ -285,6 +314,8 @@ git log --oneline --graph
 git branch -d feature/add-footer
 ```
 
+::right::
+
 ## Observations
 
 - What type of merge occurred? (fast-forward or merge commit)
@@ -292,9 +323,12 @@ git branch -d feature/add-footer
 - What happens when you try to delete an unmerged branch?
 
 ---
+layout: two-cols-header
+---
 
 # Exercise 8: Rebase Branches
 
+::left::
 
 ## Objective
 Understand rebasing and compare it with merging
@@ -304,24 +338,22 @@ Understand rebasing and compare it with merging
 ```sh
 # Create a new branch from main
 git checkout -b feature/rebase-example
-
 # Add a commit on the feature branch
 echo "Feature work" > feature.txt
 git add feature.txt
 git commit -m "Add feature work"
-
 # Switch to main and add a commit
 git checkout main
 echo "Main work" >> README.md
 git add README.md
 git commit -m "Update README on main"
-
 # Switch back to feature branch
 git checkout feature/rebase-example
-
 # Rebase onto main
 git rebase main
 ```
+
+::right::
 
 ## Observations
 
@@ -334,7 +366,6 @@ git rebase main
 ---
 
 # Exercise 9: Merge vs Rebase Comparison
-
 
 ## Objective
 Understand when to use merge vs rebase
@@ -349,6 +380,14 @@ git log --oneline --graph feature/add-content main
 git log --oneline --graph feature/rebase-example main
 ```
 
+---
+layout: two-cols-header
+---
+
+# Exercise 9: Merge vs Rebase Comparison
+
+::left::
+
 ## Key Differences
 
 | Merge | Rebase |
@@ -358,15 +397,20 @@ git log --oneline --graph feature/rebase-example main
 | Shows when branches diverged | Cleaner, easier to follow |
 | Safer for shared branches | **Never rebase shared commits!** |
 
+::right::
+
 ## When to Use
 
 - **Merge**: For integrating completed features into main
 - **Rebase**: For cleaning up local branch before pushing
 
 ---
+layout: two-cols-header
+---
 
 # Exercise 10: Get Help
 
+::left::
 
 ## Objective
 Learn how to get help with Git commands
@@ -389,6 +433,8 @@ git commit -h
 # Search for commands
 git help -a | grep branch
 ```
+
+::right::
 
 ## Observations
 

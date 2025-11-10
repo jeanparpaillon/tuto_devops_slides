@@ -17,11 +17,11 @@ src: ./pages/prod-day1.md
 ---
 
 ---
-src: ./pages/prod-kubernetes.md
+src: ./pages/prod-day2.md
 ---
 
 ---
-src: ./pages/prod-terraform.md
+src: ./pages/prod-kubernetes.md
 ---
 
 ---
