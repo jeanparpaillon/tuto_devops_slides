@@ -1,67 +1,176 @@
+
 ---
 layout: section
 ---
 
-# Day 2 — Terraform basics
-
-## Goal: Build infra as code and prepare K8s nodes
-
-### Topics
-
-- Syntax: resources, data sources, variables, outputs
-- Lifecycle: init, plan, apply, destroy
-- State: local vs remote, locking, drift
-- Providers: vSphere, libvirt (qemu), cloud
-- Modules and composition
-- Templating inventories and cloud-init
+# Terraform: Infrastructure as Code (IaC) Introduction
 
 ---
 
-# Prerequisites
+# What is Infrastructure as Code (IaC)?
 
-**Required Software:**
-- Terraform ≥ 1.5.0
-- QEMU/KVM + libvirt
-- SSH client
-- Git & text editor
-
-**System Requirements:**
-- 8 GB RAM minimum (16 GB recommended)
-- 20 GB free disk space
-- CPU virtualization support
-
-**Verify Setup:**
-
-```sh
-terraform version    # ≥ 1.5.0
-virsh version       # libvirt daemon
-ssh -V              # SSH client
-```
+- Define and manage infrastructure using code
+- Enables automation, repeatability, and version control
+- Replaces manual configuration with declarative files
+- Key benefits:
+  - Consistency
+  - Auditability
+  - Collaboration
 
 ---
 
-# Hands-on — libvirt-based lab
+# Why Terraform?
 
-- Set up local lab with qemu/libvirt
-- Create 3 VMs: 1 master, 2 worker nodes
-- Cloud-init user-data for users/SSH
-- Output inventory for Ansible (masters/workers)
-
-```sh
-terraform init
-terraform plan -var 'masters=1' -var 'workers=2'
-terraform apply
-```
-
-- Validate connectivity: SSH, IPs, inventory
+- Open-source tool for IaC
+- Supports many providers (cloud, virtualization, etc.)
+- Declarative language (HCL)
+- Manages dependencies and state
 
 ---
 
-# Optional — vSphere provider
+# Anatomy of a Terraform Project
 
-- Map resources: datacenter, cluster, datastore, network
-- Templates and customization specs
-- Tagging and naming conventions
+- Typical files:
+  - `main.tf`: resources and configuration
+  - `variables.tf`: input variables
+  - `outputs.tf`: output values
+  - `terraform.tfstate`: state file
+- Folder structure:
+  - Modules for reusable code
+  - Providers for target platforms
+
+---
+
+# Terraform Base Concepts
+
+- **Providers**: Connect to infrastructure platforms
+- **Resources**: Define infrastructure objects (VMs, networks, etc.)
+- **Variables**: Parameterize configurations
+- **State**: Tracks real infrastructure
+- **Outputs**: Export values for other tools
+
+---
+
+# Terraform Workflow
+
+1. `terraform init` — Initialize project and download providers
+2. `terraform plan` — Preview changes
+3. `terraform apply` — Create/update infrastructure
+4. `terraform destroy` — Remove resources
+
+---
+
+# Good Practices
+
+- Store state remotely (S3, Consul, Terraform Cloud)
+- Use modules for reuse
+- Pin provider and module versions
+- Separate environments (dev, stage, prod)
+- Integrate with CI/CD for validation and approval
+
+---
+
+# Documentation & Resources
+
+- [Terraform Docs](https://developer.hashicorp.com/terraform)
+- [Provider Registry](https://registry.terraform.io/)
+- [HCL Reference](https://developer.hashicorp.com/terraform/language)
+- [Best Practices](https://www.terraform-best-practices.com/)
+- [HashiCorp Tutorials](https://developer.hashicorp.com/terraform/tutorials)
+
+---
+
+# Q&A / Wrap-up
+
+- Questions?
+- Next steps: Explore hands-on labs and real-world scenarios
+
+---
+layout: section
+---
+
+# Lab: Build a 3-Node Cluster with Terraform & Libvirt
+
+---
+
+# Lab Overview & Goals
+
+- Provision 3 VMs (1 master, 2 workers) using Terraform and libvirt
+- Use cloud-init for SSH access and initial config
+- Output VM details for future use
+
+---
+
+# 1. Environment Setup
+
+- Install prerequisites:
+  - Terraform
+  - libvirt, qemu, virt-manager
+  - Download cloud images (e.g., Ubuntu)
+- Validate virtualization works locally
+
+---
+
+# 2. Project Initialization
+
+- Create and structure your Terraform project directory
+- Initialize Terraform:
+  ```sh
+  terraform init
+  ```
+- Configure the libvirt provider in main.tf
+
+---
+
+# 3. Define a Base VM Resource
+
+- Write a minimal resource block for a single VM
+- Set VM parameters: name, image, CPU, RAM
+- Add cloud-init for SSH key/user setup
+- Apply and verify VM creation
+
+---
+
+# 4. Parameterize and Scale to Multiple VMs
+
+- Use variables for VM count, names, resources
+- Refactor code to create 3 VMs (1 master, 2 workers)
+- Output IP addresses and SSH details
+- Validate connectivity to all VMs
+
+---
+
+# 5. Networking & Storage
+
+- Define and attach a virtual network (NAT/bridge)
+- Configure storage volumes if needed
+- Ensure VMs are networked for future cluster use
+
+---
+
+# 6. Cloud-Init Customization
+
+- Customize user-data for users, SSH keys, hostnames
+- Automate initial configuration for all VMs
+- Validate user access and VM identity
+
+---
+
+# 7. Outputs & Documentation
+
+- Use Terraform outputs for IPs, hostnames, SSH info
+- Document project structure and usage
+- Clean up resources:
+    ```sh
+    terraform destroy
+    ```
+---
+
+# 8. Troubleshooting & Q&A
+
+- Common issues: image, network, permissions
+- Debugging tips: logs, state, console
+- Open Q&A and wrap-up
 
 ---
 
