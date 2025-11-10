@@ -184,13 +184,38 @@ layout: two-cols-header
 - SSH access is possible with configured key
 
 ---
+layout: two-cols-header
+---
 
 ## Step 5: Parameterize and Scale to Multiple VMs
+
+::left::
 
 **Objectives**
 - Create 3 VMs (1 master, 2 workers) using variables
 
 **Do**
+- Add variables:
+  - Declare variables:
+    ```hcl
+    variable "var_name" {
+        decription = "Description of the variable"
+        type = string
+        default = "default_value"
+    }
+    ```
+- Set values:
+    - Via `terraform.tfvars` file:
+      ```hcl
+      var_name = "value"
+      ```
+    - Or via CLI:
+      ```sh
+      terraform apply -var="var_name=value"
+      ```
+
+::right::
+
 - Refactor code to use variables for count, names, resources
 - Output IP addresses and SSH details
 
