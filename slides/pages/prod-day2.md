@@ -5,12 +5,10 @@ layout: section
 # Day 1 Recap — DevOps for Operators
 
 - Compared traditional vs DevOps approaches
-- Explored the DevOps lifecycle and infinite loop diagram
-- Set up a sample Node.js application
+- Explored the DevOps lifecycle
 - Practiced Git basics: init, branch, merge, rebase, tag, log, help
 - Reviewed CI/CD concepts and workflows
 - Introduced infrastructure tools: VMware/qemu, Terraform, Ansible, Kubernetes
-- Discussed a web app deployment example (WordPress)
 
 ---
 layout: section
