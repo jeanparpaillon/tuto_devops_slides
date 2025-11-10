@@ -100,15 +100,23 @@ layout: section
 - Output VM details for future use
 
 ---
-
+layout: two-cols-header
+---
 
 ## Step 1: Environment Setup
+
+::left::
 
 **Objectives**
 - Prepare local virtualization environment for Terraform and libvirt
 
 **Do**
 - Install Terraform, libvirt, qemu, virt-manager
+  - On Ubuntu:
+    ```sh
+    sudo apt update
+    sudo apt install -y libvirt-daemon-system libvirt-clients qemu-kvm virt-manager
+    ```
 - Download cloud images
     - Download Ubuntu latest LTS cloud image:
         ```sh
@@ -119,6 +127,8 @@ layout: section
     ```sh
     virsh list --all
     ```
+
+::right::
 
 **Observe**
 - Confirm all tools are installed (`terraform -v`, `virsh --version`)
