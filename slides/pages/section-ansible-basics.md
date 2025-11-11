@@ -148,7 +148,7 @@ layout: two-cols-header
 
 ---
 
-## Lab Presentation
+# Lab Presentation
 
 **Objective**
 - Use Docker containers as lab machines
@@ -161,36 +161,58 @@ layout: two-cols-header
 
 ---
 
-## Step 1: Prepare Lab Environment
+# Step 1: Prepare Lab Environment
 
 **Objective**
 - Create 3 containers ready for Ansible
 
 **Do**
+
 ```sh
-docker run -d --name master ubuntu:noble sleep infinity
-docker run -d --name worker1 ubuntu:noble sleep infinity
-docker run -d --name worker2 ubuntu:noble sleep infinity
+docker run -d --name master geerlingguy/docker-ubuntu2404-ansible sleep infinity
+docker run -d --name worker1 geerlingguy/docker-ubuntu2404-ansible sleep infinity
+docker run -d --name worker2 geerlingguy/docker-ubuntu2404-ansible sleep infinity
 ```
 
 - Install Python in containers
 
-*Observe**
+**Observe**
 
 - 3 running containers (docker ps)
 - Ansible can connect (ansible_connection=docker)
 
 ---
 
+## Docker Connection Plugin
+
+**Objective**: Enable Ansible to connect to Docker containers
+
+**Do**: Install the Docker connection plugin
+
+```sh
+pip install ansible-pylibssh
+pip install docker
+ansible-galaxy collection install community.docker
+```
+
+- Ensure `community.docker` is listed in `collections` in your playbook if needed
+
+**Observe**
+
+- Ansible can connect to containers using `ansible_connection: docker`
+
+
+---
+layout: two-cols-header
+---
+
 # Step 2: Inventory — Hosts & Groups
 
-**Objective**
+::left::
 
-- Define inventory in YAML
+**Objective**: Define inventory in YAML
 
-**Do**
-
-- inventory.yml:
+**Do**: `inventory.yml`
 
 ```yaml
 all:
@@ -209,7 +231,11 @@ all:
       hosts:
         worker1:
         worker2:
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
 ```
+
+::right::
 
 - Test with ping:
 
@@ -344,4 +370,21 @@ Place your `README.md` file in `roles/readme/files/README.md`.
 README.md created in each container's home
 
 ---
+
+# Step 7: Idempotence Example
+
+## Objective
+
+- Demonstrate idempotence with directory creation
+
+## Do `roles/add_readme/tasks/main.yml`
+
+```yaml
+- name: Create directory
+  file:
+    path: ~/demo_dir
+    state: directory
+```
+
+- Run playbook multiple times
 
