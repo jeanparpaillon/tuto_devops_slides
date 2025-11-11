@@ -21,11 +21,7 @@ src: ./pages/prod-day2.md
 ---
 
 ---
-src: ./pages/prod-kubernetes.md
----
-
----
-src: ./pages/prod-ansible-basics.md
+src: ./pages/prod-day3.md
 ---
 
 ---
