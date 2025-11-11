@@ -36,14 +36,6 @@
 
 ---
 
-# Ansible - History
-
-- key dates
-- adoption
-- community
-
----
-
 # Ansible - CLI
 
 - ansible-galaxy, ansible-playbook, ansible-inventory, ansible-doc (TBD)
@@ -93,12 +85,34 @@
 > Both can manage cloud resources, but Terraform is declarative for infra, Ansible is procedural for config
 
 ---
+layout: two-cols-header
+---
 
 # Ansible - History
 
-- key dates
-- adoption
-- community
+::left::
+
+## Key Dates
+
+- **2012**: Ansible project founded by Michael DeHaan
+- **2013**: First public release
+- **2015**: Acquired by Red Hat
+- **2017+**: Rapid adoption in enterprise automation and cloud-native workflows
+
+## Adoption
+
+- Widely used for IT automation, configuration management, and orchestration
+- Popular in DevOps, cloud, and hybrid environments
+- Large ecosystem of modules and integrations
+
+::right::
+
+## Community
+
+- Active open-source community
+- Extensive documentation and resources
+- Thousands of contributors and roles on [Ansible Galaxy](https://galaxy.ansible.com/)
+- Regular conferences, meetups, and webinars
 
 ---
 
@@ -261,4 +275,73 @@ k8s_role: worker
 ansible -i inventory.yml masters -m ping
 ansible -i inventory.yml nodes -m ping
 ```
+
+---
+
+# Step 5: Simple Playbook with Tasks
+
+**Objective**
+
+- Write and run a basic playbook
+
+**Do**
+
+site.yml:
+
+```yaml
+- hosts: all
+  tasks:
+    - name: Ensure Python is installed
+      apt:
+        name: python3
+        state: present
+      become: yes
+```
+
+```sh
+ansible-playbook -i inventory.yml site.yml
+```
+
+**Observe**
+
+- Python installed, playbook output shows changed/ok
+
+---
+
+# Step 6: Create a Role
+
+**Objective**
+
+- Create a role to add README.md in HOME
+
+**Do**
+
+```sh
+ansible-galaxy init readme
+```
+
+Place your `README.md` file in `roles/readme/files/README.md`.
+
+`roles/readme/tasks/main.yml`:
+
+```yaml
+- name: Copy README.md from role files to HOME
+    copy:
+        src: README.md
+        dest: "{{ ansible_env.HOME }}/README.md"
+```
+
+`site.yml`:
+
+```yaml
+- hosts: all
+    roles:
+        - readme
+```
+
+**Observe**
+
+README.md created in each container's home
+
+---
 
