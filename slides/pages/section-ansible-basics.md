@@ -381,6 +381,18 @@ roles/
 ```
 
 ---
+
+# Ansible Roles - Prepare project
+
+In `ansible.cfg`:
+
+```ini
+[[defaults]]
+roles_path = roles:~/.ansible/roles:/usr/share/ansible/roles
+inventory = ./inventory.yml
+```
+
+---
 layout: two-cols-header
 ---
 
