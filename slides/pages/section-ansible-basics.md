@@ -352,11 +352,33 @@ ansible-playbook -i inventory.yml site.yml
 
 ---
 
-# ansible-galaxy CLI
+# Ansible Roles - Overview
 
-- Create roles: `ansible-galaxy init <role_name>`
-- Observe role structure
-- Possible files: tasks, handlers, vars, defaults, files, templates, meta
+- Reusable, modular units of Ansible content
+- Role structure:
+
+```sh
+roles/
+    common/               # this hierarchy represents a "role"
+        tasks/            #
+            main.yml      #  <-- tasks file can include smaller files if warranted
+        handlers/         #
+            main.yml      #  <-- handlers file
+        templates/        #  <-- files for use with the template resource
+            ntp.conf.j2   #  <------- templates end in .j2
+        files/            #
+            bar.txt       #  <-- files for use with the copy resource
+            foo.sh        #  <-- script files for use with the script resource
+        vars/             #
+            main.yml      #  <-- variables associated with this role
+        defaults/         #
+            main.yml      #  <-- default lower priority variables for this role
+        meta/             #
+            main.yml      #  <-- role dependencies
+        library/          # roles can also include custom modules
+        module_utils/     # roles can also include custom module_utils
+        lookup_plugins/   # or other types of plugins, like lookup in this case
+```
 
 ---
 layout: two-cols-header
@@ -387,6 +409,8 @@ Place your `README.md` file in `roles/readme/files/README.md`.
         dest: "{{ ansible_env.HOME }}/README.md"
 ```
 
+::right::
+
 `site.yml`:
 
 ```yaml
@@ -395,15 +419,55 @@ Place your `README.md` file in `roles/readme/files/README.md`.
         - readme
 ```
 
-::right::
-
 ## Observe
 
 README.md created in each container's home
 
 ---
+layout: two-cols-header
+---
 
-# Step 7: Idempotence - Bad Example
+# Step 7: Add handler to Role
+
+::left::
+
+## Objective
+
+- Add a handler to notify on README.md copy
+
+## Do 
+
+`roles/readme/tasks/main.yml`
+
+```yaml
+- name: Copy README.md from role files to HOME
+  ...
+  notify: README copied
+```
+
+::right::
+
+`roles/readme/handlers/main.yml`
+
+```yaml
+- name: README copied
+  debug:
+    msg: "README.md has been copied successfully!"
+```
+
+- Execute playbook
+
+## Observe
+
+- Handler triggered only if README.md is copied (changed)
+
+---
+layout: two-cols-header
+---
+
+# Step 8: Idempotence - Bad Example
+
+::left::
 
 ## Objective
 
@@ -418,14 +482,20 @@ README.md created in each container's home
 
 - Run playbook multiple times
 
+::right::
+
 ## Observe
 
 - First run: directory created (changed)
 - Subsequent runs: fails with "File exists" error
 
 ---
+layout: two-cols-header
+---
 
-# Step 8: Idempotence - Good Example
+# Step 9: Idempotence - Good Example
+
+::left::
 
 ## Objective
 
@@ -441,6 +511,8 @@ README.md created in each container's home
 ```
 
 - Run playbook multiple times
+
+::right::
 
 ## Observe
 
@@ -458,18 +530,19 @@ README.md created in each container's home
 layout: two-cols-header
 ---
 
-# Step 9: Use ansible-galaxy to Install Roles
+# Step 10: Use ansible-galaxy to Install Roles
 
 ::left::
 
 ## Objective
 
 - Install and use a role from Ansible Galaxy
+- Example: [Zabbix role](https://galaxy.ansible.com/ui/standalone/roles/oxlorg/zabbix/)
 
 ## Do
 
 ```sh
-ansible-galaxy install geerlingguy.nginx
+ansible-galaxy role install oxlorg.zabbix
 ```
 
 `site.yml`:
@@ -477,18 +550,144 @@ ansible-galaxy install geerlingguy.nginx
 ```yaml
 - hosts: all
   roles:
-    - geerlingguy.nginx
+    - role: oxlorg.zabbix
+  vars: 
+    zabbix_agent_server: "192.168.100.10"
 ```
 
 ::right::
 
 ## Observe
 
-- Nginx installed and running in containers
+- Zabbix agent installed and running in containers
+
+---
+layout: two-cols-header
+---
+
+# Step 10: Use ansible-galaxy to Install Collections
+
+::left::
+
+## Objective
+
+- Install and use a collection from Ansible Galaxy
+- Example: `community.general` collection
+
+## Do
+
+```sh
+ansible-galaxy collection install community.general
+```
+
+::right::
+
+## Note
+
+- Use `requirements.yml` for managing multiple roles/collections
+- Example `requirements.yml`:
+
+```yaml
+collections:
+  - name: community.general
+roles:
+  - name: oxlorg.zabbix
+```
+
+- Use with:
+
+```sh
+ansible-galaxy install -r requirements.yml
+```
+
+---
+layout: section
+---
+
+# Test with Molecule
 
 ---
 
-# Step 10: Install k8s
+# Molecule Overview
+
+- **Purpose**: Test Ansible roles in isolated environments
+- **Scope**:
+    - Automates role testing (syntax, idempotence, functional)
+    - Supports multiple drivers (Docker, Vagrant, cloud, etc.)
+    - Integrates with Ansible Galaxy and CI pipelines
+- **Why use Molecule?**
+    - Ensures roles work as expected before production use
+    - Standardizes testing workflow for Ansible roles
+
+---
+
+# Molecule - Architecture
+
+- **Per role**
+    - Each role has its own molecule/ directory
+    - Custom scenarios for different environments
+- **Test Steps**
+    - `create`: Provision test environment (e.g., Docker containers)
+    - `converge`: Apply the role/playbook
+    - `verify`: Check results (assertions, tests)
+    - `destroy`: Clean up environment
+- **Config**
+    - `molecule.yml` defines driver, provisioner, verifier, inventory, environment
+
+---
+layout: two-cols-header
+---
+
+# Step 11: Molecule - Add testing to readme role
+
+::left::
+
+## Objective
+
+- Test that the README.md file is present in the home directory after running the role.
+
+## Do
+
+```sh
+cd roles/readme
+molecule init scenario --driver-name docker
+```
+
+Edit `molecule/default/converge.yml` to include the role:
+
+```yaml
+- hosts: all
+  roles:
+    - readme
+```
+
+::right::
+
+Edit `molecule/default/verify.yml` to check for the file:
+
+```yaml
+- name: Verify README.md exists
+  hosts: all
+  tasks:
+    - name: Check README.md presence
+      stat:
+        path: "{{ ansible_env.HOME }}/README.md"
+      register: readme_file
+    - name: Assert README.md exists
+      assert:
+        that:
+          - readme_file.stat.exists
+```
+
+- Run the test:
+
+```sh
+molecule test
+```
+
+---
+
+# Step 12: Install k8s
 
 ## Objective
 
