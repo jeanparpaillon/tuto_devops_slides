@@ -416,9 +416,9 @@ Place your `README.md` file in `roles/readme/files/README.md`.
 
 ```yaml
 - name: Copy README.md from role files to HOME
-    copy:
-        src: README.md
-        dest: "{{ ansible_env.HOME }}/README.md"
+  copy:
+    src: README.md
+    dest: "{{ ansible_env.HOME }}/README.md"
 ```
 
 ::right::
@@ -427,8 +427,8 @@ Place your `README.md` file in `roles/readme/files/README.md`.
 
 ```yaml
 - hosts: all
-    roles:
-        - readme
+  roles:
+    - readme
 ```
 
 ## Observe
