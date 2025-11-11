@@ -201,7 +201,6 @@ ansible-galaxy collection install community.docker
 
 - Ansible can connect to containers using `ansible_connection: docker`
 
-
 ---
 layout: two-cols-header
 ---
@@ -248,8 +247,12 @@ ansible all -i inventory.yml -m ping
 - All containers respond to ping
 
 ---
+layout: two-cols-header
+---
 
 # Step 3: Variables — Sources & Groups
+
+::left::
 
 **Objective**
 
@@ -277,13 +280,19 @@ k8s_role: worker
     var: k8s_role
 ```
 
+::right::
+
 **Observe**
 
 - Correct role displayed for each group
 
 ---
+layout: two-cols-header
+---
 
 # Step 4: Expand Inventory Groups
+
+::left::
 
 **Objective**
 
@@ -292,6 +301,8 @@ k8s_role: worker
 **Do**
 
 - Update inventory.yml as above
+
+::right::
 
 **Observe**
 
@@ -303,8 +314,12 @@ ansible -i inventory.yml nodes -m ping
 ```
 
 ---
+layout: two-cols-header
+---
 
 # Step 5: Simple Playbook with Tasks
+
+::left::
 
 **Objective**
 
@@ -328,19 +343,33 @@ site.yml:
 ansible-playbook -i inventory.yml site.yml
 ```
 
+::right::
+
 **Observe**
 
 - Python installed, playbook output shows changed/ok
 
 ---
 
+# ansible-galaxy CLI
+
+- Create roles: `ansible-galaxy init <role_name>`
+- Observe role structure
+- Possible files: tasks, handlers, vars, defaults, files, templates, meta
+
+---
+layout: two-cols-header
+---
+
 # Step 6: Create a Role
 
-**Objective**
+::left::
+
+## Objective
 
 - Create a role to add README.md in HOME
 
-**Do**
+## Do
 
 ```sh
 ansible-galaxy init readme
@@ -365,19 +394,43 @@ Place your `README.md` file in `roles/readme/files/README.md`.
         - readme
 ```
 
-**Observe**
+::right::
+
+## Observe
 
 README.md created in each container's home
 
 ---
 
-# Step 7: Idempotence Example
+# Step 7: Idempotence - Bad Example
 
 ## Objective
 
 - Demonstrate idempotence with directory creation
 
-## Do `roles/add_readme/tasks/main.yml`
+## Do `roles/readme/tasks/main.yml`
+
+```yaml
+- name: Create directory
+  shell: mkdir ~/demo_dir
+```
+
+- Run playbook multiple times
+
+## Observe
+
+- First run: directory created (changed)
+- Subsequent runs: fails with "File exists" error
+
+---
+
+# Step 8: Idempotence - Good Example
+
+## Objective
+
+- Demonstrate idempotence with directory creation
+
+## Do `roles/readme/tasks/main.yml`
 
 ```yaml
 - name: Create directory
@@ -388,3 +441,77 @@ README.md created in each container's home
 
 - Run playbook multiple times
 
+## Observe
+
+- First run: directory created (changed)
+- Subsequent runs: no changes (ok)
+
+---
+
+# Roles vs Collections
+
+- Role: reusable tasks, vars, files, templates
+- Collection: package of roles, modules, plugins
+
+---
+layout: two-cols-header
+---
+
+# Step 9: Use ansible-galaxy to Install Roles
+
+::left::
+
+## Objective
+
+- Install and use a role from Ansible Galaxy
+
+## Do
+
+```sh
+ansible-galaxy install geerlingguy.nginx
+```
+
+`site.yml`:
+
+```yaml
+- hosts: all
+  roles:
+    - geerlingguy.nginx
+```
+
+::right::
+
+## Observe
+
+- Nginx installed and running in containers
+
+---
+
+# Step 10: Install k8s
+
+## Objective
+
+- Wrap-up day by installing Kubernetes components
+- Hint: use kubespray collection
+
+---
+
+# Day 3 - Day Wrap-Up & Next Steps
+
+## What We Achieved
+
+- Explored Ansible concepts, CLI, and architecture
+- Built and managed inventories, groups, and variables
+- Created and ran playbooks and roles
+- Practiced idempotence and best practices
+- Used Ansible Galaxy for roles and collections
+- Automated configuration on Docker-based lab machines
+
+## Next Steps
+
+- Use Ansible to automate Kubernetes cluster setup
+- Explore Kubespray and other Kubernetes collections
+- Integrate Ansible workflows with infrastructure provisioning (Terraform)
+- Apply Ansible for real-world cloud and hybrid environments
+
+---
