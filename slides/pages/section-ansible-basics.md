@@ -285,6 +285,7 @@ k8s_role: worker
 **Observe**
 
 - Correct role displayed for each group
+- `ansible-inventory --list -i inventory.yml`
 
 ---
 layout: two-cols-header
