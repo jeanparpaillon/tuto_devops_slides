@@ -25,15 +25,7 @@ src: ./pages/prod-day3.md
 ---
 
 ---
-src: ./pages/prod-ansible-intra.md
----
-
----
-src: ./pages/prod-k8s-apps.md
----
-
----
-src: ./pages/prod-ansible-public.md
+src: ./pages/prod-day4.md
 ---
 
 ---

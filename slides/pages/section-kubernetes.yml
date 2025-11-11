@@ -1,0 +1,336 @@
+# Kubernetes Project
+
+- **History**: Originated at Google, open-sourced in 2014
+- **Community & Support**: Large, active open-source community; supported by CNCF (Cloud Native Computing Foundation)
+- **Adoption**: Widely used by enterprises and cloud providers; de facto standard for container orchestration.
+- **Extensibility**: Modular architecture; supports custom controllers, operators, and plugins.
+- **Ecosystem**: Rich set of tools for monitoring, networking, storage, and CI/CD integrations.
+
+## Alternatives
+
+- Docker Swarm
+- Nomad by HashiCorp
+
+---
+
+# Kubernetes Resources
+
+- [Kubernetes Official Website](https://kubernetes.io/)
+- [Kubernetes Documentation](https://kubernetes.io/docs/)
+- [Kubernetes GitHub Repository](https://github.com/kubernetes/kubernetes)
+- [Kubernetes Example Manifests (GitHub)](https://github.com/kubernetes/examples)
+- [WordPress + MySQL Kubernetes YAML (Official Docs)](https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
+- [Kubernetes Manifest Samples](https://github.com/kubernetes/website/tree/main/content/en/examples)
+
+---
+layout: image
+image: /k8s_arch.png
+backgroundSize: 70%
+---
+
+# Kubernetes Architecture
+
+---
+
+# Kubernetes Components
+
+- **Master Node**: Manages the cluster, runs control plane components
+  - API Server: central management point
+  - etcd (key-value store): stores cluster state
+  - Controller Manager: converge cluster state
+  - (Cloud Controller Manager): integrates with cloud providers
+  - Scheduler: assigns pods to nodes
+
+- **Worker Nodes**: Run application workloads
+  - Kubelet: manages pods on the node
+  - Kube-Proxy: network proxy and load balancer
+  - Container Runtime (e.g., Docker, containerd)
+
+---
+
+# Kubernetes Commands - kubectl
+
+- List all nodes in the cluster
+
+```bash
+kubectl get nodes
+```
+
+- List all pods in the cluster
+
+```bash
+kubectl get pods
+```
+
+- Show detailed information about a specific pod
+
+```bash
+kubectl describe pod <pod-name>
+```
+
+- Apply a configuration from a YAML file
+
+```bash
+kubectl apply -f <file.yaml>
+```
+
+- Delete resources defined in a YAML file
+
+```bash
+kubectl delete -f <file.yaml>
+```
+
+---
+
+# Kubernetes Commands - kubeadm
+
+- Initialize a Kubernetes control-plane node
+
+```bash
+kubeadm init --pod-network-cidr=<cidr>
+```
+
+- Join a worker node to the cluster
+
+```bash
+kubeadm join <master-ip>:<port> --token <token> --discovery-token-ca-cert-hash <hash>
+```
+
+---
+
+# Kubernetes Concepts - Networking
+
+- Every pod gets its own IP address
+- Pods can communicate with each other across nodes
+- Services provide stable endpoints for accessing pods
+- Various network plugins (CNI) available for different use cases
+
+---
+
+# Kubernetes Concepts - Network Implementations
+
+<div class="text-xs">
+
+| Feature                | Flannel                          | Calico                                   | Weave                          |
+|------------------------|----------------------------------|------------------------------------------|--------------------------------|
+| **Type**               | Overlay network (L3)             | Native routing (L3), network policy      | Overlay network (L2/L3)        |
+| **Network Model**      | VXLAN, host-gw, UDP              | BGP, IP-in-IP, VXLAN                     | FastDP, sleeve (UDP)           |
+| **Network Policy**     | No                               | Yes (Kubernetes NetworkPolicy support)   | Basic (limited)                |
+| **Performance**        | Moderate                         | High                                     | Moderate                       |
+| **Simplicity**         | Very simple to set up            | More complex, flexible                   | Simple, automatic mesh         |
+| **Use Cases**          | Small/medium clusters            | Large clusters, security-focused         | Small clusters, ease of use    |
+| **Documentation**      | Good                             | Excellent                                | Good                           |
+| **Persistent IPs**     | No                               | Yes                                      | Yes                            |
+| **Encryption**         | No (VXLAN only)                  | Optional (WireGuard/IPsec)               | Yes (optional)                 |
+
+</div>
+
+---
+
+# Kubernetes Concepts - Network Implementations
+
+- Flannel: Best for simple setups, easy to deploy.
+- Calico: Advanced features, network policies, high performance.
+- Weave: Easiest mesh networking, good for small clusters.
+
+---
+
+# Kubernetes Concepts - Container
+
+- Containers are the standard unit of software packaging
+- Kubernetes supports multiple container runtimes (Docker, containerd, CRI-O)
+- Containers run within pods, sharing resources and network
+
+## Running container with Docker
+
+```bash
+docker run -d --name mynginx -p 8080:80 nginx
+```
+
+Visit `http://localhost:8080` to see the Nginx welcome page.
+
+---
+
+# Kubernetes Concepts - Pods
+
+- The smallest deployable unit in Kubernetes
+- Encapsulates one or more containers sharing storage and network
+- Containers in a pod run on the same node and can communicate easily
+
+## Running container with Kubernetes
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mynginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 80
+```
+
+Apply the manifest:
+
+```bash
+kubectl apply -f mynginx-pod.yaml
+```
+
+---
+layout: image-right
+image: /k8s_rs.png
+backgroundSize: 90%
+---
+
+# Kubernetes Concepts - ReplicaSets
+
+- Ensures a specified number of pod replicas are running at all times
+- Automatically replaces failed pods
+- Used by Deployments to maintain pod availability
+
+---
+layout: image-right
+image: /k8s_depl.png
+backgroundSize: 90%
+---
+
+# Kubernetes Concepts - Deployments
+
+- Declarative way to manage stateless applications
+- Handles rolling updates, rollbacks, and scaling
+- Ensures the desired number of pod replicas are running
+
+---
+layout: image-right
+image: /k8s_service.png
+backgroundSize: 90%
+---
+
+# Kubernetes Concepts - Service
+
+- Abstraction that exposes a set of pods as a network service
+- Enables stable networking and load balancing for pods
+- Types: ClusterIP, NodePort, LoadBalancer
+
+---
+layout: image-right
+image: /kubernetes-namespaces.png
+backgroundSize: 90%
+---
+
+# Kubernetes Concepts - Namespaces
+
+- Logical partitions within a Kubernetes cluster
+- Isolate resources and workloads for multi-tenancy
+- Useful for organizing environments (dev, test, prod)
+
+---
+layout: two-cols-header
+---
+
+# Kubernetes Concepts - ConfigMaps and Secrets
+
+- ConfigMaps: Store non-sensitive configuration data as key-value pairs
+- Secrets: Store sensitive information (passwords, tokens) securely
+- Both can be injected into pods as environment variables or files
+
+::left::
+
+<div class="text-xs">
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myconfigmap
+data:
+  username: k8s-admin
+  access_level: "1"
+```
+
+</div>
+
+::right::
+
+<div class="text-xs">
+
+```yaml
+apiVersion: v1
+kind: Pod
+...
+spec:
+    containers:
+      ...
+      envFrom:
+        - configMapRef:
+            name: myconfigmap
+    volumeMounts:
+        - name: foo
+        mountPath: "/etc/foo"
+        readOnly: true
+    volumes:
+    - name: foo
+        configMap:
+        name: myconfigmap
+```
+
+</div>
+
+---
+
+# Kubernetes Concepts - Volumes and Persistent Storage
+
+- Volumes provide persistent storage for pods
+- Support for various backends: local disk, NFS, cloud storage
+- PersistentVolume (PV) and PersistentVolumeClaim (PVC) manage storage lifecycle
+
+---
+
+# Lab - Deploying a Simple Application
+
+## Exercise: Deploy WordPress with MySQL on Kubernetes
+
+**Objective:**  
+Deploy a WordPress application with a MySQL backend using `kubectl` commands and Kubernetes manifests.
+
+### Steps
+
+2. **Deploy MySQL**
+    - Create a `mysql-deployment.yaml` manifest with environment variables for root password, database name, user, and password.
+    - Apply the manifest:
+      ```bash
+      kubectl apply -f mysql-deployment.yaml -n wordpress-demo
+      ```
+
+3. **Deploy WordPress**
+    - Create a `wordpress-deployment.yaml` manifest referencing the MySQL service.
+    - Apply the manifest:
+      ```bash
+      kubectl apply -f wordpress-deployment.yaml -n wordpress-demo
+      ```
+
+4. **Expose WordPress**
+    - Create a `wordpress-service.yaml` to expose WordPress via `NodePort`.
+    - Apply the manifest:
+      ```bash
+      kubectl apply -f wordpress-service.yaml -n wordpress-demo
+      ```
+
+5. **Verify Deployment**
+    - Check pods and services:
+      ```bash
+      kubectl get pods -n wordpress-demo
+      kubectl get svc -n wordpress-demo
+      ```
+    - Access WordPress using the exposed service URL.
+
+### Discussion
+
+- What challenges did you face during deployment?
+- How does Kubernetes handle service discovery between WordPress and MySQL?
+- How would you persist data for MySQL using PersistentVolumes?
+
+**Bonus:**  
+Try scaling the WordPress deployment and observe the changes.

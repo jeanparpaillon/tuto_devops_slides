@@ -691,7 +691,7 @@ Edit `molecule/default/verify.yml` to check for the file:
           - readme_file.stat.exists
 ```
 
-- Run the test:
+- Run the test: 
 
 ```sh
 molecule test
@@ -705,25 +705,3 @@ molecule test
 
 - Wrap-up day by installing Kubernetes components
 - Hint: use kubespray collection
-
----
-
-# Day 3 - Day Wrap-Up & Next Steps
-
-## What We Achieved
-
-- Explored Ansible concepts, CLI, and architecture
-- Built and managed inventories, groups, and variables
-- Created and ran playbooks and roles
-- Practiced idempotence and best practices
-- Used Ansible Galaxy for roles and collections
-- Automated configuration on Docker-based lab machines
-
-## Next Steps
-
-- Use Ansible to automate Kubernetes cluster setup
-- Explore Kubespray and other Kubernetes collections
-- Integrate Ansible workflows with infrastructure provisioning (Terraform)
-- Apply Ansible for real-world cloud and hybrid environments
-
----

@@ -34,3 +34,16 @@ layout: section
 ---
 src: ./section-ansible-basics.md
 ---
+
+---
+
+# Day 3 - Day Wrap-Up
+
+## What We Achieved
+
+- Explored Ansible concepts, CLI, and architecture
+- Built and managed inventories, groups, and variables
+- Created and ran playbooks and roles
+- Practiced idempotence and best practices
+- Used Ansible Galaxy for roles and collections
+- Automated configuration on Docker-based lab machines
