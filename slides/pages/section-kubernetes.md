@@ -535,6 +535,57 @@ Persist MySQL data using PersistentVolumes and PersistentVolumeClaims.
   kubectl apply -f mysql-deployment.yaml
   ``` 
 
+---
+
+# Lab - Scale up
+
+## Objective
+
+Scale the WordPress deployment to handle more traffic.
+
+## Steps
+
+- Use the `kubectl scale` command to increase the number of replicas for the WordPress deployment.
+  ```bash
+  kubectl scale deployment wordpress --replicas=3
+  ```
+
+## Observe
+
+- Check the number of pods to verify scaling:
+  ```bash
+  kubectl get pods
+  ```
+
+---
+
+# Kubernetes Deployment vs StatefulSet
+
+- **Deployment**:
+  - Used for stateless applications
+  - Pods are interchangeable and can be replaced without concern for identity
+  - Suitable for applications like web servers, front-end services
+
+- **StatefulSet**:
+  - Used for stateful applications
+  - Pods have unique identities and stable network identities
+  - Suitable for databases, distributed systems requiring stable storage
+
+---
+
+# Lab - StatefulSet
+
+## Objective
+
+Use StatefulSet to deploy mysql pods
+
+## Steps
+
+- Create a `mysql-statefulset.yaml` manifest defining a StatefulSet for MySQL.
+- Apply the manifest:
+  ```bash
+  kubectl apply -f mysql-statefulset.yaml
+  ```
 
 ---
 
