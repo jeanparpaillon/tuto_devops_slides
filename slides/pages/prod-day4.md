@@ -30,7 +30,7 @@ layout: section
 - Deploy and manage containerized applications using Kubernetes
 
 ---
-src: section-kubernetes.yml
+src: section-kubernetes.md
 ---
 
 # Day 4 - Day Wrap-Up

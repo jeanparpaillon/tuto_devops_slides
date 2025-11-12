@@ -22,6 +22,107 @@
 - [WordPress + MySQL Kubernetes YAML (Official Docs)](https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
 - [Kubernetes Manifest Samples](https://github.com/kubernetes/website/tree/main/content/en/examples)
 
+
+---
+layout: section
+---
+
+# Kubernetes Ecosystem Projects
+
+---
+
+# Distributions
+
+- [OpenShift](https://www.openshift.com/)
+  - Enterprise Kubernetes by Red Hat
+- [Rancher Kubernetes](https://rancher.com/)
+  - Multi-cluster management (SuSE)
+- [K3s](https://k3s.io/)
+  - Lightweight Kubernetes by Rancher Labs
+- [MicroK8s](https://microk8s.io/)
+  - Lightweight, single-node Kubernetes by Canonical
+  - Ideal for local development and edge computing
+
+---
+
+# Package Management
+
+- [Helm](https://helm.sh/)
+  - Kubernetes package manager
+- [MicroK8s add-ons](https://microk8s.io/docs/addons)
+  - Built-in add-ons for easy deployment of common services
+
+---
+
+# Monitoring & Logging
+
+- [Prometheus](https://prometheus.io/)
+  - Metrics collection
+- [Grafana](https://grafana.com/)
+  - Visualization dashboards
+- [ELK Stack](https://www.elastic.co/what-is/elk-stack) (Elasticsearch, Logstash, Kibana)
+  - Logging
+- [Loki](https://grafana.com/oss/loki/)
+  - Log aggregation for Kubernetes
+
+---
+
+# CI/CD Tools
+
+- [Argo CD](https://argo-cd.readthedocs.io/en/stable/)
+  - GitOps continuous delivery
+- [Jenkins X](https://jenkins-x.io/)
+  - Kubernetes-native CI/CD
+- [Tekton](https://tekton.dev/)
+  - Cloud-native CI/CD pipelines
+
+---
+
+# Service Meshes
+
+- [Istio](https://istio.io/)
+  - Traffic management, security, observability
+- [Linkerd](https://linkerd.io/)
+  - Lightweight service mesh
+- [Consul](https://www.consul.io/)
+  - Service discovery and mesh
+
+---
+
+# Operators & Add-ons
+
+- [Cert-Manager](https://cert-manager.io/)
+  - Automated TLS certificates
+- [External-DNS](https://github.com/kubernetes-sigs/external-dns)
+  - DNS records management
+- [Velero](https://velero.io/)
+  - Backup and restore
+- [KubeVirt](https://kubevirt.io/)
+  - Run VMs in Kubernetes
+
+---
+
+# Setup lab with microk8s
+
+## Linux (Ubuntu)
+
+```bash
+# Install microk8s
+sudo snap install microk8s --classic
+# Add current user to microk8s group
+sudo adduser $USER microk8s
+# Check microk8s status
+microk8s status --wait-ready
+# Enable DNS and dashboard
+microk8s enable dns dashboard
+# Check nodes
+microk8s kubectl get nodes
+```
+
+## Windows / MacOS
+
+See: https://microk8s.io/
+
 ---
 layout: image
 image: /k8s_arch.png
