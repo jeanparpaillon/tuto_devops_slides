@@ -13,6 +13,10 @@ src: ./pages/about-me.md
 ---
 
 ---
+src: ./pages/section-resources.md
+---
+
+---
 src: ./pages/prod-day1.md
 ---
 
@@ -29,7 +33,7 @@ src: ./pages/prod-day4.md
 ---
 
 ---
-src: ./pages/prod-avances.md
+src: ./pages/prod-day5.md
 ---
 
 ---

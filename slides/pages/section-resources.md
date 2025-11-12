@@ -8,10 +8,12 @@ layout: two-cols-header
 
 - WiFi: INSAG_Business_School / Insag@2024s
 
-<img src="/wifi-insag-business-school.png" />
+<img src="/wifi-insag-business-school.png" style="width: 20%; height: auto;" />
+
 
 - WiFi: IdoomFibre_AThEgZv7h / tgb4Rq9P
 
-<img src="/wifi-idoomfibre.png" />
+<img src="/wifi-idoomfibre.png" style="width: 20%; height: auto;" />
 
 ::right::
+
