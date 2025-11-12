@@ -251,14 +251,20 @@ docker run -d --name mynginx -p 8080:80 nginx
 Visit `http://localhost:8080` to see the Nginx welcome page.
 
 ---
+layout: two-cols-header
+---
 
 # Kubernetes Concepts - Pods
+
 
 - The smallest deployable unit in Kubernetes
 - Encapsulates one or more containers sharing storage and network
 - Containers in a pod run on the same node and can communicate easily
 
+::left::
+
 ## Running container with Kubernetes
+
 
 ```yaml
 apiVersion: v1
@@ -272,6 +278,7 @@ spec:
     ports:
     - containerPort: 80
 ```
+::right::
 
 Apply the manifest:
 
@@ -398,36 +405,80 @@ Deploy a WordPress application with a MySQL backend using `kubectl` commands and
 
 ### Steps
 
-2. **Deploy MySQL**
-    - Create a `mysql-deployment.yaml` manifest with environment variables for root password, database name, user, and password.
-    - Apply the manifest:
-      ```bash
-      kubectl apply -f mysql-deployment.yaml -n wordpress-demo
-      ```
+---
 
-3. **Deploy WordPress**
-    - Create a `wordpress-deployment.yaml` manifest referencing the MySQL service.
-    - Apply the manifest:
-      ```bash
-      kubectl apply -f wordpress-deployment.yaml -n wordpress-demo
-      ```
+# Lab - Deploy MySQL
 
-4. **Expose WordPress**
-    - Create a `wordpress-service.yaml` to expose WordPress via `NodePort`.
-    - Apply the manifest:
-      ```bash
-      kubectl apply -f wordpress-service.yaml -n wordpress-demo
-      ```
+- Create a `mysql-deployment.yaml` manifest with environment variables for root password, database name, user, and password.
+- Apply the manifest:
+  ```bash
+  kubectl apply -f mysql-deployment.yaml -n wordpress-demo
+  ```
 
-5. **Verify Deployment**
-    - Check pods and services:
-      ```bash
-      kubectl get pods -n wordpress-demo
-      kubectl get svc -n wordpress-demo
-      ```
-    - Access WordPress using the exposed service URL.
+---
 
-### Discussion
+# Lab - Deploy WordPress
+
+  - Create a `wordpress-deployment.yaml` manifest referencing the MySQL service.
+  - Apply the manifest:
+    ```bash
+    kubectl apply -f wordpress-deployment.yaml -n wordpress-demo
+    ```
+---
+
+# Lab - Expose WordPress Service
+
+  - Create a `wordpress-service.yaml` to expose WordPress via `NodePort`.
+  - Apply the manifest:
+    ```bash
+    kubectl apply -f wordpress-service.yaml -n wordpress-demo
+    ```
+
+---
+
+# Lab - Verify Deployment
+
+  - Check pods and services:
+    ```bash
+    kubectl get pods -n wordpress-demo
+    kubectl get svc -n wordpress-demo
+    ```
+  - Access WordPress using the exposed service URL.
+
+---
+
+# Lab - Secrets
+
+## Objective
+
+Securely store MySQL root password using Kubernetes Secrets.
+
+## Steps
+
+- Create a `mysql-secret.yaml` manifest to store the MySQL root password.
+- Apply the manifest:
+  ```bash
+  kubectl create secret generic lab-secrets --from-literal=mysql-root-password=password
+  ```
+
+- Update `mysql-deployment.yaml` to reference the secret for the root password.
+
+```yaml
+    - name: MYSQL_ROOT_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: lab-secrets
+          key: mysql-root-password
+```
+
+- Reapply the updated MySQL deployment:
+  ```bash
+  kubectl apply -f mysql-deployment.yaml
+  ```
+
+---
+
+# Discussion
 
 - What challenges did you face during deployment?
 - How does Kubernetes handle service discovery between WordPress and MySQL?
