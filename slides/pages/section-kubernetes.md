@@ -403,7 +403,6 @@ spec:
 **Objective:**  
 Deploy a WordPress application with a MySQL backend using `kubectl` commands and Kubernetes manifests.
 
-### Steps
 
 ---
 
@@ -475,6 +474,59 @@ Securely store MySQL root password using Kubernetes Secrets.
   ```bash
   kubectl apply -f mysql-deployment.yaml
   ```
+
+---
+
+# Kubernetes Concepts - Persistent Storage
+
+- PersistentVolumes (PV): Cluster-wide storage resources
+- PersistentVolumeClaims (PVC): Requests for storage by users
+- StorageClasses: Define different types of storage (e.g., SSD, HDD)
+
+---
+layout: two-cols-header
+---
+
+# Kubernetes Concepts - PV vs PVC
+
+::left::
+
+- **PersistentVolume (PV)**:
+  - A piece of storage in the cluster that has been provisioned by an administrator or dynamically provisioned using Storage Classes.
+  - It is a resource in the cluster just like a node is a cluster resource.
+
+- **PersistentVolumeClaim (PVC)**:
+  - A request for storage by a user. It is similar to a pod.
+  - Pods can request specific levels of resources (CPU and Memory).
+  - PVCs can request specific size and access modes (e.g., ReadWriteOnce, ReadOnlyMany).
+
+::right::
+
+When to use PV and PVC:
+- Use PVs when you need to manage storage resources in your cluster.
+- Use PVCs when you want to request storage for your applications without needing to know the details
+
+---
+
+# Lab - Persistent Storage
+
+## Objective
+
+Persist MySQL data using PersistentVolumes and PersistentVolumeClaims.
+
+## Steps
+
+- Create a `mysql-pv.yaml` manifest defining a PersistentVolume.
+- Create a `mysql-pvc.yaml` manifest defining a PersistentVolumeClaim.
+- Update `mysql-deployment.yaml` to use the PVC for data storage.
+
+- Apply the manifests:
+  ```bash
+  kubectl apply -f mysql-pv.yaml
+  kubectl apply -f mysql-pvc.yaml
+  kubectl apply -f mysql-deployment.yaml
+  ``` 
+
 
 ---
 
