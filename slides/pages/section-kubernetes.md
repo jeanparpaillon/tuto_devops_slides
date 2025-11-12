@@ -445,20 +445,28 @@ Deploy a WordPress application with a MySQL backend using `kubectl` commands and
   - Access WordPress using the exposed service URL.
 
 ---
+layout: two-cols-header
+---
 
 # Lab - Secrets
+
 
 ## Objective
 
 Securely store MySQL root password using Kubernetes Secrets.
+
+::left::
 
 ## Steps
 
 - Create a `mysql-secret.yaml` manifest to store the MySQL root password.
 - Apply the manifest:
   ```bash
-  kubectl create secret generic lab-secrets --from-literal=mysql-root-password=password
+  kubectl create secret generic lab-secrets \
+    --from-literal=mysql-root-password=password
   ```
+
+::right::
 
 - Update `mysql-deployment.yaml` to reference the secret for the root password.
 
