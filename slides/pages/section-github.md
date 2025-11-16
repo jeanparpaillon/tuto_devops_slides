@@ -14,16 +14,22 @@ Presenter notes:
 -->
 
 ---
+layout: two-cols-header
+---
 
 # Git vs GitHub
 
 ## What's the difference?
+
+::left::
 
 **Git** (Local)
 - Distributed version control system
 - Works offline on your machine
 - Manages code history locally
 - Created by Linus Torvalds (2005)
+
+::right::
 
 **GitHub** (Remote/Cloud)
 - Web-based hosting platform for Git repositories
@@ -40,19 +46,19 @@ Presenter notes:
 -->
 
 ---
-
 # The Git ↔ GitHub workflow
 
 ```mermaid
 flowchart LR
-  A[Local Repository<br/>git init] -->|git push| B[GitHub Repository]
-  B -->|git pull| A
-  B -->|git clone| C[Team Member's<br/>Local Repository]
-  C -->|git push| B
-  
-  style A fill:#bbdefb,stroke:#1e88e5,stroke-width:2px
-  style B fill:#c8e6c9,stroke:#43a047,stroke-width:2px
-  style C fill:#bbdefb,stroke:#1e88e5,stroke-width:2px
+   A((Local Repository<br/>git init))
+     -- "git push" --> B((GitHub Repository))
+   B -- "git pull" --> A
+   B -- "git clone" --> C((Team Member's<br/>Local Repository))
+   C -- "git push" --> B
+
+   style A fill:#ffdf7e,stroke:#856404,stroke-width:2px,color:#202020
+   style B fill:#8fd19e,stroke:#155724,stroke-width:2px,color:#202020
+   style C fill:#ffdf7e,stroke:#856404,stroke-width:2px,color:#202020
 ```
 
 <!--
